@@ -1,0 +1,7 @@
+export { Ad } from './ad'
+export { Footer } from './footer'
+export { Header } from './header/index'
+export { Advantages } from './home/advantages'
+export { Categories } from './home/categories'
+export { Ethaps } from './home/ethaps'
+export { Hero } from './home/hero'
