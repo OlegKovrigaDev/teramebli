@@ -1,37 +1,68 @@
-import { ProductCard } from '@/components/shared/product/ProductCard'
-import { ProductFilter } from '@/components/shared/product/ProductFilter'
-import Link from 'next/link'
+"use client";
+import { CrumbsLinks } from "@/components/shared/CrumbsLinks";
+import Pagination from "@/components/shared/Pagination";
+import { ProductCard } from "@/components/shared/product/ProductCard";
+import { ProductFilter } from "@/components/shared/product/ProductFilter";
+import { useCategoryData } from "@/hooks";
+import Link from "next/link";
 
-export default function CategoryId({ params }: { params: { id: number } }) {
-	const { id } = params
-	return (
-		<div className='mb-[75px]'>
-			{/* CrumbsLink */}
-			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
-				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
-					<ProductFilter title='title' />
-				</div>
-				<div className='flex flex-1 gap-y-8 justify-between flex-wrap max-w-[904px]'>
-					{[
-						{ id: 1 },
-						{ id: 2 },
-						{ id: 3 },
-						{ id: 4 },
-						{ id: 5 },
-						{ id: 6 },
-					].map((id, i) => (
-						<Link key={i} href={`/product/${1}?categoryId=${1}`}>
-							<ProductCard
-								img=''
-								title='Product'
-								oldPrice={10000}
-								newPrice={10001}
-								Articul={12345}
-							/>
-						</Link>
-					))}
-				</div>
-			</div>
-		</div>
-	)
+export default function CategoryId({ params }: { params: { id: string } }) {
+  const { id } = params;
+
+  const {
+    status,
+    message,
+    category,
+    products,
+    totalPages,
+    currentPage,
+    parentCategory,
+    setPage,
+    isFetching,
+  } = useCategoryData(id);
+
+  if (status === "loading" || status === "error" || status === "noData") {
+    return (
+      <p className={`text-${status === "error" ? "red" : "gray"}-500`}>
+        {message}
+      </p>
+    );
+  }
+
+  return (
+    <div className="mb-[75px]">
+      <CrumbsLinks
+        categoryName={parentCategory ? parentCategory.name : category.name}
+        categoryId={
+          parentCategory ? parentCategory.id.toString() : category.id.toString()
+        }
+      />
+      <div className="flex flex-col gap-8 md:flex-row md:justify-between">
+        <div className="flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]">
+          <ProductFilter title="Product Filter" />
+        </div>
+        <div className="flex flex-1 gap-y-8 justify-between flex-wrap max-w-[904px]">
+          {products.map((product) => (
+            <Link key={product.offerId} href={`/product/${product.offerId}`}>
+              <ProductCard
+                img=""
+                title={product.params.ModelName}
+                oldPrice={product.params.RetailPrice}
+                newPrice={product.params.RetailPriceWithDiscount}
+                Articul={product.params.Articul}
+              />
+            </Link>
+          ))}
+        </div>
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        itemsPerPage={10}
+        totalItems={category?.totalItems || 0}
+        onPageChange={(page) => setPage(page)}
+        onShowMore={() => setPage(currentPage + 1)}
+      />
+    </div>
+  );
 }

@@ -22,8 +22,8 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body className={`${fontSans.variable}`}>
+        <Ad />
         <Providers>
-          <Ad />
           <Header />
           <main className="main">{children}</main>
         </Providers>
