@@ -209,14 +209,14 @@ body {
 	@apply font-normal -mt-2;
 }
 .header-desktop {
-	@apply container desktop between py-6 gap-7;
+	@apply container mx-auto desktop between py-6 gap-7;
 }
 .header-desktop .left,
 .header-desktop .right {
 	@apply flex gap-7;
 }
 .header-mobile {
-	@apply container mobile between py-4 relative;
+	@apply container mx-auto mobile between py-4 relative;
 }
 .header-mobile .right {
 	@apply flex items-center justify-end gap-2 ml-auto w-full;
@@ -268,14 +268,14 @@ body {
 }
 
 .main {
-	@apply container flex-auto;
+	@apply container mx-auto flex-auto;
 }
 
 .footer {
 	@apply bg-accent text-gray;
 }
 .footer-container {
-	@apply container flex flex-col md:flex-row md:justify-between items-center md:items-start pt-8 pb-14 text-center md:text-left;
+	@apply container mx-auto flex flex-col md:flex-row md:justify-between items-center md:items-start pt-8 pb-14 text-center md:text-left;
 }
 .footer-content {
 	@apply mb-6 md:mb-0;
@@ -320,4 +320,42 @@ body {
 }
 .delivery-container {
 	@apply grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+.product-card {
+	@apply flex flex-col justify-between rounded-none h-[288px] md:h-[425px] w-[158px] md:w-[235px] hover:shadow-xl  transition-shadow duration-300 relative p-2;
+}
+.product-card .badge-action {
+	@apply rounded-lg absolute bg-[#F34E69] hover:bg-[#F34E69];
+}
+.product-card .badge-hit {
+	@apply rounded-lg absolute top-7 bg-[#F9895E] hover:bg-[#F9895E];
+}
+.product-card .img-container {
+	@apply size-[142px] md:size-[217px] bg-accent rounded-lg;
+}
+.product-card .title {
+	@apply text-[18px] line-clamp-3 h-20;
+}
+.product-card-content {
+	@apply flex justify-between p-0 mb-6;
+}
+.product-card-content .product-in-stock {
+	@apply text-green text-xs font-semibold;
+}
+.product-card-content .product-code {
+	@apply text-gray/40 text-xs;
+}
+
+.product-card-footer {
+	@apply p-0 flex flex-col items-start;
+}
+.product-card-footer .new-price {
+	@apply line-through font-medium;
+}
+.product-card-footer .old-price {
+	@apply text-red-800 text-[20px] font-bold;
+}
+.product-card-footer .cart {
+	@apply absolute right-0 bottom-0;
 }

@@ -1,8 +1,63 @@
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa6'
 
-export const homePage = [
-	{ title: 'Нові товари' },
-	{ title: 'Також вас може зацікавити' },
+export const products = [
+	{
+		img: '/slide1-min.jpg',
+		title: 'Двоярусне ліжко "Аляска" від MebiGrand',
+		oldPrice: '90000',
+		newPrice: '100000',
+		hit: true,
+		discont: true,
+		newProduct: false,
+	},
+	{
+		img: '/slide2-min.jpg',
+		title: 'Двоспальне ліжко «Прованс»',
+		oldPrice: '19000',
+		newPrice: '20000',
+		hit: true,
+		discont: false,
+		newProduct: true,
+	},
+	{
+		img: '/slide3-min.jpg',
+		title: 'Елегантне та стильне ліжко "Верона" від фабрики UMa Ursa Major',
+		oldPrice: '29000',
+		newPrice: '30000',
+		hit: false,
+		discont: true,
+		newProduct: true,
+	},
+	{
+		img: '/slide4-min.jpg',
+		title: 'Елегантне та стильне ліжко "Монро"',
+		oldPrice: '39000',
+		newPrice: '40000',
+	},
+	{
+		img: '/slide1-min.jpg',
+		title: 'Двоярусне ліжко "Аляска" від MebiGrand2',
+		oldPrice: '49000',
+		newPrice: '50000',
+	},
+	{
+		img: '/slide2-min.jpg',
+		title: 'Двоспальне ліжко «Прованс»2',
+		oldPrice: '59000',
+		newPrice: '60000',
+	},
+	{
+		img: '/slide3-min.jpg',
+		title: 'Елегантне та стильне ліжко "Верона" від фабрики UMa Ursa Major2',
+		oldPrice: '69000',
+		newPrice: '70000',
+	},
+	{
+		img: '/slide4-min.jpg',
+		title: 'Елегантне та стильне ліжко "Монро"2',
+		oldPrice: '79000',
+		newPrice: '80000',
+	},
 ]
 
 export const home = {
@@ -122,6 +177,8 @@ export const home = {
 			},
 		],
 	},
+	newProduct: { title: 'Нові товари' },
+	interesrProduct: { title: 'Також вас може зацікавити' },
 }
 
 export const ad = [

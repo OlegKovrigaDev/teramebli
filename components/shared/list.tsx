@@ -8,11 +8,12 @@ export const List = ({
 }: ListProps) => {
 	return (
 		<ul className={className}>
-			{items.map((item, i) => (
-				<li key={i} className={classItem}>
-					{renderItem(item)}
-				</li>
-			))}
+			{items &&
+				items.map((item, i) => (
+					<li key={i} className={classItem}>
+						{renderItem(item)}
+					</li>
+				))}
 		</ul>
 	)
 }

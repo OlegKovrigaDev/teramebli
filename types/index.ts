@@ -4,11 +4,11 @@ export interface AccordProps {
 	title: string
 	className?: string
 	children: ReactNode
-	onToggle: () => void
+	onToggle?: () => void
 }
 
 export interface ListProps {
-	items: any[]
+	items: any[] | undefined
 	renderItem: (item: any) => JSX.Element
 	className?: string
 	classItem?: string
