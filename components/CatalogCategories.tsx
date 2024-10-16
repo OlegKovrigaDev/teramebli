@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react"; // Import Lucide icons
 import {
   useFetchCategoriesQuery,
   useFetchSubcategoriesQuery,
@@ -63,10 +64,14 @@ export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
                     </p>
                   </Link>
                   <button
-                    className="ml-2 text-sm text-gray-600 hover:text-gray-800 focus:outline-none"
+                    className="ml-auto text-sm text-gray-600 hover:text-gray-800 focus:outline-none"
                     onClick={() => handleToggle(category.id)}
                   >
-                    {expandedCategories.includes(category.id) ? "-" : "+"}
+                    {expandedCategories.includes(category.id) ? (
+                      <ChevronUp className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
+                    )}
                   </button>
                 </div>
                 {expandedCategories.includes(category.id) && (

@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import { RootState } from "./index";
+import { CartItem } from "@/types/cart";
 
 export const selectAllCategories = (state: RootState) =>
   state.categoryApi.queries["fetchCategories(undefined)"]?.data;
@@ -23,16 +24,15 @@ export const selectCategoryProducts = (
     }
   );
 
-export const selectCartItems = (state: RootState) => state.cart.items;
+  export const selectCartItems = (state: RootState): CartItem[] => state.cart.items;
 
-export const selectCartTotal = createSelector(selectCartItems, (items) =>
-  items.reduce(
-    (total, item) =>
-      total + parseFloat(item.RetailPriceWithDiscount) * item.quantity,
-    0
-  )
-);
-
-export const selectCartItemCount = createSelector(selectCartItems, (items) =>
-  items.reduce((count, item) => count + item.quantity, 0)
-);
+  export const selectCartTotal = (state: RootState): number => {
+    return state.cart.items.reduce((total, item) => {
+      const price = item.RetailPriceWithDiscount ?? item.RetailPrice;
+      return total + price * item.quantity;
+    }, 0);
+  };
+  
+  export const selectCartItemCount = (state: RootState): number => {
+    return state.cart.items.reduce((count, item) => count + item.quantity, 0);
+  };

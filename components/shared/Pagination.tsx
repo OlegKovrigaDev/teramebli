@@ -1,25 +1,21 @@
 "use client";
 
+import { Button } from "../ui";
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  itemsPerPage: number;
-  totalItems: number;
   onPageChange: (page: number) => void;
-  onShowMore: () => void;
 }
 
 const Pagination = ({
   currentPage,
   totalPages,
-  itemsPerPage,
-  totalItems,
   onPageChange,
-  onShowMore,
 }: PaginationProps) => {
   const generatePageNumbers = () => {
     const pages = [];
-    const maxDisplayed = 3;
+    const maxDisplayed = 5;
     let start = Math.max(1, currentPage - Math.floor(maxDisplayed / 2));
     let end = start + maxDisplayed - 1;
 
@@ -36,52 +32,51 @@ const Pagination = ({
   };
 
   const pageNumbers = generatePageNumbers();
-  const remainingItems = totalItems - currentPage * itemsPerPage;
-  const showMoreLabel = `Показати ще ${Math.min(
-    remainingItems,
-    itemsPerPage
-  )} товарів`;
 
   return (
     <div className="mt-4 flex items-center justify-center space-x-2">
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
+      <Button
+        onClick={() => onPageChange(1)}
         disabled={currentPage === 1}
-        className={`px-3 py-1 text-white bg-gray-400 rounded 
+        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
           ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
       >
-        {currentPage === 1 ? "1" : "..."}
-      </button>
+        Первая
+      </Button>
+      <Button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
+          ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
+      >
+        Предыдущая
+      </Button>
       {pageNumbers.map((page) => (
-        <button
+        <Button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-3 py-1 rounded 
-            ${
-              page === currentPage
-                ? "bg-black text-white font-bold"
-                : "bg-gray-400 text-black"
-            }`}
+          className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
+            ${page === currentPage ? "font-bold bg-blue-800" : ""}`}
         >
           {page}
-        </button>
+        </Button>
       ))}
-      <button
+      <Button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-3 py-1 text-white bg-gray-400 rounded 
+        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
           ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""}`}
       >
-        {currentPage === totalPages ? totalPages : "..."}
-      </button>
-      <button
-        onClick={onShowMore}
-        disabled={remainingItems <= 0}
-        className={`ml-4 px-4 py-2 text-purple-600 border border-purple-600 rounded hover:bg-purple-100 transition 
-          ${remainingItems <= 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+        Следующая
+      </Button>
+      <Button
+        onClick={() => onPageChange(totalPages)}
+        disabled={currentPage === totalPages}
+        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
+          ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""}`}
       >
-        {showMoreLabel}
-      </button>
+        Последняя
+      </Button>
     </div>
   );
 };

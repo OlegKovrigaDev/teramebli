@@ -3,6 +3,7 @@ export interface Category {
   id: number;
   name: string;
   parentId: number | null;
+  totalItems?: number;
 }
 
 export interface ProductParams {

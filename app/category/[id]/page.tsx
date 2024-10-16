@@ -18,7 +18,6 @@ export default function CategoryId({ params }: { params: { id: string } }) {
     currentPage,
     parentCategory,
     setPage,
-    isFetching,
   } = useCategoryData(id);
 
   if (status === "loading" || status === "error" || status === "noData") {
@@ -32,9 +31,9 @@ export default function CategoryId({ params }: { params: { id: string } }) {
   return (
     <div className="mb-[75px]">
       <CrumbsLinks
-        categoryName={parentCategory ? parentCategory.name : category.name}
+        categoryName={parentCategory ? parentCategory.name : category?.name}
         categoryId={
-          parentCategory ? parentCategory.id.toString() : category.id.toString()
+          parentCategory ? parentCategory.id.toString() : category?.id.toString()
         }
       />
       <div className="flex flex-col gap-8 md:flex-row md:justify-between">
@@ -42,7 +41,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
           <ProductFilter title="Product Filter" />
         </div>
         <div className="flex flex-1 gap-y-8 justify-between flex-wrap max-w-[904px]">
-          {products.map((product) => (
+          {products?.map((product) => (
             <Link key={product.offerId} href={`/product/${product.offerId}`}>
               <ProductCard
                 img=""
@@ -55,14 +54,11 @@ export default function CategoryId({ params }: { params: { id: string } }) {
           ))}
         </div>
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        itemsPerPage={10}
-        totalItems={category?.totalItems || 0}
-        onPageChange={(page) => setPage(page)}
-        onShowMore={() => setPage(currentPage + 1)}
-      />
+     <Pagination
+          currentPage={currentPage ?? 1}
+          totalPages={totalPages ?? 1}
+          onPageChange={setPage}
+        />
     </div>
   );
 }
