@@ -18,6 +18,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
     currentPage,
     parentCategory,
     setPage,
+    isFetching,
   } = useCategoryData(id);
 
   if (status === "loading" || status === "error" || status === "noData") {
@@ -38,6 +39,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
             : category?.id.toString()
         }
       />
+      {isFetching && <p className="text-gray-400">Обновление данных...</p>}
       <div className="flex flex-col gap-8 md:flex-row md:justify-between">
         <div className="flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]">
           <ProductFilter title="Product Filter" />
