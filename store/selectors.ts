@@ -24,15 +24,16 @@ export const selectCategoryProducts = (
     }
   );
 
-  export const selectCartItems = (state: RootState): CartItem[] => state.cart.items;
+export const selectCartItems = (state: RootState): CartItem[] =>
+  state.cart.items;
 
-  export const selectCartTotal = (state: RootState): number => {
-    return state.cart.items.reduce((total, item) => {
-      const price = item.RetailPriceWithDiscount ?? item.RetailPrice;
-      return total + price * item.quantity;
-    }, 0);
-  };
-  
-  export const selectCartItemCount = (state: RootState): number => {
-    return state.cart.items.reduce((count, item) => count + item.quantity, 0);
-  };
+export const selectCartTotal = (state: RootState): number => {
+  return state.cart.items.reduce((total, item) => {
+    const price = item.RetailPriceWithDiscount ?? item.RetailPrice;
+    return total + price * item.quantity;
+  }, 0);
+};
+
+export const selectCartItemCount = (state: RootState): number => {
+  return state.cart.items.reduce((count, item) => count + item.quantity, 0);
+};

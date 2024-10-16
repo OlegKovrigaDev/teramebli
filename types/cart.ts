@@ -1,10 +1,8 @@
-
-
 export interface CartItem {
   offerId: string;
   ModelName: string;
   Articul: string;
-  RetailPrice: number; 
+  RetailPrice: number;
   RetailPriceWithDiscount?: number;
   currencyId: string;
   quantity: number;
