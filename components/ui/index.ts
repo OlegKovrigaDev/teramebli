@@ -16,6 +16,7 @@ export {
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
@@ -28,6 +29,14 @@ export {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from './dropdown-menu'
+export {
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from './form'
 export { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card'
 export { Input } from './input'
 export {
