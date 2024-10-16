@@ -38,7 +38,7 @@ const Pagination = ({
       <Button
         onClick={() => onPageChange(1)}
         disabled={currentPage === 1}
-        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
+        className={`px-3 py-1 text-white bg-stone-600 rounded hover:bg-stone-700 transition 
           ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         Первая
@@ -46,7 +46,7 @@ const Pagination = ({
       <Button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
+        className={`px-3 py-1 text-white bg-stone-600 rounded hover:bg-stone-700 transition 
           ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         Предыдущая
@@ -55,8 +55,8 @@ const Pagination = ({
         <Button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
-            ${page === currentPage ? "font-bold bg-blue-800" : ""}`}
+          className={`px-3 py-1 text-white bg-stone-600 rounded hover:bg-stone-700 transition 
+            ${page === currentPage ? "font-bold bg-stone-800" : ""}`}
         >
           {page}
         </Button>
@@ -64,7 +64,7 @@ const Pagination = ({
       <Button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
+        className={`px-3 py-1 text-white bg-stone-600 rounded hover:bg-stone-700 transition 
           ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         Следующая
@@ -72,7 +72,7 @@ const Pagination = ({
       <Button
         onClick={() => onPageChange(totalPages)}
         disabled={currentPage === totalPages}
-        className={`px-3 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 transition 
+        className={`px-3 py-1 text-white bg-stone-600 rounded hover:bg-stone-700 transition 
           ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         Последняя

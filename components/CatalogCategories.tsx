@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react"; // Import Lucide icons
+import { ChevronDown, ChevronUp } from "lucide-react";
 import {
   useFetchCategoriesQuery,
   useFetchSubcategoriesQuery,
