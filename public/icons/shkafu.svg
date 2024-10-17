@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Component 4">
+<path id="Rectangle 12" d="M4 2H20V21H4V2Z" stroke="#47464B" stroke-linejoin="round"/>
+<path id="Vector 7" d="M12 2V21" stroke="#47464B" stroke-linejoin="round"/>
+<circle id="Ellipse 4" cx="14.5" cy="12.5" r="0.5" stroke="#47464B"/>
+<circle id="Ellipse 5" cx="9.5" cy="12.5" r="0.5" stroke="#47464B"/>
+<path id="Vector 8" d="M18 22V21M7 22V21" stroke="#47464B" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

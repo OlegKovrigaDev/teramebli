@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Component 4">
+<path id="Rectangle 13" d="M2 18H22V20H2V18Z" stroke="#47464B" stroke-linejoin="round"/>
+<path id="Rectangle 18" d="M2 14C2 13.4477 2.44772 13 3 13H21C21.5523 13 22 13.4477 22 14V18H2V14Z" stroke="#47464B" stroke-linejoin="round"/>
+<rect id="Rectangle 17" x="17" y="8" width="5" height="10" rx="1" transform="rotate(90 17 8)" stroke="#47464B" stroke-linejoin="round"/>
+<path id="Rectangle 20" d="M20 4C20.5523 4 21 4.44772 21 5L21 13L3 13L3 5C3 4.44771 3.44772 4 4 4L20 4Z" stroke="#47464B" stroke-linejoin="round"/>
+<path id="Rectangle 7" d="M19 20H21V22H20L19 20Z" stroke="#47464B" stroke-linejoin="round"/>
+<path id="Rectangle 8" d="M3 20H5L4 22H3V20Z" stroke="#47464B" stroke-linejoin="round"/>
+</g>
+</svg>

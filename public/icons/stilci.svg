@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Component 4">
+<rect id="Rectangle 28" x="7" y="13" width="10" height="3" rx="1.5" stroke="#47464B"/>
+<rect id="Rectangle 30" x="4.25" y="11.25" width="1.5" height="0.5" rx="0.25" stroke="#47464B" stroke-width="0.5"/>
+<rect id="Rectangle 31" x="18.25" y="11.25" width="1.5" height="0.5" rx="0.25" stroke="#47464B" stroke-width="0.5"/>
+<path id="Rectangle 29" d="M7.78101 3.75193C7.90612 2.75107 8.75692 2 9.76556 2H14.2344C15.2431 2 16.0939 2.75107 16.219 3.75193L16.8595 8.87597C16.9341 9.47282 16.4687 10 15.8672 10H8.13278C7.53128 10 7.0659 9.47282 7.1405 8.87597L7.78101 3.75193Z" stroke="#47464B" stroke-linejoin="round"/>
+<path id="Vector 25" d="M12 16.5V22" stroke="#47464B" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector 26" d="M8 22C8.33333 21 9.6 19 12 19C14.4 19 15.6667 21 16 22" stroke="#47464B" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector 27" d="M12 12.5V10.5" stroke="#47464B" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector 28" d="M17.5 14.5H18C18.5523 14.5 19 14.0523 19 13.5V12" stroke="#47464B" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector 29" d="M6.5 14.5H6C5.44772 14.5 5 14.0523 5 13.5V12" stroke="#47464B" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
