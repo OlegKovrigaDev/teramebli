@@ -48,7 +48,7 @@ export function CrumbsLinks({
           <code>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/category/${categoryId}${subcategoryId}`}>
+                <Link href={`/category/${subcategoryId}`}>
                   {subcategoryName}
                 </Link>
               </BreadcrumbLink>

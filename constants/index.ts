@@ -129,12 +129,12 @@ export const home = {
       {
         id: 1,
         text: "Ліжка",
-        icon: "/icons/ligka.svg",
+        image: "/icons/ligka.svg",
       },
       {
         id: 11,
         text: "Крісла",
-        icon: "/icons/kreslo.svg",
+        image: "/icons/kreslo.svg",
       },
       {
         id: 17,
