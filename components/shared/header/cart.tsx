@@ -12,14 +12,20 @@ import { ShoppingCart } from "lucide-react";
 import { CartProduct } from "./cart-product";
 import { useSelector } from "react-redux";
 import { selectCartItems, selectCartTotal } from "@/store/selectors";
+import { useState } from "react";
 
 export const Cart = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <Dialog>
-      <DialogTrigger className="cart-trigger">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger className="cart-trigger" onClick={() => setOpen(true)}>
         <ShoppingCart />
         <span className="text">{header[1].text}</span>
       </DialogTrigger>
@@ -44,6 +50,7 @@ export const Cart = () => {
                 <Button
                   variant="outline"
                   className="border-2 border-gray rounded-xl text-gray"
+                  onClick={handleClose}
                 >
                   Продовжити покупки
                 </Button>

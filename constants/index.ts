@@ -111,7 +111,7 @@ export const home = {
   categories: {
     title: "Популярні категорії",
     data: [
-      { title: "Кухні", linkId: 0, image: "/Categories/Cat1.jpg" },
+      { title: "Кухні", linkId: 44, image: "/Categories/Cat1.jpg" },
       { title: "Шафи", linkId: 39, image: "/Categories/Cat2.jpg" },
       { title: "Офісні меблі", linkId: 0, image: "/Categories/Cat3.jpg" },
       { title: "Ліжка", linkId: 1, image: "/Categories/Cat2.jpg" },
