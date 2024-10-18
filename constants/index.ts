@@ -124,17 +124,17 @@ export const home = {
 			{
 				id: 4,
 				text: 'Дивани',
-				image: '/icons/devan.svg',
+				image: './icons/office.svg',
 			},
 			{
 				id: 1,
 				text: 'Ліжка',
-				image: '/icons/ligka.svg',
+				image: '',
 			},
 			{
 				id: 11,
 				text: 'Крісла',
-				image: '/icons/kreslo.svg',
+				image: '',
 			},
 			{
 				id: 17,
