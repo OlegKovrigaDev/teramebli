@@ -54,6 +54,7 @@ export {
 	SheetTitle,
 	SheetTrigger,
 } from './sheet'
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
 
 /*
 export { Badge } from './badge'

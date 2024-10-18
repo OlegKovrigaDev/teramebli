@@ -77,7 +77,7 @@ body {
 	@apply border-transparent;
 }
 .accord-trigger {
-	@apply bg-accent px-4 py-2;
+	@apply bg-accent px-4 py-2 font-bold;
 }
 .accord-content {
 	@apply flex mt-6 pb-0;
