@@ -15,8 +15,8 @@ import { useDispatch } from 'react-redux'
 export const ProductCard = ({
 	img,
 	title,
-	oldPrice,
-	newPrice,
+	oldPrice: RetailPrice,
+	newPrice: RetailPriceWithDiscount,
 	Articul,
 	offerId,
 }: ProductItem) => {
@@ -26,8 +26,8 @@ export const ProductCard = ({
 		const product: CartItem = {
 			img,
 			title,
-			oldPrice,
-			RetailPrice: newPrice,
+			oldPrice: RetailPrice,
+			RetailPrice: RetailPriceWithDiscount,
 			quantity: 1,
 			offerId: Articul,
 			ModelName: title,
@@ -58,21 +58,21 @@ export const ProductCard = ({
 					{Articul && <p className='product-code'>Код товару: {Articul}</p>}
 				</CardContent>
 				<CardFooter className='product-card-footer'>
-					{oldPrice !== newPrice && (
+					{RetailPrice !== RetailPriceWithDiscount && (
 						<div className='flex gap-2'>
-							<p className='new-price'>{newPrice} грн.</p>
+							<p className='new-price'>{RetailPriceWithDiscount} грн.</p>
 							<Badge className='rounded-lg bg-red-800 hover:bg-red-800'>
 								-
 								{(
-									(((newPrice as any) - (oldPrice as any)) /
-										(oldPrice as any)) *
+									(((RetailPriceWithDiscount as any) - (RetailPrice as any)) /
+										(RetailPrice as any)) *
 									100
 								).toFixed(0)}
 								%
 							</Badge>
 						</div>
 					)}
-					<p className='old-price'>{oldPrice} грн.</p>
+					<p className='old-price'>{RetailPrice} грн.</p>
 				</CardFooter>
 			</Link>
 			{/* <Button
