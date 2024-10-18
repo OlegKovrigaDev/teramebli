@@ -124,52 +124,52 @@ export const home = {
 			{
 				id: 4,
 				text: 'Дивани',
-				image: '/icons/sofas.svg',
+				image: '/icons/devan.svg',
 			},
 			{
 				id: 1,
 				text: 'Ліжка',
-				image: '/icons/beds.svg',
-			},
-			{
-				id: 17,
-				text: 'Комоди і тумби',
-				icon: '/icons/chests-of-drawers-and-cabinets.svg',
+				image: '/icons/ligka.svg',
 			},
 			{
 				id: 11,
 				text: 'Крісла',
-				image: '/icons/soft-furniture.svg',
+				image: '/icons/kreslo.svg',
+			},
+			{
+				id: 17,
+				text: 'Комоди і тумби',
+				icon: '',
 			},
 			{
 				id: 22,
 				text: 'Стільці і табурети',
-				icon: '/icons/office.svg',
+				icon: '',
 			},
 			{
 				id: 27,
 				text: 'Матраци та аксесуари',
-				icon: '/icons/mattresses.svg',
+				icon: '',
 			},
 			{
 				id: 33,
 				text: 'Столи',
-				icon: '/icons/hallway.svg',
+				icon: '',
 			},
 			{
 				id: 39,
 				text: 'Шкафи та полиці',
-				icon: '/icons/cabinets.svg',
+				icon: '',
 			},
 			{
 				id: 44,
 				text: 'Кухні',
-				icon: '/icons/kitchen.svg',
+				icon: '',
 			},
 			{
 				id: 48,
 				text: 'Стінки і гарнітури',
-				icon: '/icons/bedroom.svg',
+				icon: '',
 			},
 		],
 		slider: [
