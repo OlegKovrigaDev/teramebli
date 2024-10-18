@@ -17,8 +17,8 @@ import { useDispatch } from 'react-redux'
 export const ProductCard = ({
 	img,
 	title,
-	oldPrice,
-	newPrice,
+	oldPrice: RetailPrice,
+	newPrice: RetailPriceWithDiscount,
 	Articul,
 	offerId,
 }: ProductItem) => {
@@ -28,8 +28,8 @@ export const ProductCard = ({
 		const product: CartItem = {
 			img,
 			title,
-			oldPrice,
-			RetailPrice: newPrice,
+			oldPrice: RetailPrice,
+			RetailPrice: RetailPriceWithDiscount,
 			quantity: 1,
 			offerId: Articul,
 			ModelName: title,
