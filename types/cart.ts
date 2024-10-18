@@ -1,21 +1,22 @@
 export interface CartItem {
-  offerId: string;
-  ModelName: string;
-  Articul: string;
-  RetailPrice?: number;
-  RetailPriceWithDiscount?: number;
-  currencyId: string;
-  quantity: number;
+	offerId: number
+	ModelName?: string
+	Articul: number
+	RetailPrice?: number | string
+	RetailPriceWithDiscount?: number
+	currencyId: string
+	quantity: number
 }
 
 export interface CartState {
-  items: CartItem[];
+	items: CartItem[]
 }
 
 export interface ProductItem {
-  img?: string;
-  title?: string;
-  oldPrice?: number | string;
-  newPrice?: number | string;
-  Articul?: number | string;
+	img?: string
+	title?: string
+	oldPrice?: number | string
+	newPrice?: number | string
+	Articul?: number | string
+	offerId?: number | string
 }

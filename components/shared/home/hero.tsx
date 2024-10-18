@@ -18,9 +18,13 @@ export const Hero = () => {
 					items={home.hero.sidebar}
 					className='sidebar-list'
 					classItem='sidebar-item'
-					renderItem={({ id, text }) => (
+					renderItem={({ id, text, icon }) => (
 						<div className='sidebar-content'>
-							<div className='sidebar-icon' />
+							{!icon ? (
+								<div className='sidebar-icon' />
+							) : (
+								<img src={icon} alt='' />
+							)}
 							<Link href={`/category/${id}`}>
 								<p className='sidebar-text'>{text}</p>
 							</Link>

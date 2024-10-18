@@ -356,6 +356,6 @@ body {
 .product-card-footer .old-price {
 	@apply text-red-800 text-[20px] font-bold;
 }
-.product-card-footer .cart {
+.cart {
 	@apply absolute right-0 bottom-0;
 }
