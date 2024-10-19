@@ -23,7 +23,7 @@ export const Hero = () => {
 							{!icon ? (
 								<div className='sidebar-icon' />
 							) : (
-								<img src={icon} alt='' />
+								<img src={icon} alt='' className='size-6' />
 							)}
 							<Link href={`/category/${id}`}>
 								<p className='sidebar-text'>{text}</p>
