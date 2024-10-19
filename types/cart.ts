@@ -1,5 +1,5 @@
 export interface CartItem {
-	offerId: number
+	offerId: string
 	ModelName?: string
 	Articul: number
 	RetailPrice?: number | string
@@ -12,11 +12,11 @@ export interface CartState {
 	items: CartItem[]
 }
 
-export interface ProductItem {
-	img?: string
-	title?: string
-	oldPrice?: number | string
-	newPrice?: number | string
-	Articul?: number | string
-	offerId?: number | string
-}
+// export interface ProductItem {
+//   img?: string;
+//   title?: string;
+//   oldPrice?: number | string;
+//   newPrice?: number | string;
+//   Articul?: number | string;
+//   offerId?: number | string;
+// }

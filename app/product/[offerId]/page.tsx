@@ -35,7 +35,6 @@ export default function page({ params }: { params: { offerId: string } }) {
 			</p>
 		)
 	if (!product) return <p className='text-gray-500'>Товар не найден</p>
-
 	return (
 		<>
 			<CrumbsLinks
@@ -47,7 +46,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 			/>
 			<div className='flex justify-between pb-16'>
 				<div className='w-[865px] flex flex-col gap-6'>
-					<Gallery />
+					<Gallery offerId={offerId} />
 					<Tabs defaultValue='description' className='w-full'>
 						<TabsList className='bg-white w-full justify-start py-6 rounded'>
 							<TabsTrigger className=' text-2xl font-bold' value='description'>

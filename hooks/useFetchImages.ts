@@ -7,7 +7,7 @@ interface UseFetchImagesResult {
   error: string | null;
 }
 
-export const useFetchImages = (offerId: string): UseFetchImagesResult => {
+export const useFetchImages = (offerId: string | number): UseFetchImagesResult => {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
