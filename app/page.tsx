@@ -11,10 +11,10 @@ export default function Home() {
 			<Categories />
 			<Ethaps />
 			<Section title={home.interesrProduct.title}>
-				<ProductSlider arr={products} />
+				{/* <ProductSlider arr={products} /> */}
 			</Section>
 			<Section title={home.newProduct.title}>
-				<ProductSlider arr={products} />
+				{/* <ProductSlider arr={products} /> */}
 			</Section>
 		</>
 	)

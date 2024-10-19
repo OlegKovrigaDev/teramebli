@@ -3,6 +3,7 @@ import {
 	useFetchCategoryByIdQuery,
 	useFetchCategoryWithProductsQuery,
 } from '@/api/categoryApi'
+import { Product } from '@/types/redux'
 import { useState } from 'react'
 
 export const useCategoryData = (id: string) => {
@@ -52,6 +53,10 @@ export const useCategoryData = (id: string) => {
 		}
 	}
 
+	const filteredProducts = categoryData.products.filter(
+		(product: Product) => product.params['Відображення на сайті'] === '1'
+	)
+
 	const { category, products, totalPages, currentPage } = categoryData
 	const parentId = categoryDetails.parentId
 	const parentCategory = parentId ? categoryDetails : null
@@ -59,7 +64,7 @@ export const useCategoryData = (id: string) => {
 	return {
 		status: 'success',
 		category,
-		products,
+		products: filteredProducts,
 		totalPages,
 		currentPage,
 		parentCategory,

@@ -29,7 +29,7 @@ export const selectCartItems = (state: RootState): CartItem[] =>
 
 export const selectCartTotal = (state: RootState): number => {
   return state.cart.items.reduce((total, item) => {
-    const price = item.RetailPriceWithDiscount ?? item.RetailPrice;
+    const price: any = item.RetailPriceWithDiscount ?? item.RetailPrice;
     return total + price * item.quantity;
   }, 0);
 };

@@ -7,16 +7,11 @@ import {
 	CarouselContent,
 	CarouselItem,
 } from '../ui/carousel'
+import { useFetchImages } from '@/hooks/useFetchImages'
 
-export const Gallery = ({
-	images = [
-		'/delete/slide.jpg',
-		'/delete/slide.jpg',
-		'/delete/slide.jpg',
-		'/delete/slide.jpg',
-		'/delete/slide.jpg',
-	],
-}) => {
+export const Gallery = ({ offerId }: { offerId: string | number }) => {
+	const { images, loading, error } = useFetchImages(offerId)
+
 	const [mainApi, setMainApi] = useState<CarouselApi>()
 	const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>()
 	const [current, setCurrent] = useState(0)
@@ -90,6 +85,14 @@ export const Gallery = ({
 		thumbnailApi.scrollTo(index)
 		mainApi.scrollTo(index)
 		setCurrent(index)
+	}
+
+	if (loading) {
+		return <p>Loading images...</p>
+	}
+
+	if (error) {
+		return <p>{error}</p>
 	}
 
 	return (

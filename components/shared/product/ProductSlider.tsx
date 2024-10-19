@@ -5,9 +5,10 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from '@/components/ui/carousel'
-import { ProductCard, ProductItem } from './ProductCard'
+import { ProductCard } from './ProductCard'
+import { Product } from '@/types/redux'
 
-export const ProductSlider = ({ arr }: { arr: ProductItem[] }) => {
+export const ProductSlider = ({ arr }: { arr: Product[] }) => {
 	return (
 		<Carousel
 			opts={{

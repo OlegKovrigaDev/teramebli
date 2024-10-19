@@ -40,14 +40,23 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 				}
 			/>
 			{isFetching && <p className='text-gray-400'>Обновление данных...</p>}
+
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
 					<ProductFilter title='Product Filter' />
 				</div>
+
 				<div className='flex flex-1 gap-y-8 justify-between flex-wrap max-w-[970px]'>
-					{products?.map((product: Product) => (
-						<ProductCard key={product.offerId} product={product} />
-					))}
+					{products && products.length > 0 ? (
+						products.map((product: Product) => (
+							<ProductCard key={product.offerId} product={product} />
+						))
+					) : (
+						<p className='text-gray-500'>
+							Нет доступных продуктов для отображения.
+						</p>
+					)}
+
 					<div className='flex flex-col justify-center w-full'>
 						<Pagination
 							currentPage={currentPage ?? 1}

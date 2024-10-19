@@ -9,14 +9,11 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { addToCart } from '@/store/cartSlice'
-import { Product } from '@/types/redux'
+import { Product, ProductCardProps } from '@/types/redux'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 
-interface ProductCardProps {
-	product: Product
-}
 export const ProductCard = ({ product }: ProductCardProps) => {
 	const dispatch = useDispatch()
 
