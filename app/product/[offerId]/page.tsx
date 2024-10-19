@@ -12,10 +12,13 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { useProductData } from '@/hooks'
+import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
 
 export default function page({ params }: { params: { offerId: string } }) {
 	const { offerId } = params
+	const dispatch = useDispatch()
 
 	const {
 		product,
@@ -35,6 +38,21 @@ export default function page({ params }: { params: { offerId: string } }) {
 			</p>
 		)
 	if (!product) return <p className='text-gray-500'>Товар не найден</p>
+
+	const handleAddToCart = () => {
+		const cartItem = {
+			offerId,
+			ModelName: product.params.ModelName,
+			Articul: product.params.Articul,
+			RetailPrice: product.params.RetailPrice,
+			RetailPriceWithDiscount: product.params.RetailPriceWithDiscount,
+			currencyId: product.currencyId,
+			quantity: 1,
+		}
+
+		dispatch(addToCart(cartItem))
+	}
+
 	return (
 		<>
 			<CrumbsLinks
@@ -166,7 +184,10 @@ export default function page({ params }: { params: { offerId: string } }) {
 								Згорнути
 							</Link>
 							<div className='flex justify-between gap-4 mt-6'>
-								<Button className='px-18 py-2 bg-[#D81C1B] hover:bg-[#D81C1B]/80 flex-1'>
+								<Button
+									onClick={handleAddToCart}
+									className='px-18 py-2 bg-[#D81C1B] hover:bg-[#D81C1B]/80 flex-1'
+								>
 									Купити
 								</Button>
 								<Button className='px-18 py-2 bg-transparent border-2 border-[#D81C1B] text-[#D81C1B] hover:bg-black/10 flex-1'>

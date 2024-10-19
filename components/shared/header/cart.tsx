@@ -26,8 +26,16 @@ export const Cart = () => {
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger className='cart-trigger' onClick={() => setOpen(true)}>
+			<DialogTrigger
+				className='relative cart-trigger'
+				onClick={() => setOpen(true)}
+			>
 				<ShoppingCart />
+				{cartItems.length > 0 && (
+					<span className='absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full'>
+						{cartItems.length}
+					</span>
+				)}
 				<span className='text'>{header[1].text}</span>
 			</DialogTrigger>
 			<DialogContent className='min-w-[800px] p-8'>

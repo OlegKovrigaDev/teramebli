@@ -9,7 +9,7 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { addToCart } from '@/store/cartSlice'
-import { Product, ProductCardProps } from '@/types/redux'
+import { ProductCardProps } from '@/types/redux'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'

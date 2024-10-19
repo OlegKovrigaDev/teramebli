@@ -16,7 +16,7 @@ export const useCategoryData = (id: string) => {
 		isLoading,
 		isFetching,
 	} = useFetchCategoryWithProductsQuery(
-		{ categoryId: Number(id), page, limit },
+		{ categoryId: Number(id), page: 1, limit: 1000 },
 		{ skip: !id }
 	)
 
@@ -57,14 +57,20 @@ export const useCategoryData = (id: string) => {
 		(product: Product) => product.params['Відображення на сайті'] === '1'
 	)
 
-	const { category, products, totalPages, currentPage } = categoryData
+	const paginatedProducts = filteredProducts.slice(
+		(page - 1) * limit,
+		page * limit
+	)
+
+	const totalPages = Math.ceil(filteredProducts.length / limit)
+	const currentPage = page
 	const parentId = categoryDetails.parentId
 	const parentCategory = parentId ? categoryDetails : null
 
 	return {
 		status: 'success',
-		category,
-		products: filteredProducts,
+		category: categoryData.category,
+		products: paginatedProducts,
 		totalPages,
 		currentPage,
 		parentCategory,
