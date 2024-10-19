@@ -17,9 +17,9 @@ export const ProductSlider = ({ arr }: { arr: Product[] }) => {
 			className='w-full relative'
 		>
 			<CarouselContent>
-				{arr.map((item, i) => (
+				{arr.map((product, i) => (
 					<CarouselItem key={i} className='basis-1/2 md:basis-1/3 xl:basis-1/5'>
-						<ProductCard {...item} />
+						<ProductCard product={product} />
 					</CarouselItem>
 				))}
 			</CarouselContent>

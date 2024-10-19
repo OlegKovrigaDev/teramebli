@@ -40,8 +40,6 @@ export interface Product extends ProductCardProps {
 	createdAt: string
 	currencyId: string
 	params: ProductParams
-	type: string
-	updatedAt: string
 }
 
 export interface CategoryWithProducts {
