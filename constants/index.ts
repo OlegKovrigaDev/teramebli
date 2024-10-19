@@ -282,9 +282,15 @@ export const footer = [
 	{
 		title: 'Ми у соцмережах:',
 		socials: [
-			{ icon: FaFacebook, link: '/' },
-			{ icon: FaInstagram, link: '/' },
-			{ icon: FaTiktok, link: '/' },
+			{
+				icon: FaFacebook,
+				link: 'https://www.facebook.com/profile.php?id=61553919922208',
+			},
+			{
+				icon: FaInstagram,
+				link: 'https://www.instagram.com/balta.mebli_fortecia/',
+			},
+			{ icon: FaTiktok, link: 'https://www.tiktok.com/@mebli.balta' },
 			{ icon: FaYoutube, link: '/' },
 		],
 	},
