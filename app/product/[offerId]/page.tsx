@@ -66,13 +66,67 @@ export default function page({ params }: { params: { offerId: string } }) {
 							className='bg-white mt-4 py-4 px-2 rounded'
 							value='description'
 						>
-							Опис
+							{product.params['Опис текст(сайт)'] ?? 'Описание отсутствует'}
 						</TabsContent>
 						<TabsContent
 							className='bg-white mt-4 py-4 px-2 rounded'
 							value='characteristics'
 						>
-							Характеристики
+							<div className='w-full p-4 rounded-lg '>
+								<div className='mb-6'>
+									<h3 className='text-lg font-semibold mb-2'>
+										Загальна інформація
+									</h3>
+									<div className='grid grid-cols-2 gap-4'>
+										<div className='text-gray-500'>Вид товару</div>
+										<div>{product.params['Приналежність до категорії']}</div>
+										<div className='text-gray-500'>Тип товару</div>
+										<div>?</div>
+									</div>
+								</div>
+
+								<div className='mb-6'>
+									<h3 className='text-lg font-semibold mb-2'>
+										Габаритні розміри
+									</h3>
+									<div className='grid grid-cols-2 gap-4'>
+										<div className='text-gray-500'>Висота (см)</div>
+										<div>
+											{product.params['Габарит.розміри.Висота(см)(сайт)']}
+										</div>
+										<div className='text-gray-500'>Довжина(см)</div>
+										<div>
+											{product.params['Габарит.розміри.Довжина(см)(сайт)']}
+										</div>
+										<div className='text-gray-500'>Ширина (см)</div>
+										<div>
+											{product.params['Габарит.розміри.Ширина(см)(сайт)']}
+										</div>
+									</div>
+								</div>
+
+								<div className='mb-6'>
+									<h3 className='text-lg font-semibold mb-2'>
+										Розміри спального місця
+									</h3>
+									<div className='grid grid-cols-2 gap-4'>
+										<div className='text-gray-500'>Тип спального місця</div>
+										<div>108</div>
+										<div className='text-gray-500'>
+											Ширина спального місця (см)
+										</div>
+										<div>240</div>
+										<div className='text-gray-500'>
+											Довжина спального місця (см)
+										</div>
+										<div>240</div>
+										<div className='text-gray-500'>
+											Розташування спального місця
+										</div>
+										<div>240</div>
+									</div>
+								</div>
+							</div>
 						</TabsContent>
 						<TabsContent
 							className='bg-white mt-4 py-4 px-2 rounded'
@@ -87,9 +141,11 @@ export default function page({ params }: { params: { offerId: string } }) {
 						<p className='text-red-900 text-[18px] font-semibold'>
 							В наявності!
 						</p>
-						<p className='line-through text-[20px] font-bold'>13 000 грн.</p>
+						<p className='line-through text-[20px] font-bold'>
+							{product.params.RetailPrice} грн.
+						</p>
 						<p className='text-red-900 text-[40px] font-semibold'>
-							12 499 грн.
+							{product.params.RetailPriceWithDiscount} грн.
 						</p>
 					</div>
 					<Accord title='Варіанти товару'>
@@ -135,8 +191,8 @@ export default function page({ params }: { params: { offerId: string } }) {
 					<Accord title='Доставка'>
 						<div className='flex flex-col gap-2 text-xs'>
 							<div className='flex justify-between text-[16px]'>
-								<span>Самовивіз зі складу</span>
-								<span className='text-[#3C9F3A]'>Безкоштовно</span>
+								<span>Самовивіз зі складу:</span>
+								<span className='text-[#3C9F3A]'> Безкоштовно</span>
 							</div>
 							<p>Delivery conditions...</p>
 							<div className='flex justify-between text-[16px]'>

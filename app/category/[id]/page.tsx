@@ -4,6 +4,7 @@ import Pagination from '@/components/shared/Pagination'
 import { ProductCard } from '@/components/shared/product/ProductCard'
 import { ProductFilter } from '@/components/shared/product/ProductFilter'
 import { useCategoryData } from '@/hooks'
+import { Product } from '@/types/redux'
 
 export default function CategoryId({ params }: { params: { id: string } }) {
 	const { id } = params
@@ -44,15 +45,8 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 					<ProductFilter title='Product Filter' />
 				</div>
 				<div className='flex flex-1 gap-y-8 justify-between flex-wrap max-w-[970px]'>
-					{products?.map(product => (
-						<ProductCard
-							img=''
-							title={product.params.ModelName}
-							oldPrice={product.params.RetailPrice}
-							newPrice={product.params.RetailPriceWithDiscount}
-							Articul={product.params.Articul}
-							offerId={product.offerId}
-						/>
+					{products?.map((product: Product) => (
+						<ProductCard key={product.offerId} product={product} />
 					))}
 					<div className='flex flex-col justify-center w-full'>
 						<Pagination

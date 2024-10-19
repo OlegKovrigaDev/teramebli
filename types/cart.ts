@@ -1,9 +1,9 @@
 export interface CartItem {
 	offerId: string
 	ModelName?: string
-	Articul: number
+	Articul: string
 	RetailPrice?: number | string
-	RetailPriceWithDiscount?: number
+	RetailPriceWithDiscount?: number | string
 	currencyId: string
 	quantity: number
 }
@@ -11,12 +11,3 @@ export interface CartItem {
 export interface CartState {
 	items: CartItem[]
 }
-
-// export interface ProductItem {
-//   img?: string;
-//   title?: string;
-//   oldPrice?: number | string;
-//   newPrice?: number | string;
-//   Articul?: number | string;
-//   offerId?: number | string;
-// }
