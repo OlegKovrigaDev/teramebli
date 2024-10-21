@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchProductsQuery } from '@/api/categoryApi'
 import { Product } from '@/types/redux'
 
@@ -8,12 +8,12 @@ interface UseProductSearchResult {
 	searchResults: Product[] | undefined
 	isLoading: boolean
 	error: any
-	handleSearch: () => void
-	handleEnterKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-export const useProductSearch = (): UseProductSearchResult => {
-	const [query, setQuery] = useState<string>('')
+export const useProductSearch = (
+	initialQuery: string = ''
+): UseProductSearchResult => {
+	const [query, setQuery] = useState<string>(initialQuery)
 
 	const {
 		data: searchResults,
@@ -23,17 +23,11 @@ export const useProductSearch = (): UseProductSearchResult => {
 		skip: !query,
 	})
 
-	const handleSearch = () => {
-		if (query) {
-			console.log(`Searching for: ${query}`)
+	useEffect(() => {
+		if (initialQuery) {
+			setQuery(initialQuery)
 		}
-	}
-
-	const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === 'Enter') {
-			handleSearch()
-		}
-	}
+	}, [initialQuery])
 
 	return {
 		query,
@@ -41,7 +35,5 @@ export const useProductSearch = (): UseProductSearchResult => {
 		searchResults,
 		isLoading,
 		error,
-		handleSearch,
-		handleEnterKeyPress,
 	}
 }

@@ -1,19 +1,28 @@
+'use client'
 import { Button, Input } from '@/components/ui'
 import { header } from '@/constants'
-import { SearchProps } from '@/types'
 import { Search } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useProductSearch } from '@/hooks/useProductSearch'
 
 export const SearchBar = ({
-	search: {
-		isMobileSearchVisible,
-		toggleSearchInput,
-		query,
-		setQuery,
-		inputRef,
-		handleSearch,
-		handleKeyDown,
-	},
-}: SearchProps) => {
+	search: { isMobileSearchVisible, toggleSearchInput, inputRef, handleKeyDown },
+}: any) => {
+	const router = useRouter()
+	const { query, setQuery } = useProductSearch()
+
+	const handleSearch = () => {
+		if (query) {
+			router.push(`/category/2000?query=${query}`)
+		}
+	}
+
+	const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			handleSearch()
+		}
+	}
+
 	return (
 		<div className='sidebar'>
 			<div className='sidebar-container mobile'>
@@ -24,7 +33,10 @@ export const SearchBar = ({
 							type='text'
 							value={query}
 							onChange={e => setQuery(e.target.value)}
-							onKeyDown={handleKeyDown}
+							onKeyDown={e => {
+								handleKeyDown(e)
+								handleEnterKeyPress(e)
+							}}
 							placeholder={header[4].text}
 							autoFocus
 							className='sidebar-input'
@@ -49,13 +61,17 @@ export const SearchBar = ({
 					</Button>
 				)}
 			</div>
+
 			<div className='sidebar-container desktop'>
 				<Input
 					ref={inputRef}
 					type='text'
 					value={query}
 					onChange={e => setQuery(e.target.value)}
-					onKeyDown={handleKeyDown}
+					onKeyDown={e => {
+						handleKeyDown(e)
+						handleEnterKeyPress(e)
+					}}
 					placeholder={header[4].text}
 					autoFocus
 					className='sidebar-input'

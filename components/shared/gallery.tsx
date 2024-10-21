@@ -18,10 +18,11 @@ export const Gallery = ({ offerId }: { offerId: string | number }) => {
 
 	const mainImage = useMemo(
 		() =>
+			Array.isArray(images) &&
 			images.map((image, index) => (
 				<CarouselItem key={index} className='relative aspect-square w-full'>
 					<Image
-						src={image}
+						src={`data:image/jpeg;base64,${image.buffer}`}
 						alt={`Carousel Main Image ${index + 1}`}
 						fill
 						style={{ objectFit: 'cover' }}
@@ -34,6 +35,7 @@ export const Gallery = ({ offerId }: { offerId: string | number }) => {
 
 	const thumbnailImages = useMemo(
 		() =>
+			Array.isArray(images) &&
 			images.map((image, index) => (
 				<CarouselItem
 					key={index}
@@ -42,7 +44,7 @@ export const Gallery = ({ offerId }: { offerId: string | number }) => {
 				>
 					<Image
 						className={`rounded ${index === current ? 'border-2' : ''}`}
-						src={image}
+						src={`data:image/jpeg;base64,${image.buffer}`}
 						fill
 						alt={`Carousel Thumbnail Image ${index + 1}`}
 						style={{ objectFit: 'cover' }}
