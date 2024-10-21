@@ -15,6 +15,7 @@ import { ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { CartProduct } from './cart-product'
+import Link from 'next/link'
 
 export const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
@@ -65,9 +66,11 @@ export const Cart = () => {
 								>
 									Продовжити покупки
 								</Button>
-								<Button className='bg-gray rounded-xl'>
-									Оформити замовлення
-								</Button>
+								<Link href='/order'>
+									<Button onClick={handleClose} className='bg-gray rounded-xl'>
+										Оформити замовлення
+									</Button>
+								</Link>
 							</div>
 						</div>
 					</div>

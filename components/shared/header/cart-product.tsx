@@ -37,7 +37,7 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 		<div className='flex gap-2 border-b border-gray/20 py-4 relative'>
 			<img
 				src={`data:image/jpeg;base64,${img.buffer}`}
-				alt={product.Articul + ' ' + product.ModelName}
+				alt={product.ModelName}
 				width={150}
 				height={150}
 				className='rounded-lg'

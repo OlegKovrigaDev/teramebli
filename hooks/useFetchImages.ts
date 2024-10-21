@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+interface imageDate {
+	name: string
+	buffer: string
+}
 interface UseFetchImagesResult {
-	images: string[]
-	img: string[]
+	images: imageDate[]
+	img: string
 	loading: boolean
 	error: string | null
 }
@@ -11,8 +15,8 @@ interface UseFetchImagesResult {
 export const useFetchImages = (
 	offerId: string | number
 ): UseFetchImagesResult => {
-	const [images, setImages] = useState<string[]>([])
-	const [img, setImg] = useState<string[]>([])
+	const [images, setImages] = useState<imageDate[]>([])
+	const [img, setImg] = useState<string>('') // Обновите здесь
 	const [loading, setLoading] = useState<boolean>(false)
 	const [error, setError] = useState<string | null>(null)
 

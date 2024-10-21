@@ -7,7 +7,6 @@ import { useCategoryData } from '@/hooks'
 import { useProductSearch } from '@/hooks/useProductSearch'
 import { Product } from '@/types/redux'
 import { useSearchParams } from 'next/navigation'
-import { title } from 'process'
 
 export default function CategoryId({ params }: { params: { id: string } }) {
 	const { id } = params
@@ -63,7 +62,6 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 		currentPage,
 		parentCategory,
 		setPage,
-		isFetching,
 	} = useCategoryData(id)
 
 	if (status === 'loading' || status === 'error' || status === 'noData') {
