@@ -30,6 +30,7 @@ export {
 	DropdownMenuTrigger,
 } from './dropdown-menu'
 export {
+	Form,
 	FormControl,
 	FormDescription,
 	FormField,

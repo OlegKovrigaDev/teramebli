@@ -1,3 +1,4 @@
+'use client'
 import {
 	Button,
 	Dialog,
@@ -9,11 +10,11 @@ import {
 	DialogTrigger,
 } from '@/components/ui'
 import { header } from '@/constants'
-import { ShoppingCart } from 'lucide-react'
-import { CartProduct } from './cart-product'
-import { useSelector } from 'react-redux'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
+import { ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { CartProduct } from './cart-product'
 
 export const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
