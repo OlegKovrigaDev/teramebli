@@ -164,12 +164,12 @@ export const home = {
 			{
 				id: 44,
 				text: 'Кухні',
-				icon: '/icons/kitchen.svg',
+				icon: '/icons/cusine.svg',
 			},
 			{
 				id: 48,
 				text: 'Стінки і гарнітури',
-				icon: '/icons/garniture.svg',
+				icon: '/icons/walls-and-headsets.svg',
 			},
 		],
 		slider: [

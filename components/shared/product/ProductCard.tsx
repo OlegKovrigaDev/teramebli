@@ -49,7 +49,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							<img
 								src={`data:image/jpeg;base64,${img.buffer}`}
 								alt={product.params.ModelName}
-								className='rounded-lg'
+								className='rounded-lg h-[217] w-[217px]'
 							/>
 						</div>
 					</div>
