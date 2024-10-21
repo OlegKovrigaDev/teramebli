@@ -3,6 +3,7 @@ import axios from 'axios'
 
 interface UseFetchImagesResult {
 	images: string[]
+	img: string[]
 	loading: boolean
 	error: string | null
 }
@@ -11,6 +12,7 @@ export const useFetchImages = (
 	offerId: string | number
 ): UseFetchImagesResult => {
 	const [images, setImages] = useState<string[]>([])
+	const [img, setImg] = useState<string[]>([])
 	const [loading, setLoading] = useState<boolean>(false)
 	const [error, setError] = useState<string | null>(null)
 
@@ -26,7 +28,8 @@ export const useFetchImages = (
 				const photoData = response.data.files
 
 				if (photoData) {
-					setImages(photoData)
+					setImages(photoData.files)
+					setImg(photoData.files[0])
 				}
 			} catch (err) {
 				setError('Error fetching images')
@@ -37,7 +40,7 @@ export const useFetchImages = (
 		}
 
 		fetchImages()
-	}, [])
+	}, [offerId])
 
-	return { images, loading, error }
+	return { images, img, loading, error }
 }

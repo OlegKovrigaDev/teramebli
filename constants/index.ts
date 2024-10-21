@@ -243,7 +243,7 @@ export const header = [
 		contact: [{ link: 'tel:+380951277643', tel: '095-12-77-643' }],
 	},
 	{
-		text: 'Пошук...',
+		text: 'Мова',
 		lang: [
 			{ value: 'ua', text: 'UA' },
 			{ value: 'ru', text: 'RU' },

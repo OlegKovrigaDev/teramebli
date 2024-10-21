@@ -8,10 +8,6 @@ interface FormData {
 	name: string
 	phone: string
 	email: string
-	Articul: string
-	RetailPrice: number
-	RetailPriceWithDiscount: number
-	ModelName: string
 }
 
 export const useSubmitOrder = (cartItems: any[], total: number) => {

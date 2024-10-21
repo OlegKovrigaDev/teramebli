@@ -23,16 +23,14 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 	} = useProductSearch(query)
 	if (isSearchMode) {
 		if (searchLoading) {
-			return <p>Поиск продуктов...</p>
+			return <p>Пошук продуктів...</p>
 		}
 		if (searchError) {
-			return <p>Ошибка загрузки продуктов</p>
+			return <p>Помилка загрузки продуктів</p>
 		}
 		return (
 			<div className='mb-[75px]'>
-				<h2 className='font-bold text-2xl mb-8'>
-					Результаты поиска для: {query}
-				</h2>
+				<h2 className='font-bold text-2xl mb-8'>Результати пошуку: {query}</h2>
 				<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 					<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
 						<ProductFilter title='Фильтр продуктов' />
@@ -45,7 +43,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 							))
 						) : (
 							<p className='text-gray-500'>
-								Нет доступных продуктов для отображения.
+								Немає доступних продуктів для відображення.
 							</p>
 						)}
 
@@ -86,7 +84,6 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 						: category?.id.toString()
 				}
 			/>
-			{isFetching && <p className='text-gray-400'>Обновление данных...</p>}
 
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
@@ -100,7 +97,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 						))
 					) : (
 						<p className='text-gray-500'>
-							Нет доступных продуктов для отображения.
+							Немає доступних продуктів для відображення.
 						</p>
 					)}
 

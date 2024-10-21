@@ -8,6 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
+import { useFetchImages } from '@/hooks/useFetchImages'
 import { addToCart } from '@/store/cartSlice'
 import { ProductCardProps } from '@/types/redux'
 import { ShoppingCart } from 'lucide-react'
@@ -15,6 +16,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+	const { img } = useFetchImages(product.offerId)
 	const dispatch = useDispatch()
 
 	if (!product || !product.offerId) {
@@ -45,7 +47,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 						<Badge className='badge-hit'>Хіт</Badge>
 						<div className='img-container'>
 							<img
-								src={''}
+								src={`data:image/jpeg;base64,${img.buffer}`}
 								alt={product.params.ModelName}
 								className='rounded-lg'
 							/>

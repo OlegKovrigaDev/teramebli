@@ -30,7 +30,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 		subCategoryId,
 	} = useProductData(offerId)
 
-	if (isLoading) return <p className='text-gray-500'>Загрузка...</p>
+	if (isLoading) return <p className='text-gray-500'>Завантаження...</p>
 	if (error)
 		return (
 			<p className='text-red-500'>
