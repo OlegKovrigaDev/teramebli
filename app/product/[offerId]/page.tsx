@@ -1,4 +1,5 @@
 'use client'
+import { Loading } from '@/components/Loading'
 import { Accord } from '@/components/shared/accord'
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import { Gallery } from '@/components/shared/gallery'
@@ -30,7 +31,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 		subCategoryId,
 	} = useProductData(offerId)
 
-	if (isLoading) return <p className='text-gray-500'>Завантаження...</p>
+	if (isLoading) return <Loading />
 	if (error)
 		return (
 			<p className='text-red-500'>

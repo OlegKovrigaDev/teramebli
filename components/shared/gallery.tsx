@@ -8,6 +8,7 @@ import {
 	CarouselItem,
 } from '../ui/carousel'
 import { useFetchImages } from '@/hooks/useFetchImages'
+import { Loading } from '../Loading'
 
 export const Gallery = ({ offerId }: { offerId: string | number }) => {
 	const { images, loading, error } = useFetchImages(offerId)
@@ -90,7 +91,7 @@ export const Gallery = ({ offerId }: { offerId: string | number }) => {
 	}
 
 	if (loading) {
-		return <p>Loading images...</p>
+		return <Loading />
 	}
 
 	if (error) {
