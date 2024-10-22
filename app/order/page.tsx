@@ -10,13 +10,16 @@ import {
 	FormLabel,
 	FormMessage,
 	Input,
+	RadioGroup,
+	RadioGroupItem,
 } from '@/components/ui'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
+import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Label } from '@radix-ui/react-dropdown-menu'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -58,77 +61,115 @@ export default function Order() {
 					<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
 						<div className='bg-white flex justify-between py-4 px-2'>
 							<div className='w-[296px]'>
+								{order.slice(0, 4).map((item, index) => (
+									<FormField
+										key={index}
+										control={form.control}
+										name='username'
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className='text-xs font-semibold'>
+													{item.label}
+												</FormLabel>
+												<FormControl>
+													<Input
+														placeholder={item.placeholder}
+														className='placeholder:font-medium placeholder:text-gray'
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								))}
+							</div>
+							<div className='w-[296px]'>
+								{order.slice(4, 6).map((item, index) => (
+									<FormField
+										key={index}
+										control={form.control}
+										name='username'
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className='text-xs font-semibold'>
+													{item.label}
+												</FormLabel>
+												<FormControl>
+													<Input
+														placeholder={item.placeholder}
+														className='placeholder:font-medium placeholder:text-gray'
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								))}
+
+								<div className='flex gap-4'>
+									{order.slice(6, 8).map((item, index) => (
+										<FormField
+											key={index}
+											control={form.control}
+											name='username'
+											render={({ field }) => (
+												<FormItem>
+													<FormLabel className='text-xs font-semibold'>
+														{item.label}
+													</FormLabel>
+													<FormControl>
+														<Input
+															placeholder={item.placeholder}
+															className='placeholder:font-medium placeholder:text-gray'
+															{...field}
+														/>
+													</FormControl>
+													<FormMessage />
+												</FormItem>
+											)}
+										/>
+									))}
+								</div>
+							</div>
+						</div>
+
+						<div className='bg-white flex justify-between py-4 px-2'>
+							<div className='w-[296px]'>
 								<FormField
 									control={form.control}
-									name='username'
+									name='delivery'
 									render={({ field }) => (
-										<FormItem>
-											<FormLabel className='text-xs font-semibold'>
-												{order[0].label}
+										<FormItem className='space-y-3'>
+											<FormLabel className='text-xl font-bold'>
+												Доставка
 											</FormLabel>
 											<FormControl>
-												<Input
-													placeholder={order[0].placeholder}
-													className='placeholder:font-medium placeholder:text-gray'
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name='username'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel className='text-xs font-semibold'>
-												{order[1].label}
-											</FormLabel>
-											<FormControl>
-												<Input
-													placeholder={order[1].placeholder}
-													className='placeholder:font-medium placeholder:text-gray'
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name='username'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel className='text-xs font-semibold'>
-												{order[2].label}
-											</FormLabel>
-											<FormControl>
-												<Input
-													placeholder={order[2].placeholder}
-													className='placeholder:font-medium placeholder:text-gray'
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name='username'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel className='text-xs font-semibold'>
-												{order[3].label}
-											</FormLabel>
-											<FormControl>
-												<Input
-													placeholder={order[3].placeholder}
-													className='placeholder:font-medium placeholder:text-gray'
-													{...field}
-												/>
+												<RadioGroup
+													onValueChange={field.onChange}
+													defaultValue={field.value}
+													className='flex flex-col space-y-1'
+												>
+													{[
+														{ text: 'Доставка по місту', value: 'val1' },
+														{ text: 'Самовивіз із магазину', value: 'val2' },
+														{ text: 'Нова пошта', value: 'val3' },
+														{ text: 'Meest', value: 'val4' },
+													].map(({ text, value }, i) => (
+														<FormItem className='flex items-center space-x-3 space-y-0'>
+															<FormControl>
+																<RadioGroupItem
+																	value={value}
+																	className='size-6'
+																/>
+															</FormControl>
+															<FormLabel className='font-semibold text-4.5'>
+																{text}
+															</FormLabel>
+														</FormItem>
+													))}
+												</RadioGroup>
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -138,82 +179,55 @@ export default function Order() {
 							<div className='w-[296px]'>
 								<FormField
 									control={form.control}
-									name='username'
+									name='payment'
 									render={({ field }) => (
-										<FormItem>
-											<FormLabel className='text-xs font-semibold'>
-												{order[4].label}
+										<FormItem className='space-y-3'>
+											<FormLabel className='text-xl font-bold'>
+												Оплата
 											</FormLabel>
 											<FormControl>
-												<Input
-													placeholder={order[4].placeholder}
-													className='placeholder:font-medium placeholder:text-gray'
-													{...field}
-												/>
+												<RadioGroup
+													onValueChange={field.onChange}
+													defaultValue={field.value}
+													className='flex flex-col space-y-1'
+												>
+													{[
+														{ text: 'Готівка', value: 'val1' },
+														{ text: 'Платіжна картка', value: 'val2' },
+														{ text: 'Безготівковий розрахунок', value: 'val3' },
+														{ text: 'Кредит/Розсрочка', value: 'val4' },
+													].map(({ text, value }, i) => (
+														<FormItem className='flex items-center space-x-3 space-y-0'>
+															<FormControl>
+																<RadioGroupItem
+																	value={value}
+																	className='size-6'
+																/>
+															</FormControl>
+															<FormLabel className='font-semibold text-4.5'>
+																{text}
+															</FormLabel>
+														</FormItem>
+													))}
+												</RadioGroup>
 											</FormControl>
 											<FormMessage />
 										</FormItem>
 									)}
 								/>
-								<FormField
-									control={form.control}
-									name='username'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel className='text-xs font-semibold'>
-												{order[5].label}
-											</FormLabel>
-											<FormControl>
-												<Input
-													placeholder={order[5].placeholder}
-													className='placeholder:font-medium placeholder:text-gray'
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
+							</div>
+						</div>
+						<div className='bg-white flex flex-col justify-between py-4 px-2'>
+							<p className='text-xl font-bold mb-6'>Коментар до замовлення</p>
+							<div className='grid w-full gap-1.5'>
+								<Label htmlFor='message' className='text-xs font-semibold'>
+									Залиште коментар до вашого замовлення
+								</Label>
+								<Textarea
+									placeholder='Коментар'
+									id='message'
+									className='bg-bg font-medium text-gray min-h-28'
 								/>
-								<div className='flex gap-4'>
-									<FormField
-										control={form.control}
-										name='username'
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel className='text-xs font-semibold'>
-													{order[6].label}
-												</FormLabel>
-												<FormControl>
-													<Input
-														placeholder={order[6].placeholder}
-														className='placeholder:font-medium placeholder:text-gray'
-														{...field}
-													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-									<FormField
-										control={form.control}
-										name='username'
-										render={({ field }) => (
-											<FormItem>
-												<FormLabel className='text-xs font-semibold'>
-													{order[7].label}
-												</FormLabel>
-												<FormControl>
-													<Input
-														placeholder={order[7].placeholder}
-														className='placeholder:font-medium placeholder:text-gray'
-														{...field}
-													/>
-												</FormControl>
-												<FormMessage />
-											</FormItem>
-										)}
-									/>
-								</div>
 							</div>
 						</div>
 					</form>
