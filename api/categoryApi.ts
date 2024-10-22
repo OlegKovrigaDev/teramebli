@@ -41,8 +41,12 @@ export const categoryApi = createApi({
 			transformResponse: (response: { files: ProductImage[] }) =>
 				response.files,
 		}),
-		searchProducts: builder.query<Product[], string>({
-			query: info => `/search?info=${info}`,
+		searchProducts: builder.query<
+			Product[],
+			{ info: string; page: number; limit: number }
+		>({
+			query: ({ info, page, limit }) =>
+				`/search?info=${info}&page=${page}&limit=${limit}`,
 		}),
 	}),
 })

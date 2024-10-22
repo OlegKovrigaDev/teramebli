@@ -1,4 +1,3 @@
-'use client'
 import {
 	useFetchCategoryByIdQuery,
 	useFetchCategoryWithProductsQuery,
@@ -16,7 +15,7 @@ export const useCategoryData = (id: string) => {
 		isLoading,
 		isFetching,
 	} = useFetchCategoryWithProductsQuery(
-		{ categoryId: Number(id), page: 1, limit: 1000 },
+		{ categoryId: Number(id), page, limit },
 		{ skip: !id }
 	)
 
