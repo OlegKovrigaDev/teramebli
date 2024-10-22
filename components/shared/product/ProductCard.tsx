@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-	const { img } = useFetchImages(product.offerId)
+	// const { img } = useFetchImages(product.offerId)
 	const dispatch = useDispatch()
 
 	if (!product || !product.offerId) {
@@ -46,11 +46,19 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 						<Badge className='badge-action'>Акція</Badge>
 						<Badge className='badge-hit'>Хіт</Badge>
 						<div className='img-container'>
-							<img
-								src={`data:image/jpeg;base64,${img.buffer}`}
-								alt={product.params.ModelName}
-								className='rounded-lg h-[217] w-[217px]'
-							/>
+							{/* {img ? (
+								<img
+									src={`data:image/jpeg;base64,${img.buffer}`}
+									alt={product.params.ModelName}
+									className='rounded-lg h-[217px] w-[217px]'
+								/>
+							) : (
+								<img
+									src='/delete/404.jpg'
+									alt='No Image Available'
+									className='rounded-lg h-[217px] w-[217px]'
+								/>
+							)} */}
 						</div>
 					</div>
 					<CardTitle className='title'>{product.params.ModelName}</CardTitle>

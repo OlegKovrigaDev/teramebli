@@ -23,7 +23,7 @@ export const Gallery = ({ offerId }: { offerId: string | number }) => {
 			images.map((image, index) => (
 				<CarouselItem key={index} className='relative aspect-square w-full'>
 					<Image
-						src={`data:image/jpeg;base64,${image.buffer}`}
+						src={`data:image/jpeg;base64,${image.buffer || '/delete/404.jpg'}`}
 						alt={`Carousel Main Image ${index + 1}`}
 						fill
 						style={{ objectFit: 'cover' }}

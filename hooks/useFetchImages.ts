@@ -7,7 +7,10 @@ interface imageDate {
 }
 interface UseFetchImagesResult {
 	images: imageDate[]
-	img: string
+	img: {
+		name: string
+		buffer: string
+	}
 	loading: boolean
 	error: string | null
 }
@@ -16,7 +19,7 @@ export const useFetchImages = (
 	offerId: string | number
 ): UseFetchImagesResult => {
 	const [images, setImages] = useState<imageDate[]>([])
-	const [img, setImg] = useState<string>('') // Обновите здесь
+	const [img, setImg] = useState<imageDate>({ name: '', buffer: '' })
 	const [loading, setLoading] = useState<boolean>(false)
 	const [error, setError] = useState<string | null>(null)
 
@@ -32,12 +35,16 @@ export const useFetchImages = (
 				const photoData = response.data.files
 
 				if (photoData) {
-					setImages(photoData.files)
 					setImg(photoData.files[0])
+					setImages(photoData.files)
+				} else {
+					setImg({
+						name: '404',
+						buffer: '/delete/404.jpg',
+					})
 				}
 			} catch (err) {
 				setError('Error fetching images')
-				console.error('Error fetching images:', err)
 			} finally {
 				setLoading(false)
 			}
