@@ -1,9 +1,9 @@
 'use client'
 import { Button, Input } from '@/components/ui'
 import { header } from '@/constants'
+import { useProductSearch } from '@/hooks/useProductSearch'
 import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useProductSearch } from '@/hooks/useProductSearch'
 
 export const SearchBar = ({
 	search: { isMobileSearchVisible, toggleSearchInput, inputRef, handleKeyDown },
@@ -72,7 +72,7 @@ export const SearchBar = ({
 						handleKeyDown(e)
 						handleEnterKeyPress(e)
 					}}
-					placeholder={header[4].text}
+					placeholder={header[5].text}
 					autoFocus
 					className='sidebar-input'
 				/>

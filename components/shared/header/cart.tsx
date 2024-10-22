@@ -12,10 +12,10 @@ import {
 import { header } from '@/constants'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
 import { ShoppingCart } from 'lucide-react'
+import Link from 'next/link'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { CartProduct } from './cart-product'
-import Link from 'next/link'
 
 export const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
@@ -45,7 +45,7 @@ export const Cart = () => {
 					<DialogTitle className='text-2xl font-bold'>Кошик</DialogTitle>
 					<DialogDescription />
 				</DialogHeader>
-				<div className='mb-10'>
+				<div className='mb-10 max-h-[549px] overflow-auto'>
 					{cartItems.length > 0 ? (
 						cartItems.map(item => (
 							<CartProduct key={item.offerId} product={item} />
