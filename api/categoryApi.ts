@@ -1,3 +1,5 @@
+import page from '@/app/page'
+import { products } from '@/constants'
 import {
 	Category,
 	CategoryWithProducts,
@@ -5,6 +7,7 @@ import {
 	ProductImage,
 } from '@/types/redux'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { info } from 'console'
 
 const BASE_URL = 'https://teramebli-api.onrender.com/api'
 
@@ -42,7 +45,7 @@ export const categoryApi = createApi({
 				response.files,
 		}),
 		searchProducts: builder.query<
-			Product[],
+			{ results: Product[]; total: number },
 			{ info: string; page: number; limit: number }
 		>({
 			query: ({ info, page, limit }) =>

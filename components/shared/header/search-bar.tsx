@@ -13,7 +13,7 @@ export const SearchBar = ({
 
 	const handleSearch = () => {
 		if (query) {
-			router.push(`/category/2000?query=${query}`)
+			router.push(`/category/20000?search=${query}`)
 		}
 	}
 

@@ -34,8 +34,8 @@ export const useProductSearch = (
 		}
 	}, [initialQuery])
 
-	const searchResults = searchResultsData?.products || []
-	const total = searchResultsData?.total || 0
+	const searchResults = searchResultsData?.results || []
+	const total = searchResultsData?.total || 200
 	const totalPages = Math.ceil(total / limit) || 1
 
 	return {

@@ -6,20 +6,25 @@ import { ProductFilter } from '@/components/shared/product/ProductFilter'
 import { useCategoryData } from '@/hooks'
 import { useProductSearch } from '@/hooks/useProductSearch'
 import { Product } from '@/types/redux'
+import { error } from 'console'
 import { useSearchParams } from 'next/navigation'
 
 export default function CategoryId({ params }: { params: { id: string } }) {
 	const { id } = params
 	const searchParams = useSearchParams()
-	const query = searchParams.get('query') || ''
+	const query = searchParams.get('search') || ''
 
-	const isSearchMode = id === '2000'
+	const isSearchMode = id === '20000'
 
 	const {
 		searchResults,
 		isLoading: searchLoading,
 		error: searchError,
+		totalPages: searchTotalPages,
+		currentPage: searchCurrentPage,
+		setPage: setSearchPage,
 	} = useProductSearch(query)
+
 	if (isSearchMode) {
 		if (searchLoading) {
 			return <p>Пошук продуктів...</p>
@@ -29,7 +34,10 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 		}
 		return (
 			<div className='mb-[75px]'>
-				<h2 className='font-bold text-2xl mb-8'>Результати пошуку: {query}</h2>
+				<CrumbsLinks
+					categoryName={`Результати пошуку: ${query}`}
+					categoryId={'2000'}
+				/>
 				<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 					<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
 						<ProductFilter title='Фильтр продуктов' />
@@ -47,6 +55,11 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 						)}
 
 						<div className='flex flex-col justify-center w-full'></div>
+						<Pagination
+							currentPage={searchCurrentPage}
+							totalPages={searchTotalPages}
+							onPageChange={setSearchPage}
+						/>
 					</div>
 				</div>
 			</div>
