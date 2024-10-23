@@ -322,6 +322,16 @@ body {
 	@apply grid grid-cols-1 md:grid-cols-2 gap-8;
 }
 
+.about {
+	@apply my-4 flex;
+}
+.about ul {
+	@apply space-y-2 list-decimal ml-6;
+}
+.about p {
+	@apply mt-6;
+}
+
 .product-card {
 	@apply flex flex-col justify-between rounded-none h-[288px] md:h-[425px] w-[158px] md:w-[235px] hover:shadow-xl  transition-shadow duration-300 relative p-2;
 }
