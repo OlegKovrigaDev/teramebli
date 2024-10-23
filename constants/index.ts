@@ -274,7 +274,7 @@ export const footer = [
 	{
 		title: 'Інформація:',
 		info: [
-			{ text: 'Про нас', link: '/' },
+			{ text: 'Про нас', link: '/about' },
 			{ text: 'Доставка і Оплата', link: '/delivery' },
 			{ text: 'Гарантія та Повернення', link: '/warranty' },
 		],
