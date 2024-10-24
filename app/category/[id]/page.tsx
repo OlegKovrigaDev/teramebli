@@ -53,12 +53,13 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 							</p>
 						)}
 
-						<div className='flex flex-col justify-center w-full'></div>
-						<Pagination
-							currentPage={searchCurrentPage}
-							totalPages={searchTotalPages}
-							onPageChange={setSearchPage}
-						/>
+						<div className='flex flex-col justify-center w-full'>
+							<Pagination
+								currentPage={searchCurrentPage}
+								totalPages={searchTotalPages}
+								onPageChange={setSearchPage}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>

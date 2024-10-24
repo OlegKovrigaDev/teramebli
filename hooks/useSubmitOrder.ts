@@ -14,11 +14,8 @@ export const useSubmitOrder = (cartItems: CartItem[], total: number) => {
 		try {
 			await submitOrder({ form, cartItems, total }).unwrap()
 			dispatch(clearCart())
-			alert('Order submitted successfully!')
 		} catch (e) {
-			alert(
-				'Error submitting order: ' + (e as Error).message || 'Unknown error'
-			)
+			'Error submitting order: ' + (e as Error).message || 'Unknown error'
 		} finally {
 			setIsSubmitting(false)
 		}

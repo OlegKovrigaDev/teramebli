@@ -10,6 +10,8 @@ import {
 	FormLabel,
 	FormMessage,
 	Input,
+	RadioGroup,
+	RadioGroupItem,
 } from '@/components/ui'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
 import { useForm } from 'react-hook-form'
@@ -17,8 +19,11 @@ import { useSelector } from 'react-redux'
 
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { map, string, z } from 'zod'
 import { useSubmitOrder } from '@/hooks/useSubmitOrder'
+import { render } from 'react-dom'
+import { text } from 'stream/consumers'
+import { delivery, payment } from '@/constants'
 
 const formSchema = z.object({
 	firstName: z.string().min(2).max(50),
@@ -30,6 +35,8 @@ const formSchema = z.object({
 	house: z.string().min(1).max(10),
 	apartment: z.string().optional(),
 	comment: z.string().optional(),
+	delivery: z.string().nonempty('Delivery method is required'),
+	payment: z.string().nonempty('Payment method is required'),
 })
 
 const order = [
@@ -68,6 +75,8 @@ export default function Order() {
 			house: '',
 			apartment: '',
 			comment: '',
+			delivery: '',
+			payment: '',
 		},
 	})
 
@@ -82,7 +91,7 @@ export default function Order() {
 				onSubmit={form.handleSubmit(onSubmit)}
 				className='flex justify-between'
 			>
-				<div className='w-[630px]'>
+				<div className='w-[630px] flex flex-col gap-8'>
 					<div className='bg-white flex justify-between py-4 px-2'>
 						<div className='w-[296px]'>
 							{order.slice(0, 4).map((item, index) => (
@@ -158,6 +167,86 @@ export default function Order() {
 						</div>
 					</div>
 
+					<div className='bg-white flex justify-between py-4 px-2'>
+						<div className='w-[296px]'>
+							<FormField
+								control={form.control}
+								name='delivery'
+								render={({ field }) => (
+									<FormItem className='space-y-3'>
+										<FormLabel className='text-xl font-bold'>
+											Доставка
+										</FormLabel>
+										<FormControl>
+											<RadioGroup
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+												className='flex flex-col space-y-1'
+											>
+												{[
+													{ text: 'Доставка по місту', value: 'val1' },
+													{ text: 'Самовивіз із магазину', value: 'val2' },
+													{ text: 'Нова пошта', value: 'val3' },
+													{ text: 'Meest', value: 'val4' },
+												].map(({ text, value }, i) => (
+													<FormItem className='flex items-center space-x-3 space-y-0'>
+														<FormControl>
+															<RadioGroupItem
+																value={value}
+																className='size-6'
+															/>
+														</FormControl>
+														<FormLabel className='font-semibold text-4.5'>
+															{text}
+														</FormLabel>
+													</FormItem>
+												))}
+											</RadioGroup>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+						<div className='w-[296px]'>
+							<FormField
+								control={form.control}
+								name='payment'
+								render={({ field }) => (
+									<FormItem className='space-y-3'>
+										<FormLabel className='text-xl font-bold'>Оплата</FormLabel>
+										<FormControl>
+											<RadioGroup
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+												className='flex flex-col space-y-1'
+											>
+												{[
+													{ text: 'Готівка', value: 'val1' },
+													{ text: 'Платіжна картка', value: 'val2' },
+													{ text: 'Безготівковий розрахунок', value: 'val3' },
+													{ text: 'Кредит/Розсрочка', value: 'val4' },
+												].map(({ text, value }, i) => (
+													<FormItem className='flex items-center space-x-3 space-y-0'>
+														<FormControl>
+															<RadioGroupItem
+																value={value}
+																className='size-6'
+															/>
+														</FormControl>
+														<FormLabel className='font-semibold text-4.5'>
+															{text}
+														</FormLabel>
+													</FormItem>
+												))}
+											</RadioGroup>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+					</div>
 					<div className='bg-white flex flex-col justify-between py-4 px-2'>
 						<p className='text-xl font-bold mb-6'>Коментар до замовлення</p>
 						<div className='grid w-full gap-1.5'>

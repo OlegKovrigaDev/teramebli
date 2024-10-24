@@ -36,21 +36,14 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 
 	return (
 		<div className='flex gap-2 border-b border-gray/20 py-4 relative'>
-			{/* {img ? (
-				<img
+			{/* <img
 					src={`data:image/jpeg;base64,${img.buffer}`}
 					alt={product.ModelName}
 					width={150}
 					height={150}
 					className='rounded-lg'
-				/>
-			) : (
-				<img
-					src='/delete/404.jpg'
-					alt='No Image Available'
-					className='rounded-lg h-[217px] w-[217px]'
-				/>
-			)} */}
+				/> */}
+			<div className='rounded-lg size-[150px] bg-accent' />
 			<div className='flex flex-col gap-2 justify-between'>
 				<h3 className='font-medium'>{product.ModelName}</h3>
 				<p className='text-4.5 font-semibold'>{product.RetailPrice} грн.</p>

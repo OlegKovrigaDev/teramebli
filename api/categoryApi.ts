@@ -80,6 +80,10 @@ export const categoryApi = createApi({
 				}),
 			}),
 		}),
+		fetchReviewsByOfferId: builder.query<Review[], string>({
+			query: offerId => `/reviews/${offerId}`,
+			transformResponse: (response: { reviews: Review[] }) => response.reviews,
+		}),
 	}),
 })
 
@@ -93,4 +97,5 @@ export const {
 	useSearchProductsQuery,
 	useSubmitOrderMutation,
 	useAddProductReviewMutation,
+	useFetchReviewsByOfferIdQuery,
 } = categoryApi
