@@ -8,8 +8,9 @@ const getRandomProducts = (products: Product[], count: number): Product[] => {
 }
 
 export const useRandomProducts = (categoryId: number, limit: number = 25) => {
+	const randomNumber = Math.floor(Math.random() * 10) + 1
 	const { data, error, isLoading } = useFetchCategoryWithProductsQuery({
-		categoryId,
+		categoryId: randomNumber,
 		page: 1,
 		limit: 100,
 	})

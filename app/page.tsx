@@ -6,7 +6,8 @@ import { home } from '@/constants'
 import { useRandomProducts } from '@/hooks/useRandomProducts'
 
 export default function Home() {
-	const { randomProducts } = useRandomProducts(1, 100)
+	const { randomProducts } = useRandomProducts(1, 25)
+	const { randomProducts: randomProducts2 } = useRandomProducts(1, 25)
 
 	return (
 		<>
@@ -18,7 +19,7 @@ export default function Home() {
 				<ProductSlider arr={randomProducts} />
 			</Section>
 			<Section title={home.newProduct.title}>
-				<ProductSlider arr={randomProducts} />
+				<ProductSlider arr={randomProducts2} />
 			</Section>
 		</>
 	)

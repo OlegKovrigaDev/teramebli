@@ -1,13 +1,12 @@
-import page from '@/app/page'
-import { products } from '@/constants'
+import { CartItem, OrderFormData } from '@/types/cart'
 import {
 	Category,
 	CategoryWithProducts,
 	Product,
 	ProductImage,
 } from '@/types/redux'
+import { Review } from '@/types/review'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { info } from 'console'
 
 const BASE_URL = 'https://teramebli-api.onrender.com/api'
 
@@ -51,6 +50,36 @@ export const categoryApi = createApi({
 			query: ({ info, page, limit }) =>
 				`/search?info=${info}&page=${page}&limit=${limit}`,
 		}),
+		submitOrder: builder.mutation<
+			void,
+			{ form: OrderFormData; cartItems: CartItem[]; total: number }
+		>({
+			query: ({ form, cartItems, total }) => ({
+				url: '/order',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					form,
+					cartItems,
+					total,
+				}),
+			}),
+		}),
+		addProductReview: builder.mutation<void, Review>({
+			query: ({ name, review }) => ({
+				url: '/reviews',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					name,
+					review,
+				}),
+			}),
+		}),
 	}),
 })
 
@@ -62,4 +91,6 @@ export const {
 	useFetchCategoryByIdQuery,
 	useFetchProductImagesQuery,
 	useSearchProductsQuery,
+	useSubmitOrderMutation,
+	useAddProductReviewMutation,
 } = categoryApi

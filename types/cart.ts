@@ -1,3 +1,5 @@
+import { comment } from 'postcss'
+
 export interface CartItem {
 	offerId: string
 	ModelName?: string
@@ -10,4 +12,16 @@ export interface CartItem {
 
 export interface CartState {
 	items: CartItem[]
+}
+
+export interface OrderFormData {
+	firstName: string
+	lastName: string
+	phone: string
+	email: string
+	city: string
+	street: string
+	house: string
+	apartment?: string
+	comment?: string
 }

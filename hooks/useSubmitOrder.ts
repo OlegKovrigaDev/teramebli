@@ -1,51 +1,34 @@
 import { useState } from 'react'
-import { clearCart } from '@/store/cartSlice'
+import { useSubmitOrderMutation } from '@/api/categoryApi'
 import { useDispatch } from 'react-redux'
+import { clearCart } from '@/store/cartSlice'
+import { CartItem, OrderFormData } from '@/types/cart'
 
-const BASE_URL = 'https://teramebli-api.onrender.com/api'
-
-interface FormData {
-	name: string
-	phone: string
-	email: string
-	address: string
-}
-
-export const useSubmitOrder = (cartItems: any[], total: number) => {
+export const useSubmitOrder = (cartItems: CartItem[], total: number) => {
+	const [submitOrder, { isError, isSuccess, error }] = useSubmitOrderMutation()
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const [submitSuccess, setSubmitSuccess] = useState(false)
-	const [submitError, setSubmitError] = useState<string | null>(null)
 	const dispatch = useDispatch()
 
-	const submitOrder = async (form: FormData) => {
+	const submit = async (form: OrderFormData) => {
 		setIsSubmitting(true)
-		setSubmitError(null)
-
 		try {
-			const response = await fetch(`${BASE_URL}/order`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					customer: form,
-					items: cartItems,
-					total,
-				}),
-			})
-
-			if (!response.ok) {
-				throw new Error('Ошибка при оформлении заказа')
-			}
-
-			setSubmitSuccess(true)
+			await submitOrder({ form, cartItems, total }).unwrap()
 			dispatch(clearCart())
-		} catch (error: any) {
-			setSubmitError(error.message || 'Неизвестная ошибка')
+			alert('Order submitted successfully!')
+		} catch (e) {
+			alert(
+				'Error submitting order: ' + (e as Error).message || 'Unknown error'
+			)
 		} finally {
 			setIsSubmitting(false)
 		}
 	}
 
-	return { isSubmitting, submitSuccess, submitError, submitOrder }
+	return {
+		isSubmitting,
+		isSuccess,
+		isError,
+		error,
+		submit,
+	}
 }

@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui'
 import { Minus, Plus, Trash } from 'lucide-react'
 import { CartItem } from '@/types/cart'

@@ -212,7 +212,7 @@ export const ad = [
 ]
 export const header = [
 	{ text: 'Каталог' },
-	{ text: 'Корзина' },
+	{ text: 'Кошик' },
 	{
 		text: 'Магазини',
 		magazine: [
