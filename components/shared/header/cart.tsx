@@ -69,15 +69,13 @@ export const Cart = () => {
 									Продовжити покупки
 								</Button>
 
-								<Link href='/order' passHref>
-									<Button
-										disabled={cartItems.length === 0}
-										className='bg-gray rounded-xl'
-										onClick={handleClose}
-									>
-										Оформити замовлення
-									</Button>
-								</Link>
+								<Button
+									disabled={cartItems.length === 0}
+									className='bg-gray rounded-xl'
+									onClick={handleClose}
+								>
+									<Link href='/order'>Оформити замовлення</Link>
+								</Button>
 							</div>
 						</div>
 					</div>
