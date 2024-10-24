@@ -79,9 +79,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							<Badge className='rounded-lg bg-red-800 hover:bg-red-800'>
 								-
 								{(
-									(((product.params.RetailPriceWithDiscount as any) -
-										(product.params.RetailPrice as any)) /
-										(product.params.RetailPrice as any)) *
+									(((product.params.RetailPrice as any) -
+										(product.params.RetailPriceWithDiscount as any)) /
+										(product.params.RetailPriceWithDiscount as any)) *
 									100
 								).toFixed(0)}
 								%

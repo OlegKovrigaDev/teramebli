@@ -85,7 +85,6 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 		)
 	}
 
-	// Determine the current subcategory (if any)
 	const selectedSubcategory = subcategories?.find(
 		sub => sub.id.toString() === id
 	)
@@ -103,7 +102,6 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 				}
 			/>
 
-			{/* Remaining rendering logic for products and pagination */}
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
 					<ProductFilter title='Product Filter' />

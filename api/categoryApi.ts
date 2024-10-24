@@ -5,7 +5,7 @@ import {
 	Product,
 	ProductImage,
 } from '@/types/redux'
-import { Review } from '@/types/review'
+import { Review, ReviewForm } from '@/types/review'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const BASE_URL = 'https://teramebli-api.onrender.com/api'
@@ -68,21 +68,23 @@ export const categoryApi = createApi({
 			}),
 		}),
 		addProductReview: builder.mutation<void, Review>({
-			query: ({ name, review }) => ({
+			query: ({ offerId, name, review }) => ({
 				url: '/reviews',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
+					offerId,
 					name,
 					review,
 				}),
 			}),
 		}),
-		fetchReviewsByOfferId: builder.query<Review[], string>({
+		fetchReviewsByOfferId: builder.query<ReviewForm[], string>({
 			query: offerId => `/reviews/${offerId}`,
-			transformResponse: (response: { reviews: Review[] }) => response.reviews,
+			transformResponse: (response: { reviews: ReviewForm[] }) =>
+				response.reviews,
 		}),
 	}),
 })

@@ -1,4 +1,8 @@
 'use client'
+import {
+	useAddProductReviewMutation,
+	useFetchReviewsByOfferIdQuery,
+} from '@/api/categoryApi'
 import { Loading } from '@/components/Loading'
 import { Accord } from '@/components/shared/accord'
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
@@ -15,10 +19,14 @@ import { Label } from '@/components/ui/label'
 import { useProductData } from '@/hooks'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
+import { type } from 'os'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { date, map } from 'zod'
 
 export default function page({ params }: { params: { offerId: string } }) {
 	const { offerId } = params
+
 	const dispatch = useDispatch()
 
 	const {
@@ -30,6 +38,32 @@ export default function page({ params }: { params: { offerId: string } }) {
 		subCategory,
 		subCategoryId,
 	} = useProductData(offerId)
+
+	const [name, setName] = useState('')
+	const [reviewText, setReviewText] = useState('')
+
+	const [addReview, { isLoading: isSubmitting, isSuccess }] =
+		useAddProductReviewMutation()
+
+	const {
+		data: reviews,
+		refetch: refetchReviews,
+		isFetching: isFetchingReviews,
+	} = useFetchReviewsByOfferIdQuery(offerId)
+
+	const handleAddReview = async () => {
+		if (name.trim() && reviewText.trim()) {
+			await addReview({
+				name,
+				review: reviewText,
+				createdAt: new Date(),
+				offerId,
+			})
+			setReviewText('')
+			setName('')
+			refetchReviews()
+		}
+	}
 
 	if (isLoading) return <Loading />
 	if (error)
@@ -153,7 +187,54 @@ export default function page({ params }: { params: { offerId: string } }) {
 							className='bg-white mt-4 py-4 px-2 rounded'
 							value='feedback'
 						>
-							Відгуки та питання
+							<h3 className='text-xl font-semibold mb-2'>Залишити відгук</h3>
+							<input
+								type='text'
+								placeholder="Ваше ім'я"
+								className='w-full p-2 mb-2 border rounded'
+								value={name}
+								onChange={e => setName(e.target.value)}
+							/>
+							<textarea
+								className='w-full p-2 mb-2 border rounded'
+								rows={4}
+								placeholder='Ваш відгук'
+								value={reviewText}
+								onChange={e => setReviewText(e.target.value)}
+							/>
+							<Button
+								onClick={handleAddReview}
+								className='mt-2 bg-[#D81C1B] hover:bg-[#D81C1B]/80 text-white'
+								disabled={isSubmitting}
+							>
+								{isSubmitting ? 'Надсилання...' : 'Додати відгук'}
+							</Button>
+							{isSuccess && (
+								<p className='text-green-500 mt-2'>
+									Ваш відгук успішно додано!
+								</p>
+							)}
+
+							<div className='bg-white rounded p-4 shadow-md'>
+								<h3 className='text-xl font-semibold mb-4'>Відгуки</h3>
+								{isFetchingReviews ? (
+									<Loading />
+								) : reviews && reviews.length > 0 ? (
+									reviews.map((review, index) => (
+										<div key={index} className='py-4'>
+											<div className='mb-4'>
+												<p className='font-semibold'>{review.name}</p>
+												<p className='text-gray-500 text-sm'>
+													{review.createdAt}
+												</p>
+												<p>{review.review}</p>
+											</div>
+										</div>
+									))
+								) : (
+									<p className='text-gray-500'>Немає відгуків.</p>
+								)}
+							</div>
 						</TabsContent>
 					</Tabs>
 				</div>
@@ -163,10 +244,10 @@ export default function page({ params }: { params: { offerId: string } }) {
 							В наявності!
 						</p>
 						<p className='line-through text-[20px] font-bold'>
-							{product.params.RetailPrice} грн.
+							{product.params.RetailPriceWithDiscount} грн.
 						</p>
 						<p className='text-red-900 text-[40px] font-semibold'>
-							{product.params.RetailPriceWithDiscount} грн.
+							{product.params.RetailPrice} грн.
 						</p>
 					</div>
 					<Accord title='Варіанти товару'>
