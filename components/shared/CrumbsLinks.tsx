@@ -7,6 +7,7 @@ import {
 	BreadcrumbSeparator,
 	BreadcrumbPage,
 } from '../ui/breadcrumb'
+import { split } from 'postcss/lib/list'
 
 interface BreadcrumbProps {
 	categoryName?: string
@@ -23,6 +24,8 @@ export function CrumbsLinks({
 	subcategoryId,
 	productName,
 }: BreadcrumbProps) {
+	const trimName = (name: string) => name.split('_')[0]
+
 	return (
 		<Breadcrumb className='py-7'>
 			<BreadcrumbList className='text-lg'>
@@ -37,7 +40,9 @@ export function CrumbsLinks({
 					<>
 						<BreadcrumbItem className='text-xl'>
 							<BreadcrumbLink asChild>
-								<Link href={`/category/${categoryId}`}>{categoryName}</Link>
+								<Link href={`/category/${categoryId}`}>
+									{trimName(categoryName)}
+								</Link>
 							</BreadcrumbLink>
 						</BreadcrumbItem>
 						{subcategoryName && <BreadcrumbSeparator />}
@@ -45,15 +50,15 @@ export function CrumbsLinks({
 				)}
 
 				{subcategoryName && subcategoryId && (
-					<code>
+					<>
 						<BreadcrumbItem className='text-xl'>
 							<BreadcrumbLink asChild>
 								<Link href={`/category/${subcategoryId}`}>
-									{subcategoryName}
+									{trimName(subcategoryName)}
 								</Link>
 							</BreadcrumbLink>
 						</BreadcrumbItem>
-					</code>
+					</>
 				)}
 
 				{productName && (

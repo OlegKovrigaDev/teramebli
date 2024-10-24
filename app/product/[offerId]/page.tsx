@@ -99,8 +99,6 @@ export default function page({ params }: { params: { offerId: string } }) {
 									<div className='grid grid-cols-2 gap-4'>
 										<div className='text-gray-500'>Вид товару</div>
 										<div>{product.params['Приналежність до категорії']}</div>
-										<div className='text-gray-500'>Тип товару</div>
-										<div>?</div>
 									</div>
 								</div>
 
@@ -121,28 +119,32 @@ export default function page({ params }: { params: { offerId: string } }) {
 										<div>
 											{product.params['Габарит.розміри.Ширина(см)(сайт)']}
 										</div>
-									</div>
-								</div>
-
-								<div className='mb-6'>
-									<h3 className='text-lg font-semibold mb-2'>
-										Розміри спального місця
-									</h3>
-									<div className='grid grid-cols-2 gap-4'>
-										<div className='text-gray-500'>Тип спального місця</div>
-										<div>108</div>
+										<div className='text-gray-500'>Додатково ліжка</div>
+										<div>{product.params['Додатково ліжка(сайт ліжка)']}</div>
+										<div className='text-gray-500'>Матеріал ліжка</div>
+										<div>{product.params['Матеріал ліжка(сайт ліжка)']}</div>
+										<div className='text-gray-500'>Ніша для білизни</div>
+										<div>{product.params['Ніша для білизни(сайт ліжка)']}</div>
+										<div className='text-gray-500'>Основа під матрац</div>
+										<div>{product.params['Основа під матрац(сайт ліжка)']}</div>
+										<div className='text-gray-500'>Підйомний механізм</div>
+										<div>
+											{product.params['Підйомний механізм(сайт ліжка)']}
+										</div>
 										<div className='text-gray-500'>
 											Ширина спального місця (см)
 										</div>
-										<div>240</div>
+										<div>
+											{product.params['Роз.спал.місц.ширина(см)(сайт)']}
+										</div>
 										<div className='text-gray-500'>
 											Довжина спального місця (см)
 										</div>
-										<div>240</div>
-										<div className='text-gray-500'>
-											Розташування спального місця
+										<div>
+											{product.params['Розм.спал.місц.Довжина(см)(сайт)']}
 										</div>
-										<div>240</div>
+										<div className='text-gray-500'>Тип ліжка</div>
+										<div>{product.params['Тип ліжка(сайт ліжка)']}</div>
 									</div>
 								</div>
 							</div>

@@ -72,7 +72,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 		products,
 		totalPages,
 		currentPage,
-		parentCategory,
+		subcategories,
 		setPage,
 	} = useCategoryData(id)
 
@@ -84,17 +84,25 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 		)
 	}
 
+	// Determine the current subcategory (if any)
+	const selectedSubcategory = subcategories?.find(
+		sub => sub.id.toString() === id
+	)
+
 	return (
 		<div className='mb-[75px]'>
 			<CrumbsLinks
-				categoryName={parentCategory ? parentCategory.name : category?.name}
-				categoryId={
-					parentCategory
-						? parentCategory.id.toString()
-						: category?.id.toString()
+				categoryName={category?.name}
+				categoryId={category?.id.toString()}
+				subcategoryName={
+					selectedSubcategory ? selectedSubcategory.name : undefined
+				}
+				subcategoryId={
+					selectedSubcategory ? selectedSubcategory.id.toString() : undefined
 				}
 			/>
 
+			{/* Remaining rendering logic for products and pagination */}
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
 					<ProductFilter title='Product Filter' />

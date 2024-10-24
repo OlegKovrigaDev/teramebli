@@ -1,7 +1,7 @@
-'use client'
 import {
 	useFetchCategoryByIdQuery,
 	useFetchCategoryWithProductsQuery,
+	useFetchSubcategoriesQuery,
 } from '@/api/categoryApi'
 import { Product } from '@/types/redux'
 import { useState } from 'react'
@@ -26,21 +26,21 @@ export const useCategoryData = (id: string) => {
 		error: categoryError,
 	} = useFetchCategoryByIdQuery(Number(id), { skip: !id })
 
-	if (isLoading || categoryLoading) {
+	const parentId = categoryDetails?.parentId
+	const {
+		data: subcategories,
+		isLoading: subcategoriesLoading,
+		error: subcategoriesError,
+	} = useFetchSubcategoriesQuery(parentId ?? 0, { skip: !parentId })
+
+	if (isLoading || categoryLoading || subcategoriesLoading) {
 		return { status: 'loading', message: 'Загрузка продуктов...', setPage }
 	}
-	if (error) {
+	if (error || categoryError || subcategoriesError) {
 		return {
 			status: 'error',
-			message: `Ошибка при загрузке продуктов: ${JSON.stringify(error)}`,
-			setPage,
-		}
-	}
-	if (categoryError) {
-		return {
-			status: 'error',
-			message: `Ошибка при загрузке категории: ${JSON.stringify(
-				categoryError
+			message: `Ошибка при загрузке данных: ${JSON.stringify(
+				error || categoryError || subcategoriesError
 			)}`,
 			setPage,
 		}
@@ -64,8 +64,6 @@ export const useCategoryData = (id: string) => {
 
 	const totalPages = Math.ceil(filteredProducts.length / limit)
 	const currentPage = page
-	const parentId = categoryDetails.parentId
-	const parentCategory = parentId ? categoryDetails : null
 
 	return {
 		status: 'success',
@@ -73,7 +71,7 @@ export const useCategoryData = (id: string) => {
 		products: paginatedProducts,
 		totalPages,
 		currentPage,
-		parentCategory,
+		subcategories,
 		setPage,
 		isFetching,
 	}
