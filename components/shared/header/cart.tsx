@@ -15,6 +15,7 @@ import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { CartForm } from './cart-form'
 import { CartProduct } from './cart-product'
 
 export const Cart = () => {
@@ -77,6 +78,12 @@ export const Cart = () => {
 									<Link href='/order'>Оформити замовлення</Link>
 								</Button>
 							</div>
+						</div>
+						<div className='p-4 bg-bg'>
+							<h3 className='text-xl font-bold mb-4'>
+								Швидке оформлення замовлення
+							</h3>
+							<CartForm />
 						</div>
 					</div>
 				</DialogFooter>
