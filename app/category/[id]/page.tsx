@@ -6,7 +6,6 @@ import { ProductFilter } from '@/components/shared/product/ProductFilter'
 import { useCategoryData } from '@/hooks'
 import { useProductSearch } from '@/hooks/useProductSearch'
 import { Product } from '@/types/redux'
-import { error } from 'console'
 import { useSearchParams } from 'next/navigation'
 
 export default function CategoryId({ params }: { params: { id: string } }) {

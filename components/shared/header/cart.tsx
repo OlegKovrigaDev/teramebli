@@ -13,7 +13,7 @@ import { header } from '@/constants'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { CartProduct } from './cart-product'
 
@@ -21,6 +21,11 @@ export const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
 	const cartTotal = useSelector(selectCartTotal)
 	const [open, setOpen] = useState(false)
+	const [isMounted, setIsMounted] = useState(false)
+
+	useEffect(() => {
+		setIsMounted(true)
+	}, [])
 
 	const handleClose = () => {
 		setOpen(false)
@@ -28,12 +33,9 @@ export const Cart = () => {
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger
-				className='relative cart-trigger'
-				onClick={() => setOpen(true)}
-			>
+			<DialogTrigger className='relative cart-trigger' aria-label='Open cart'>
 				<ShoppingCart />
-				{cartItems.length > 0 && (
+				{isMounted && cartItems.length > 0 && (
 					<span className='absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full'>
 						{cartItems.length}
 					</span>
@@ -67,13 +69,15 @@ export const Cart = () => {
 									Продовжити покупки
 								</Button>
 
-								<Button
-									onClick={handleClose}
-									disabled={cartItems.length === 0}
-									className='bg-gray rounded-xl'
-								>
-									<Link href='/order'>Оформити замовлення</Link>
-								</Button>
+								<Link href='/order' passHref>
+									<Button
+										disabled={cartItems.length === 0}
+										className='bg-gray rounded-xl'
+										onClick={handleClose}
+									>
+										Оформити замовлення
+									</Button>
+								</Link>
 							</div>
 						</div>
 					</div>
