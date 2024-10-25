@@ -7,19 +7,35 @@ import { CartItem, OrderFormData } from '@/types/cart'
 export const useSubmitOrder = (cartItems: CartItem[], total: number) => {
 	const [submitOrder, { isError, isSuccess, error }] = useSubmitOrderMutation()
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [notification, setNotification] = useState<{
+		message: string
+		type: 'success' | 'error'
+	} | null>(null)
 	const dispatch = useDispatch()
 
-	const submit = async (form: OrderFormData) => {
+	const submit = async (form: OrderFormData, resetForm: () => void) => {
 		setIsSubmitting(true)
 		try {
 			await submitOrder({ form, cartItems, total }).unwrap()
 			dispatch(clearCart())
+			resetForm()
+			setNotification({
+				message: 'Order submitted successfully!',
+				type: 'success',
+			})
 		} catch (e) {
-			'Error submitting order: ' + (e as Error).message || 'Unknown error'
+			setNotification({
+				message:
+					'Error submitting order: ' +
+					((e as Error).message || 'Unknown error'),
+				type: 'error',
+			})
 		} finally {
 			setIsSubmitting(false)
 		}
 	}
+
+	const closeNotification = () => setNotification(null)
 
 	return {
 		isSubmitting,
@@ -27,5 +43,7 @@ export const useSubmitOrder = (cartItems: CartItem[], total: number) => {
 		isError,
 		error,
 		submit,
+		notification,
+		closeNotification,
 	}
 }
