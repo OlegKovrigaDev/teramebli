@@ -9,6 +9,9 @@ import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import { Gallery } from '@/components/shared/gallery'
 import {
 	Button,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
 	Tabs,
 	TabsContent,
 	TabsList,
@@ -19,10 +22,8 @@ import { Label } from '@/components/ui/label'
 import { useProductData } from '@/hooks'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
-import { type } from 'os'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { date, map } from 'zod'
 
 export default function page({ params }: { params: { offerId: string } }) {
 	const { offerId } = params
@@ -187,47 +188,58 @@ export default function page({ params }: { params: { offerId: string } }) {
 							className='bg-white mt-4 py-4 px-2 rounded'
 							value='feedback'
 						>
-							<h3 className='text-xl font-semibold mb-2'>Залишити відгук</h3>
-							<input
-								type='text'
-								placeholder="Ваше ім'я"
-								className='w-full p-2 mb-2 border rounded'
-								value={name}
-								onChange={e => setName(e.target.value)}
-							/>
-							<textarea
-								className='w-full p-2 mb-2 border rounded'
-								rows={4}
-								placeholder='Ваш відгук'
-								value={reviewText}
-								onChange={e => setReviewText(e.target.value)}
-							/>
-							<Button
-								onClick={handleAddReview}
-								className='mt-2 bg-[#D81C1B] hover:bg-[#D81C1B]/80 text-white'
-								disabled={isSubmitting}
-							>
-								{isSubmitting ? 'Надсилання...' : 'Додати відгук'}
-							</Button>
-							{isSuccess && (
-								<p className='text-green-500 mt-2'>
-									Ваш відгук успішно додано!
-								</p>
-							)}
+							<Popover>
+								<div className='flex justify-end'>
+									<PopoverTrigger className='rounded-xl border-2 border-gray text-gray py-2 px-5 mb-6'>
+										Залишити відгук
+									</PopoverTrigger>
+								</div>
+								<PopoverContent className='w-96 absolute -right-24'>
+									<input
+										type='text'
+										placeholder="Ваше ім'я"
+										className='w-full p-2 mb-2 border rounded'
+										value={name}
+										onChange={e => setName(e.target.value)}
+									/>
+									<textarea
+										className='w-full p-2 mb-2 border rounded'
+										rows={4}
+										placeholder='Ваш відгук'
+										value={reviewText}
+										onChange={e => setReviewText(e.target.value)}
+									/>
+									<Button
+										onClick={handleAddReview}
+										className='mt-2 bg-gray text-white'
+										disabled={isSubmitting}
+									>
+										{isSubmitting ? 'Надсилання...' : 'Додати відгук'}
+									</Button>
+									{isSuccess && (
+										<p className='text-green-500 mt-2'>
+											Ваш відгук успішно додано!
+										</p>
+									)}
+								</PopoverContent>
+							</Popover>
 
-							<div className='bg-white rounded p-4 shadow-md'>
-								<h3 className='text-xl font-semibold mb-4'>Відгуки</h3>
+							<div className='bg-white space-y-6'>
 								{isFetchingReviews ? (
 									<Loading />
 								) : reviews && reviews.length > 0 ? (
 									reviews.map((review, index) => (
-										<div key={index} className='py-4'>
-											<div className='mb-4'>
-												<p className='font-semibold'>{review.name}</p>
-												<p className='text-gray-500 text-sm'>
+										<div key={index}>
+											<div className='p-4 mb-4 bg-bg/60'>
+												<p className='font-semibold text-[18px]'>
+													{review.name}
+												</p>
+												<p className='text-gray text-xs font-semibold mb-4'>
 													{review.createdAt}
 												</p>
-												<p>{review.review}</p>
+												<p className='font-semibold text-[18px] text-gray'>
+													{review.review}
+												</p>
 											</div>
 										</div>
 									))

@@ -114,9 +114,9 @@ export const home = {
 			{ title: 'Кухні', linkId: 44, image: '/Categories/Cat1.jpg' },
 			{ title: 'Шафи', linkId: 39, image: '/Categories/Cat2.jpg' },
 			{ title: 'Столи', linkId: 33, image: '/Categories/Cat3.jpg' },
-			{ title: 'Ліжка', linkId: 1, image: '/Categories/Cat2.jpg' },
-			{ title: 'Дивани', linkId: 4, image: '/Categories/Cat1.jpg' },
-			{ title: 'Комоди і тумби', linkId: 17, image: '/Categories/Cat3.jpg' },
+			{ title: 'Ліжка', linkId: 1, image: '/Categories/Cat4.jpg' },
+			{ title: 'Дивани', linkId: 4, image: '/Categories/Cat6.jpg' },
+			{ title: 'Комоди і тумби', linkId: 17, image: '/Categories/Cat5.jpg' },
 		],
 	},
 	hero: {

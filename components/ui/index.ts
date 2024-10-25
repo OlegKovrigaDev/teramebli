@@ -38,6 +38,7 @@ export {
 	FormLabel,
 	FormMessage,
 } from './form'
+export { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 export { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card'
 export { Input } from './input'
