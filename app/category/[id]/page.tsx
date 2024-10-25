@@ -1,7 +1,7 @@
 'use client'
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import Pagination from '@/components/shared/Pagination'
-import { ProductCard } from '@/components/shared/product/ProductCard'
+import { ProductCard } from '@/components/shared/product/ProductCart'
 import { ProductFilter } from '@/components/shared/product/ProductFilter'
 import { useCategoryData } from '@/hooks'
 import { useProductSearch } from '@/hooks/useProductSearch'

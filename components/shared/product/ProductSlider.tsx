@@ -5,8 +5,8 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from '@/components/ui/carousel'
-import { ProductCard } from './ProductCard'
 import { Product } from '@/types/redux'
+import { ProductCard } from './ProductCart'
 
 export const ProductSlider = ({ arr }: { arr: Product[] }) => {
 	return (

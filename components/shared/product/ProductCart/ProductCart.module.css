@@ -1,0 +1,38 @@
+.card {
+	@apply flex flex-col justify-between rounded-none h-[288px] md:h-[425px] w-[158px] md:w-[235px] hover:shadow-xl  transition-shadow duration-300 relative p-2;
+}
+.action {
+	@apply rounded-lg absolute bg-[#F34E69] hover:bg-[#F34E69];
+}
+.hit {
+	@apply rounded-lg absolute top-7 bg-[#F9895E] hover:bg-[#F9895E];
+}
+.container {
+	@apply size-[142px] md:size-[217px] bg-accent rounded-lg;
+}
+.title {
+	@apply text-[18px] line-clamp-3 h-20;
+}
+.content {
+	@apply flex justify-between p-0 mb-6;
+}
+.instock {
+	@apply text-green text-xs font-semibold;
+}
+.code {
+	@apply text-gray/40 text-xs;
+}
+
+.footer {
+	@apply p-0 flex flex-col items-start;
+}
+.discont {
+	@apply line-through font-medium;
+}
+.price {
+	@apply text-red-800 text-[20px] font-bold;
+}
+
+.cart {
+	@apply absolute right-0 bottom-0;
+}

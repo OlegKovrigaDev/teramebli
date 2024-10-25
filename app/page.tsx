@@ -12,15 +12,15 @@ export default function Home() {
 	return (
 		<>
 			<Hero />
-			<Advantages />
-			<Categories />
-			<Ethaps />
-			<Section title={home.interesrProduct.title}>
-				<ProductSlider arr={randomProducts} />
-			</Section>
 			<Section title={home.newProduct.title}>
 				<ProductSlider arr={randomProducts2} />
 			</Section>
+			<Ethaps />
+			<Categories />
+			<Section title={home.interesrProduct.title}>
+				<ProductSlider arr={randomProducts} />
+			</Section>
+			<Advantages />
 		</>
 	)
 }

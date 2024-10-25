@@ -1,0 +1,16 @@
+.list {
+	@apply grid grid-cols-2 gap-2 lg:gap-4;
+}
+.item {
+	@apply relative col-span-1 h-16 lg:h-auto;
+}
+.item:nth-child(1),
+.item:nth-child(5) {
+	@apply row-span-2 h-[136px] lg:h-auto;
+}
+.img {
+	@apply w-full h-full;
+}
+.title {
+	@apply absolute left-4 bottom-4 py-1 px-2 lg:px-4 bg-bg/80 rounded font-bold text-xs lg:text-xl text-gray;
+}

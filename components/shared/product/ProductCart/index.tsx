@@ -8,12 +8,12 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
-import { useFetchImages } from '@/hooks/useFetchImages'
 import { addToCart } from '@/store/cartSlice'
 import { ProductCardProps } from '@/types/redux'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
+import css from './ProductCart.module.css'
 
 export const ProductCard = ({ product }: ProductCardProps) => {
 	// const { img } = useFetchImages(product.offerId)
@@ -39,13 +39,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	}
 
 	return (
-		<Card className='product-card'>
-			<Link key={product.offerId} href={`/product/${product.offerId}`}>
+		<Card className={css.card}>
+			<Link
+				key={product.offerId}
+				href={`/product/${product.offerId}`}
+				className='h-full'
+			>
 				<CardHeader className='p-0'>
 					<div className='relative'>
-						<Badge className='badge-action'>Акція</Badge>
-						<Badge className='badge-hit'>Хіт</Badge>
-						<div className='img-container'>
+						<Badge className={css.action}>Акція</Badge>
+						<Badge className={css.hit}>Хіт</Badge>
+						<div className={css.container}>
 							{/* {img ? (
 								<img
 									src={`data:image/jpeg;base64,${img.buffer}`}
@@ -61,19 +65,21 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							)} */}
 						</div>
 					</div>
-					<CardTitle className='title'>{product.params.ModelName}</CardTitle>
+					<CardTitle className={css.title}>
+						{product.params.ModelName}
+					</CardTitle>
 				</CardHeader>
-				<CardContent className='product-card-content'>
-					<p className='product-in-stock'>● В наявності</p>
+				<CardContent className={css.content}>
+					<p className={css.instock}>● В наявності</p>
 					{product.params.Articul && (
-						<p className='product-code'>Код товару: {product.params.Articul}</p>
+						<p className={css.code}>Код товару: {product.params.Articul}</p>
 					)}
 				</CardContent>
-				<CardFooter className='product-card-footer'>
+				<CardFooter className={css.footer}>
 					{product.params.RetailPrice !==
 						product.params.RetailPriceWithDiscount && (
 						<div className='flex gap-2'>
-							<p className='new-price'>
+							<p className={css.discont}>
 								{product.params.RetailPriceWithDiscount} грн.
 							</p>
 							<Badge className='rounded-lg bg-red-800 hover:bg-red-800'>
@@ -88,13 +94,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							</Badge>
 						</div>
 					)}
-					<p className='old-price'>{product.params.RetailPrice} грн.</p>
+					<p className={css.price}>{product.params.RetailPrice} грн.</p>
 				</CardFooter>
 			</Link>
 			<Button
 				variant='ghost'
 				size='icon'
-				className='cart'
+				className={css.cart}
 				onClick={handleAddToCart}
 			>
 				<ShoppingCart />

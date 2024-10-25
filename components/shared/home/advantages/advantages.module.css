@@ -1,0 +1,18 @@
+.list {
+	@apply flex flex-col lg:flex-row flex-wrap gap-8 justify-evenly;
+}
+.item {
+	@apply flex items-start gap-1 lg:w-[384px] lg:flex-row;
+}
+.img {
+	@apply text-red-800 w-14 lg:w-auto;
+}
+.content {
+	@apply flex flex-col gap-1;
+}
+.title {
+	@apply font-bold lg:text-xl;
+}
+.text {
+	@apply text-gray text-[10px] lg:text-[16px] font-medium;
+}

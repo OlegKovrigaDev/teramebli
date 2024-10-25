@@ -28,6 +28,7 @@ export const Footer = () => (
 					{info && (
 						<List
 							items={info}
+							className='info-list'
 							renderItem={({ text, link }) => <Link href={link}>{text}</Link>}
 						/>
 					)}
@@ -36,7 +37,7 @@ export const Footer = () => (
 							items={socials}
 							className='social-list'
 							renderItem={({ icon: Icon, link }) => (
-								<Link href={link} className='social-list-link'>
+								<Link href={link} target='_blank' className='social-list-link'>
 									<Icon size={24} />
 								</Link>
 							)}

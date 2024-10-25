@@ -16,22 +16,6 @@
 	animation: marquee 40s linear infinite;
 }
 
-.counter {
-	counter-reset: myCounter;
-	& li {
-		position: relative;
-		&:before {
-			content: counter(myCounter);
-			counter-increment: myCounter;
-			position: absolute;
-			top: -50px;
-			left: -30px;
-			font-size: 128px;
-			font-weight: 800;
-		}
-	}
-}
-
 @layer base {
 	:root {
 		--radius: 0.5rem;
@@ -54,7 +38,7 @@ body {
 	@apply font-semibold text-xl mb-4;
 }
 .h2-title-lg {
-	@apply font-semibold text-[40px] text-black mb-10;
+	@apply font-semibold text-xl md:text-[40px] text-black mb-4 md:mb-10;
 }
 
 .sidebar {
@@ -83,100 +67,12 @@ body {
 	@apply flex mt-6 pb-0;
 }
 
-.ethaps-list {
-	@apply flex flex-col md:flex-row gap-8;
-}
-.ethaps-item {
-	@apply flex flex-col flex-1 before:text-red-900/40;
-}
-.ethaps-title {
-	@apply font-bold text-lg sm:text-xl;
-}
-.ethaps-text {
-	@apply text-gray;
-}
-
-.categories-list {
-	@apply grid grid-cols-1 md:grid-cols-2 gap-4;
-}
-.categories-item {
-	@apply relative col-span-1;
-}
-.categories-item:nth-child(1),
-.categories-item:nth-child(5) {
-	@apply row-span-2;
-}
-.categories-img {
-	@apply w-full;
-}
-.categories-title {
-	@apply absolute left-4 bottom-4 py-1 px-4 bg-bg/80 rounded font-bold text-xl text-gray;
-}
-
-.advantages-list {
-	@apply flex flex-wrap gap-8 justify-evenly;
-}
-.advantages-item {
-	@apply flex flex-col gap-1 w-[250px] lg:w-[384px] lg:flex-row;
-}
-.advantages-img {
-	@apply text-red-800;
-}
-.advantages-content {
-	@apply flex flex-col gap-1;
-}
-.advantages-title {
-	@apply font-bold text-xl;
-}
-.advantages-text {
-	@apply text-gray;
-}
-
-.sidebar-list {
-	@apply w-full max-w-full max-h-[80vh] flex flex-col gap-4 p-1;
-}
-.sidebar-item {
-	@apply flex flex-col;
-}
-.sidebar-content {
-	@apply flex items-center gap-2 transition;
-}
-.sidebar-icon {
-	@apply size-6 bg-accent rounded-full;
-}
-.sidebar-text {
-	@apply text-base font-medium;
-}
-
-.hero {
-	@apply mt-8 flex justify-between max-h-[432px];
-}
-.hero-left {
-	@apply desktop min-w-72;
-}
-
-.slider-container {
-	@apply p-1 relative z-0;
-}
-.slider-image {
-	@apply w-full h-[432px] object-cover bg-accent rounded-md;
-}
-.slider-text {
-	@apply font-semibold text-2xl absolute z-10 left-8 bottom-8 right-6 bg-black bg-opacity-50 text-white rounded py-1 px-2 md:py-2 md:px-4 max-w-lg;
-}
-.slider-prev {
-	@apply absolute left-2;
-}
-.slider-next {
-	@apply absolute right-2;
-}
-
 .section-md {
 	@apply mb-8;
 }
 
 .section-lg {
-	@apply my-16;
+	@apply mt-8 mb-8 md:my-16;
 }
 
 .logo {
@@ -275,22 +171,23 @@ body {
 	@apply bg-accent text-gray;
 }
 .footer-container {
-	@apply container mx-auto flex flex-col md:flex-row md:justify-between items-center md:items-start pt-8 pb-14 text-center md:text-left;
+	@apply container mx-auto flex flex-col md:flex-row md:justify-between items-center md:items-start pt-4 pb-5 md:pt-8 md:pb-14 text-center md:text-left;
 }
-.footer-content {
-	@apply mb-6 md:mb-0;
-}
+
 .footer-title {
-	@apply font-semibold text-2xl mb-1;
+	@apply font-semibold text-2xl mb-1 hidden md:flex;
 }
 .footer .contact-list {
-	@apply flex flex-col gap-1 md:w-96;
+	@apply hidden md:flex flex-col gap-1 md:w-96;
 }
 .footer .contact-list-container {
 	@apply flex flex-col md:flex-row justify-between;
 }
 .footer .contact-list-paragraph {
 	@apply space-y-1 max-w-44;
+}
+.footer .info-list {
+	@apply hidden md:flex;
 }
 .footer .social-list {
 	@apply flex justify-center md:justify-start gap-4 pt-4;
@@ -333,42 +230,4 @@ body {
 }
 .about p {
 	@apply mt-6;
-}
-
-.product-card {
-	@apply flex flex-col justify-between rounded-none h-[288px] md:h-[425px] w-[158px] md:w-[235px] hover:shadow-xl  transition-shadow duration-300 relative p-2;
-}
-.product-card .badge-action {
-	@apply rounded-lg absolute bg-[#F34E69] hover:bg-[#F34E69];
-}
-.product-card .badge-hit {
-	@apply rounded-lg absolute top-7 bg-[#F9895E] hover:bg-[#F9895E];
-}
-.product-card .img-container {
-	@apply size-[142px] md:size-[217px] bg-accent rounded-lg;
-}
-.product-card .title {
-	@apply text-[18px] line-clamp-3 h-20;
-}
-.product-card-content {
-	@apply flex justify-between p-0 mb-6;
-}
-.product-card-content .product-in-stock {
-	@apply text-green text-xs font-semibold;
-}
-.product-card-content .product-code {
-	@apply text-gray/40 text-xs;
-}
-
-.product-card-footer {
-	@apply p-0 flex flex-col items-start;
-}
-.product-card-footer .new-price {
-	@apply line-through font-medium;
-}
-.product-card-footer .old-price {
-	@apply text-red-800 text-[20px] font-bold;
-}
-.cart {
-	@apply absolute right-0 bottom-0;
 }

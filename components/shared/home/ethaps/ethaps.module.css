@@ -1,0 +1,21 @@
+.list {
+	counter-reset: myCounter;
+	& li {
+		position: relative;
+		&:before {
+			content: counter(myCounter);
+			counter-increment: myCounter;
+			@apply absolute top-6 lg:top-4 -left-3 lg:-left-8 text-6xl lg:text-9xl font-extrabold;
+		}
+	}
+	@apply flex flex-col lg:flex-row gap-8;
+}
+.item {
+	@apply flex flex-col flex-1 before:text-red-900/40;
+}
+.title {
+	@apply font-bold text-lg sm:text-xl;
+}
+.text {
+	@apply text-gray text-[10px] lg:text-[16px] font-medium;
+}

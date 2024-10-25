@@ -216,11 +216,6 @@ export default function page({ params }: { params: { offerId: string } }) {
 									>
 										{isSubmitting ? 'Надсилання...' : 'Додати відгук'}
 									</Button>
-									{isSuccess && (
-										<p className='text-green-500 mt-2'>
-											Ваш відгук успішно додано!
-										</p>
-									)}
 								</PopoverContent>
 							</Popover>
 

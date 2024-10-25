@@ -1,0 +1,19 @@
+.hero-left {
+	@apply hidden md:flex min-w-72;
+}
+
+.sidebar-list {
+	@apply w-full max-w-full max-h-[80vh] flex flex-col gap-4 p-1;
+}
+.sidebar-item {
+	@apply flex flex-col;
+}
+.sidebar-content {
+	@apply flex items-center gap-2 transition;
+}
+.sidebar-icon {
+	@apply size-6 bg-accent rounded-full;
+}
+.sidebar-text {
+	@apply text-base font-medium;
+}

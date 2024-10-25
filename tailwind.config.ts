@@ -10,9 +10,9 @@ const config: Config = {
 	theme: {
 		container: {
 			padding: {
-				DEFAULT: '1rem',
-				sm: '2rem',
-				lg: '2rem',
+				DEFAULT: '16',
+				/* sm: '2rem',
+				lg: '2rem', */
 			},
 			screens: {
 				md: '768px',
