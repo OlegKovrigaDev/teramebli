@@ -16,14 +16,10 @@ import {
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { map, string, z } from 'zod'
+import { z } from 'zod'
 import { useSubmitOrder } from '@/hooks/useSubmitOrder'
-import { render } from 'react-dom'
-import { text } from 'stream/consumers'
-import { delivery, payment } from '@/constants'
 
 const formSchema = z.object({
 	firstName: z.string().min(2).max(50),
@@ -82,7 +78,7 @@ export default function Order() {
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		console.log(values)
-		await submit(values)
+		await submit(values, form.reset)
 	}
 
 	return (
