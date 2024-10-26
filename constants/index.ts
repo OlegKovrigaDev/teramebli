@@ -1,65 +1,5 @@
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa6'
 
-export const products = [
-	{
-		img: '/slide1-min.jpg',
-		title: 'Двоярусне ліжко "Аляска" від MebiGrand',
-		oldPrice: '90000',
-		newPrice: '100000',
-		hit: true,
-		discont: true,
-		newProduct: false,
-	},
-	{
-		img: '/slide2-min.jpg',
-		title: 'Двоспальне ліжко «Прованс»',
-		oldPrice: '19000',
-		newPrice: '20000',
-		hit: true,
-		discont: false,
-		newProduct: true,
-	},
-	{
-		img: '/slide3-min.jpg',
-		title: 'Елегантне та стильне ліжко "Верона" від фабрики UMa Ursa Major',
-		oldPrice: '29000',
-		newPrice: '30000',
-		hit: false,
-		discont: true,
-		newProduct: true,
-	},
-	{
-		img: '/slide4-min.jpg',
-		title: 'Елегантне та стильне ліжко "Монро"',
-		oldPrice: '39000',
-		newPrice: '40000',
-	},
-	{
-		img: '/slide1-min.jpg',
-		title: 'Двоярусне ліжко "Аляска" від MebiGrand2',
-		oldPrice: '49000',
-		newPrice: '50000',
-	},
-	{
-		img: '/slide2-min.jpg',
-		title: 'Двоспальне ліжко «Прованс»2',
-		oldPrice: '59000',
-		newPrice: '60000',
-	},
-	{
-		img: '/slide3-min.jpg',
-		title: 'Елегантне та стильне ліжко "Верона" від фабрики UMa Ursa Major2',
-		oldPrice: '69000',
-		newPrice: '70000',
-	},
-	{
-		img: '/slide4-min.jpg',
-		title: 'Елегантне та стильне ліжко "Монро"2',
-		oldPrice: '79000',
-		newPrice: '80000',
-	},
-]
-
 export const home = {
 	ethaps: {
 		title: 'Етапи покупки',
@@ -427,5 +367,44 @@ export const about = {
 				'"Тера Меблі" – це не просто магазин, це місце, де кожен знайде свій ідеальний предмет інтер\'єру. Зробіть свій вибір на користь якості, комфорту та вигідних цін разом із нами!',
 			],
 		},
+	],
+}
+
+export const orders = [
+	{ label: 'Введіть своє ім’я', placeholder: 'Ім’я', name: 'firstName' },
+	{ label: 'Введіть своє прізвище', placeholder: 'Прізвище', name: 'lastName' },
+	{
+		label: 'Введіть свій номер телефона',
+		placeholder: '+380...',
+		name: 'phone',
+	},
+	{
+		label: 'Введіть свою електорнну пошту',
+		placeholder: 'tera_mebly@gmail.com',
+		name: 'email',
+	},
+	{ label: 'Населений пункт', placeholder: 'Київ', name: 'city' },
+	{ label: 'Вулиця', placeholder: 'вул. Шевченка', name: 'street' },
+	{ label: 'Будинок', placeholder: '1', name: 'house' },
+	{
+		label: 'Квартира/ Офіс',
+		placeholder: '12',
+		name: 'apartment',
+		optional: true,
+	},
+]
+
+export const radioOptions = {
+	delivery: [
+		{ label: 'Доставка по місту', value: 'cityDelivery' },
+		{ label: 'Самовивіз', value: 'pickup' },
+		{ label: 'Нова пошта', value: 'novaPoshta' },
+		{ label: 'Meest', value: 'meest' },
+	],
+	payment: [
+		{ label: 'Готівкою', value: 'cash' },
+		{ label: 'Карткою', value: 'card' },
+		{ label: 'Безготівковий розрахунок', value: 'nonCash' },
+		{ label: 'Кредит/Розстрочка', value: 'credit' },
 	],
 }

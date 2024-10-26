@@ -20,14 +20,12 @@ export const useSubmitOrder = (cartItems: CartItem[], total: number) => {
 			dispatch(clearCart())
 			resetForm()
 			setNotification({
-				message: 'Order submitted successfully!',
+				message: 'Замовлення успішно відправлено',
 				type: 'success',
 			})
 		} catch (e) {
 			setNotification({
-				message:
-					'Error submitting order: ' +
-					((e as Error).message || 'Unknown error'),
+				message: 'Помилка відправки замовлення ' + (e as Error).message,
 				type: 'error',
 			})
 		} finally {

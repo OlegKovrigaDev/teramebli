@@ -6,8 +6,8 @@ import { home } from '@/constants'
 import { useRandomProducts } from '@/hooks/useRandomProducts'
 
 export default function Home() {
-	const { randomProducts } = useRandomProducts(1, 50)
-	const { randomProducts: randomProducts2 } = useRandomProducts(1, 50)
+	const { randomProducts } = useRandomProducts(1, 30)
+	const { randomProducts: randomProducts2 } = useRandomProducts(1, 30)
 
 	return (
 		<>

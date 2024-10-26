@@ -7,12 +7,12 @@ const getRandomProducts = (products: Product[], count: number): Product[] => {
 	return shuffled.slice(0, count)
 }
 
-export const useRandomProducts = (categoryId: number, limit: number = 25) => {
-	const randomNumber = Math.floor(Math.random() * 10) + 1
+export const useRandomProducts = (categoryId: number, limit: number = 30) => {
+	const randomNumber = Math.floor(Math.random() * 9) + 1
 	const { data, error, isLoading } = useFetchCategoryWithProductsQuery({
-		categoryId: randomNumber,
-		page: 1,
-		limit: 100,
+		categoryId: categoryId + randomNumber,
+		page: 2,
+		limit: 30,
 	})
 
 	const randomProducts = useMemo(() => {

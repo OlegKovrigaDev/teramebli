@@ -14,12 +14,14 @@ export interface CartState {
 
 export interface OrderFormData {
 	firstName: string
-	lastName?: string
+	lastName: string
 	phone: string
-	email?: string
-	city?: string
-	street?: string
-	house?: string
+	email: string
+	city: string
+	street: string
+	house: string
 	apartment?: string
 	comment?: string
+	delivery: string
+	payment: string
 }

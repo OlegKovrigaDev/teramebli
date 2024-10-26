@@ -8,14 +8,14 @@ type NotificationProps = {
 
 const Notification = ({ message, type, onClose }: NotificationProps) => {
 	useEffect(() => {
-		const timer = setTimeout(onClose, 3000)
+		const timer = setTimeout(onClose, 5000)
 		return () => clearTimeout(timer)
 	}, [onClose])
 
 	return (
 		<div
 			className={`fixed top-4 right-4 p-4 rounded shadow-lg ${
-				type === 'success' ? 'bg-green-500' : 'bg-red-500'
+				type === 'success' ? 'bg-green' : 'bg-red-500'
 			} text-white`}
 		>
 			{message}

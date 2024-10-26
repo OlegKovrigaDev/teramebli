@@ -20,41 +20,15 @@ import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useSubmitOrder } from '@/hooks/useSubmitOrder'
-
-const formSchema = z.object({
-	firstName: z.string().min(2).max(50),
-	lastName: z.string().min(2).max(50),
-	phone: z.string().min(10, 'Invalid phone number').max(15),
-	email: z.string().email('Invalid email address'),
-	city: z.string().min(2).max(50),
-	street: z.string().min(2).max(100),
-	house: z.string().min(1).max(10),
-	apartment: z.string().optional(),
-	comment: z.string().optional(),
-	delivery: z.string().nonempty('Delivery method is required'),
-	payment: z.string().nonempty('Payment method is required'),
-})
-
-const order = [
-	{ label: 'Введіть своє ім’я', placeholder: 'Ім’я', name: 'firstName' },
-	{ label: 'Введіть своє прізвище', placeholder: 'Прізвище', name: 'lastName' },
-	{ label: 'Введіть свій номер телефона', placeholder: '+380', name: 'phone' },
-	{
-		label: 'Введіть свою електорнну пошту',
-		placeholder: 'tera_mebly@gmail.com',
-		name: 'email',
-	},
-	{ label: 'Населений пункт', placeholder: 'Одеса', name: 'city' },
-	{ label: 'Вулиця', placeholder: 'вул.Любомирська', name: 'street' },
-	{ label: 'Будинок', placeholder: '163', name: 'house' },
-	{ label: 'Квартира/ Офіс', placeholder: '23', name: 'apartment' },
-]
+import { orders, radioOptions } from '@/constants'
+import { formSchema } from '@/components/shared/order/formSchema'
+import Notification from '@/components/notification'
 
 export default function Order() {
 	const cartItems = useSelector(selectCartItems)
 	const cartTotal = useSelector(selectCartTotal)
 
-	const { submit, isSubmitting, isError, error, isSuccess } = useSubmitOrder(
+	const { submit, notification, closeNotification } = useSubmitOrder(
 		cartItems,
 		cartTotal
 	)
@@ -90,7 +64,7 @@ export default function Order() {
 				<div className='w-[630px] flex flex-col gap-8'>
 					<div className='bg-white flex justify-between py-4 px-2'>
 						<div className='w-[296px]'>
-							{order.slice(0, 4).map((item, index) => (
+							{orders.slice(0, 4).map((item, index) => (
 								<FormField
 									key={index}
 									control={form.control}
@@ -114,7 +88,7 @@ export default function Order() {
 							))}
 						</div>
 						<div className='w-[296px]'>
-							{order.slice(4, 6).map((item, index) => (
+							{orders.slice(4, 6).map((item, index) => (
 								<FormField
 									key={index}
 									control={form.control}
@@ -137,7 +111,7 @@ export default function Order() {
 								/>
 							))}
 							<div className='flex gap-4'>
-								{order.slice(6, 8).map((item, index) => (
+								{orders.slice(6, 8).map((item, index) => (
 									<FormField
 										key={index}
 										control={form.control}
@@ -179,13 +153,11 @@ export default function Order() {
 												defaultValue={field.value}
 												className='flex flex-col space-y-1'
 											>
-												{[
-													{ text: 'Доставка по місту', value: 'val1' },
-													{ text: 'Самовивіз із магазину', value: 'val2' },
-													{ text: 'Нова пошта', value: 'val3' },
-													{ text: 'Meest', value: 'val4' },
-												].map(({ text, value }, i) => (
-													<FormItem className='flex items-center space-x-3 space-y-0'>
+												{radioOptions.delivery.map(({ label, value }) => (
+													<FormItem
+														key={value}
+														className='flex items-center space-x-3'
+													>
 														<FormControl>
 															<RadioGroupItem
 																value={value}
@@ -193,7 +165,7 @@ export default function Order() {
 															/>
 														</FormControl>
 														<FormLabel className='font-semibold text-4.5'>
-															{text}
+															{label}
 														</FormLabel>
 													</FormItem>
 												))}
@@ -204,6 +176,7 @@ export default function Order() {
 								)}
 							/>
 						</div>
+
 						<div className='w-[296px]'>
 							<FormField
 								control={form.control}
@@ -217,13 +190,11 @@ export default function Order() {
 												defaultValue={field.value}
 												className='flex flex-col space-y-1'
 											>
-												{[
-													{ text: 'Готівка', value: 'val1' },
-													{ text: 'Платіжна картка', value: 'val2' },
-													{ text: 'Безготівковий розрахунок', value: 'val3' },
-													{ text: 'Кредит/Розсрочка', value: 'val4' },
-												].map(({ text, value }, i) => (
-													<FormItem className='flex items-center space-x-3 space-y-0'>
+												{radioOptions.payment.map(({ label, value }) => (
+													<FormItem
+														key={value}
+														className='flex items-center space-x-3'
+													>
 														<FormControl>
 															<RadioGroupItem
 																value={value}
@@ -231,7 +202,7 @@ export default function Order() {
 															/>
 														</FormControl>
 														<FormLabel className='font-semibold text-4.5'>
-															{text}
+															{label}
 														</FormLabel>
 													</FormItem>
 												))}
@@ -284,17 +255,19 @@ export default function Order() {
 						<div className='flex justify-between mb-8'>
 							<p className='text-2xl font-bold'>Всього: {cartTotal} грн.</p>
 							<div className='flex gap-2'>
-								<Button
-									type='submit'
-									className='bg-gray rounded-xl'
-									disabled={isSubmitting}
-								>
-									{isSubmitting ? 'Submitting...' : 'Оформити замовлення'}
+								<Button type='submit' className='bg-gray rounded-xl'>
+									Оформити замовлення
 								</Button>
 							</div>
 						</div>
 					</div>
-					{isError && <p className='text-red-500'>Error:</p>}
+					{notification && (
+						<Notification
+							message={notification.message}
+							type={notification.type}
+							onClose={closeNotification}
+						/>
+					)}
 				</div>
 			</form>
 		</Form>

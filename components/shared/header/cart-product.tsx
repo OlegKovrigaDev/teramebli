@@ -43,7 +43,7 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 				height={150}
 				className='rounded-lg object-cover'
 			/> */}
-			{/* <div className='rounded-lg size-[150px] bg-accent' /> */}
+			<div className='rounded-lg size-[150px] bg-accent' />
 			<div className='flex flex-col gap-2 justify-between'>
 				<h3 className='font-medium'>{product.ModelName}</h3>
 				<p className='text-4.5 font-semibold'>{product.RetailPrice} грн.</p>

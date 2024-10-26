@@ -16,11 +16,7 @@ import { selectCartItems, selectCartTotal } from '@/store/selectors'
 import { useSubmitOrder } from '@/hooks/useSubmitOrder'
 import { useSelector } from 'react-redux'
 import Notification from '@/components/notification'
-
-const formSchema = z.object({
-	firstName: z.string(),
-	phone: z.string(),
-})
+import { formSchema } from '../order/formSchema'
 
 export const CartForm = () => {
 	const cartItems = useSelector(selectCartItems)
@@ -35,7 +31,16 @@ export const CartForm = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			firstName: '',
+			lastName: '',
 			phone: '',
+			email: '',
+			city: '',
+			street: '',
+			house: '',
+			apartment: '',
+			comment: '',
+			delivery: '',
+			payment: '',
 		},
 	})
 
