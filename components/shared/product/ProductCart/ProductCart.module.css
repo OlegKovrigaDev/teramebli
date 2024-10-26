@@ -30,7 +30,7 @@
 	@apply line-through font-medium;
 }
 .price {
-	@apply text-red-800 text-[20px] font-bold;
+	@apply text-black text-[20px] font-bold;
 }
 
 .cart {
