@@ -26,8 +26,7 @@ export const Gallery = ({ offerId }: { offerId: string | number }) => {
 						src={`data:image/jpeg;base64,${image.buffer || '/delete/404.jpg'}`}
 						alt={`Carousel Main Image ${index + 1}`}
 						fill
-						style={{ objectFit: 'cover' }}
-						className='rounded'
+						className='rounded object-contain'
 					/>
 				</CarouselItem>
 			)),
@@ -44,11 +43,12 @@ export const Gallery = ({ offerId }: { offerId: string | number }) => {
 					onClick={() => handleClick(index)}
 				>
 					<Image
-						className={`rounded ${index === current ? 'border-2' : ''}`}
+						className={`rounded object-cover ${
+							index === current ? 'border-2' : ''
+						}`}
 						src={`data:image/jpeg;base64,${image.buffer}`}
 						fill
 						alt={`Carousel Thumbnail Image ${index + 1}`}
-						style={{ objectFit: 'cover' }}
 					/>
 				</CarouselItem>
 			)),

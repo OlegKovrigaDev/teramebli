@@ -14,6 +14,7 @@ import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import css from './ProductCart.module.css'
+import { useFetchImages } from '@/hooks/useFetchImages'
 
 export const ProductCard = ({ product }: ProductCardProps) => {
 	// const { img } = useFetchImages(product.offerId)
@@ -54,7 +55,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 								<img
 									src={`data:image/jpeg;base64,${img.buffer}`}
 									alt={product.params.ModelName}
-									className='rounded-lg h-[217px] w-[217px]'
+									className='rounded-lg size-[217px] object-cover'
 								/>
 							) : (
 								<img

@@ -21,6 +21,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { useProductData } from '@/hooks'
 import { addToCart } from '@/store/cartSlice'
+import { Cross2Icon } from '@radix-ui/react-icons'
+import { PopoverClose } from '@radix-ui/react-popover'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -209,13 +211,21 @@ export default function page({ params }: { params: { offerId: string } }) {
 										value={reviewText}
 										onChange={e => setReviewText(e.target.value)}
 									/>
-									<Button
+									<PopoverClose
+										onClick={handleAddReview}
+										className='mt-2 rounded-[8px] px-4 py-2 bg-gray text-white'
+										disabled={isSubmitting}
+										aria-label='Close'
+									>
+										{isSubmitting ? 'Надсилання...' : 'Додати відгук'}
+									</PopoverClose>
+									{/* <Button
 										onClick={handleAddReview}
 										className='mt-2 bg-gray text-white'
 										disabled={isSubmitting}
 									>
 										{isSubmitting ? 'Надсилання...' : 'Додати відгук'}
-									</Button>
+									</Button> */}
 								</PopoverContent>
 							</Popover>
 
