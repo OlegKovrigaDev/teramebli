@@ -9,16 +9,18 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { addToCart } from '@/store/cartSlice'
+import { selectCartItems } from '@/store/selectors'
 import { ProductCardProps } from '@/types/redux'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import css from './ProductCart.module.css'
-import { useFetchImages } from '@/hooks/useFetchImages'
 
 export const ProductCard = ({ product }: ProductCardProps) => {
 	// const { img } = useFetchImages(product.offerId)
 	const dispatch = useDispatch()
+	const cartItems = useSelector(selectCartItems)
+	const isInCart = cartItems.some(item => item.offerId === product.offerId)
 
 	if (!product || !product.offerId) {
 		return <p>Product data is unavailable.</p>
@@ -104,7 +106,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 				className={css.cart}
 				onClick={handleAddToCart}
 			>
-				<ShoppingCart />
+				<ShoppingCart className={isInCart ? 'text-red-900' : ''} />
 			</Button>
 		</Card>
 	)
