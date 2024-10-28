@@ -20,8 +20,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	// const { img } = useFetchImages(product.offerId)
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
-	const isInCart = cartItems.some(item => item.offerId === product.offerId)
 
+	const cartItem = cartItems.find(item => item.offerId === product.offerId)
+	{
+		cartItem?.quantity ?? (0 && cartItem?.quantity)
+	}
+
+	const isInCart = cartItems.some(item => item.offerId === product.offerId)
 	if (!product || !product.offerId) {
 		return <p>Product data is unavailable.</p>
 	}
@@ -107,6 +112,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 				onClick={handleAddToCart}
 			>
 				<ShoppingCart className={isInCart ? 'text-red-900' : ''} />
+				{cartItem ? (
+					<p className='absolute left-0 -top-2 bg-red-900 text-white size-6 rounded-full grid place-content-center'>
+						{cartItem.quantity}
+					</p>
+				) : null}
 			</Button>
 		</Card>
 	)
