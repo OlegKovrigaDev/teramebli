@@ -3,6 +3,7 @@ import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import Pagination from '@/components/shared/Pagination'
 import { ProductCard } from '@/components/shared/product/ProductCart'
 import { ProductFilter } from '@/components/shared/product/ProductFilter'
+import { ProductPriceFilter } from '@/components/shared/product/ProductPriceFilter'
 import { useCategoryData } from '@/hooks'
 import { useProductSearch } from '@/hooks/useProductSearch'
 import { Product } from '@/types/redux'
@@ -104,6 +105,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
+					<ProductPriceFilter title='Ціна' />
 					<ProductFilter title='Product Filter' />
 				</div>
 

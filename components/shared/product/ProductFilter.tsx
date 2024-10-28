@@ -19,9 +19,7 @@ export const ProductFilter = ({ title }: { title: string }) => {
 					)
 				)}
 
-				<Button className='mt-6 px-20 py-2 bg-red-800 hover:bg-red-800/80'>
-					Застосувати
-				</Button>
+				<Button className='mt-6 px-20 py-2 bg-gray'>Застосувати</Button>
 			</div>
 		</Accord>
 	)
