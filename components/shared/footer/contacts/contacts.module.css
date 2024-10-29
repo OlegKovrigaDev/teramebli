@@ -1,0 +1,15 @@
+.contacts {
+	@apply sm:order-2 xl:order-1;
+}
+.list {
+	@apply hidden md:flex flex-col gap-1 md:w-96;
+}
+.content {
+	@apply flex flex-col md:flex-row justify-between;
+}
+.title {
+	@apply font-semibold text-2xl mb-1 hidden md:flex;
+}
+.text {
+	@apply space-y-1 max-w-44;
+}

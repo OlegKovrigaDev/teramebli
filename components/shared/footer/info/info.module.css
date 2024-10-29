@@ -1,0 +1,9 @@
+.info {
+	@apply sm:order-3 xl:order-2;
+}
+.list {
+	@apply hidden md:flex flex-col;
+}
+.title {
+	@apply font-semibold text-2xl mb-1 hidden md:flex;
+}

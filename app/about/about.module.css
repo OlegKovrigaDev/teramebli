@@ -1,0 +1,12 @@
+.about {
+	@apply my-4 flex gap-16;
+}
+.container {
+	@apply w-[788px];
+}
+.about ul {
+	@apply space-y-2 list-decimal ml-6;
+}
+.about p {
+	@apply mt-6;
+}

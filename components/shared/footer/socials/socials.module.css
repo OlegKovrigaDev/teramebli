@@ -1,0 +1,12 @@
+.socials {
+	@apply sm:order-1 xl:order-3 w-full sm:w-auto;
+}
+.list {
+	@apply flex justify-center md:justify-start gap-4 xl:pt-4;
+}
+.link {
+	@apply flex items-center justify-center size-8 bg-white rounded-lg;
+}
+.title {
+	@apply font-semibold text-2xl mb-1 hidden xl:flex;
+}

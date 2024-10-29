@@ -1,15 +1,16 @@
 import { delivery, payment } from '@/constants'
 import RenderSections from '@/helpers'
+import css from './delivery.module.css'
 
 export default function Delivery() {
 	return (
-		<div className='delivery'>
-			<h2 className='delivery-title'>{delivery.title}</h2>
-			<div className='delivery-container'>
+		<div className={css.delivery}>
+			<h2 className={css.title}>{delivery.title}</h2>
+			<div className={css.container}>
 				<RenderSections data={delivery.data} />
 			</div>
-			<h2 className='delivery-title'>{payment.title}</h2>
-			<div className='delivery-container'>
+			<h2 className={css.title}>{payment.title}</h2>
+			<div className={css.container}>
 				<RenderSections data={payment.data} />
 			</div>
 		</div>
