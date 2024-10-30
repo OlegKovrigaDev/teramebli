@@ -14,7 +14,7 @@ import {
 } from '@/components/ui'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { CHARACTERISTICS } from '@/constants'
+import { characteristicsData } from '@/constants'
 import { useProductData } from '@/hooks'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
@@ -111,7 +111,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 									Загальна інформація
 								</h3>
 								<div className='grid grid-cols-2 gap-4'>
-									{CHARACTERISTICS.map(({ label, key }) => (
+									{characteristicsData.map(({ label, key }) => (
 										<div key={key} className='grid grid-cols-2 gap-4'>
 											<div className='text-gray-500'>{label}</div>
 											<div>{product.params[key] ?? 'Не вказано'}</div>

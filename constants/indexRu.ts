@@ -410,7 +410,10 @@ export const radioOptions = {
 	],
 }
 
-export const CHARACTERISTICS: { label: string; key: keyof ProductParams }[] = [
+export const characteristicsData: {
+	label: string
+	key: keyof ProductParams
+}[] = [
 	{ label: 'Тип товара', key: 'Приналежність до категорії' },
 	{ label: 'Высота (см)', key: 'Габарит.розміри.Висота(см)(сайт)' },
 	{ label: 'Длина (см)', key: 'Габарит.розміри.Довжина(см)(сайт)' },

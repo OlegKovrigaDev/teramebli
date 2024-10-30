@@ -11,11 +11,23 @@ export interface ProductParams {
 	RetailPrice: string
 	RetailPriceWithDiscount: string
 	'Відображення на сайті': string | number
-	ModelName: string
-	GoodNameUA: string
+	'Назва товару': string
 	Уцінка: string
 	'Одиниця виміру': string
+	'Название товара': string
+	Упаковка: string
+	'Розмір упаковки': string
+	'К-сть штук в ящику': string
+	Closeout: string
+	MesUnit: string
 	Знижка: string
+	Виробник: string
+	groupId: string
+	ModelName: string
+	ModelNameRu: string
+	'Розділ синхронізації': string
+	'Кількість на складі': string
+	'Термін гарантії': string
 	'Приналежність до категорії': string
 	'Одиниця виміру терміну гарантії'?: string
 	'Розділ синхронізації повністю'?: string
@@ -31,6 +43,7 @@ export interface ProductParams {
 	'Розм.спал.місц.Довжина(см)(сайт)'?: string
 	'Тип ліжка(сайт ліжка)'?: string
 	'Опис текст(сайт)'?: string
+	'Описание(сайт)'?: string
 }
 
 export interface Product extends ProductCardProps {
