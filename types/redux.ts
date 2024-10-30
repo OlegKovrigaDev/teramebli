@@ -52,7 +52,11 @@ export interface Product extends ProductCardProps {
 	categoryId: string
 	createdAt: string
 	currencyId: string
-	params: ProductParams
+	paramsFrom_01_MebliBalta: ProductParams
+	paramsFrom_02_MebliPodilsk: ProductParams
+	paramsFrom_03_MebliPervomaisk: ProductParams
+	paramsFrom_04_MebliOdesa1: ProductParams
+	paramsFrom_05_MebliVoznesensk: ProductParams
 }
 
 export interface CategoryWithProducts {

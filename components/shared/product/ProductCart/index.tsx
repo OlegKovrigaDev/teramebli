@@ -34,11 +34,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	const handleAddToCart = () => {
 		const cartItem = {
 			offerId: product.offerId,
-			ModelName: product.params.ModelName,
-			Articul: product.params.Articul,
-			RetailPrice: product.params.RetailPrice,
+			ModelName: product.paramsFrom_01_MebliBalta.ModelName,
+			Articul: product.paramsFrom_01_MebliBalta.Articul,
+			RetailPrice: product.paramsFrom_01_MebliBalta.RetailPrice,
 			RetailPriceWithDiscount:
-				product.params.RetailPriceWithDiscount || product.params.RetailPrice,
+				product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount ||
+				product.paramsFrom_01_MebliBalta.RetailPrice,
 			currencyId: product.currencyId,
 			quantity: 1,
 		}
@@ -74,35 +75,41 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 						</div>
 					</div>
 					<CardTitle className={css.title}>
-						{product.params.ModelName}
+						{product.paramsFrom_01_MebliBalta.ModelName}
 					</CardTitle>
 				</CardHeader>
 				<CardContent className={css.content}>
 					<p className={css.instock}>● В наявності</p>
-					{product.params.Articul && (
-						<p className={css.code}>Код товару: {product.params.Articul}</p>
+					{product.paramsFrom_01_MebliBalta.Articul && (
+						<p className={css.code}>
+							Код товару: {product.paramsFrom_01_MebliBalta.Articul}
+						</p>
 					)}
 				</CardContent>
 				<CardFooter className={css.footer}>
-					{product.params.RetailPrice !==
-						product.params.RetailPriceWithDiscount && (
+					{product.paramsFrom_01_MebliBalta.RetailPrice !==
+						product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount && (
 						<div className='flex gap-2'>
 							<p className={css.discont}>
-								{product.params.RetailPriceWithDiscount} грн.
+								{product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount} грн.
 							</p>
 							<Badge className='rounded-lg bg-red-800 hover:bg-red-800'>
 								-
 								{(
-									(((product.params.RetailPrice as any) -
-										(product.params.RetailPriceWithDiscount as any)) /
-										(product.params.RetailPriceWithDiscount as any)) *
+									(((product.paramsFrom_01_MebliBalta.RetailPrice as any) -
+										(product.paramsFrom_01_MebliBalta
+											.RetailPriceWithDiscount as any)) /
+										(product.paramsFrom_01_MebliBalta
+											.RetailPriceWithDiscount as any)) *
 									100
 								).toFixed(0)}
 								%
 							</Badge>
 						</div>
 					)}
-					<p className={css.price}>{product.params.RetailPrice} грн.</p>
+					<p className={css.price}>
+						{product.paramsFrom_01_MebliBalta.RetailPrice} грн.
+					</p>
 				</CardFooter>
 			</Link>
 			<Button

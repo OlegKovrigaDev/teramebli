@@ -9,7 +9,8 @@ export const useProductData = (offerId: string) => {
   let subCategoryId = "";
 
   if (product) {
-    const fullCategorySync = product.params["Розділ синхронізації повністю"];
+    const fullCategorySync =
+			product.paramsFrom_01_MebliBalta['Розділ синхронізації повністю']
     const categoryParts = fullCategorySync ? fullCategorySync.split(";") : [];
 
     mainCategory = categoryParts[0]?.split("=")[1]?.trim() || mainCategory;

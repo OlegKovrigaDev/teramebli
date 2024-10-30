@@ -18,7 +18,8 @@ export const useRandomProducts = (categoryId: number, limit: number = 30) => {
 	const randomProducts = useMemo(() => {
 		if (data?.products) {
 			const visibleProducts = data.products.filter(
-				(product: Product) => product.params['Відображення на сайті'] === '1'
+				(product: Product) =>
+					product.paramsFrom_01_MebliBalta?.['Відображення на сайті'] === '1'
 			)
 			return getRandomProducts(visibleProducts, limit)
 		}

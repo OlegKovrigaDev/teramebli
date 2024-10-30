@@ -53,10 +53,11 @@ export default function page({ params }: { params: { offerId: string } }) {
 	const handleAddToCart = () => {
 		const cartItem = {
 			offerId,
-			ModelName: product.params.ModelName,
-			Articul: product.params.Articul,
-			RetailPrice: product.params.RetailPrice,
-			RetailPriceWithDiscount: product.params.RetailPriceWithDiscount,
+			ModelName: product.paramsFrom_01_MebliBalta.ModelName,
+			Articul: product.paramsFrom_01_MebliBalta.Articul,
+			RetailPrice: product.paramsFrom_01_MebliBalta.RetailPrice,
+			RetailPriceWithDiscount:
+				product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount,
 			currencyId: product.currencyId,
 			quantity: 1,
 		}
@@ -71,7 +72,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 				categoryId={mainCategoryId}
 				subcategoryName={subCategory}
 				subcategoryId={subCategoryId}
-				productName={product.params.ModelName}
+				productName={product.paramsFrom_01_MebliBalta.ModelName}
 			/>
 			<div className='flex justify-between pb-16'>
 				<div className='w-[865px] flex flex-col gap-6'>
@@ -98,7 +99,8 @@ export default function page({ params }: { params: { offerId: string } }) {
 							<div
 								dangerouslySetInnerHTML={{
 									__html:
-										product.params['Опис текст(сайт)'] || 'Опис відсутній',
+										product.paramsFrom_01_MebliBalta['Опис текст(сайт)'] ||
+										'Опис відсутній',
 								}}
 							/>
 						</TabsContent>
@@ -114,7 +116,9 @@ export default function page({ params }: { params: { offerId: string } }) {
 									{characteristicsData.map(({ label, key }) => (
 										<div key={key} className='grid grid-cols-2 gap-4'>
 											<div className='text-gray-500'>{label}</div>
-											<div>{product.params[key] ?? 'Не вказано'}</div>
+											<div>
+												{product.paramsFrom_01_MebliBalta[key] ?? 'Не вказано'}
+											</div>
 										</div>
 									))}
 								</div>
@@ -161,10 +165,10 @@ export default function page({ params }: { params: { offerId: string } }) {
 							В наявності!
 						</p>
 						<p className='line-through text-[20px] font-bold'>
-							{product.params.RetailPriceWithDiscount} грн.
+							{product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount} грн.
 						</p>
 						<p className='text-red-900 text-[40px] font-semibold'>
-							{product.params.RetailPrice} грн.
+							{product.paramsFrom_01_MebliBalta.RetailPrice} грн.
 						</p>
 					</div>
 					<Accord title='Варіанти товару'>

@@ -54,7 +54,8 @@ export const useCategoryData = (id: string) => {
 	}
 
 	const filteredProducts = categoryData.products.filter(
-		(product: Product) => product.params['Відображення на сайті'] === '1'
+		(product: Product) =>
+			product.paramsFrom_01_MebliBalta?.['Відображення на сайті'] === '1'
 	)
 
 	const paginatedProducts = filteredProducts.slice(
