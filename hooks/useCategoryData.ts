@@ -4,7 +4,18 @@ import {
 	useFetchSubcategoriesQuery,
 } from '@/api/categoryApi'
 import { Product } from '@/types/redux'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+
+const getInitialStorageAndParams = (product: Product) => {
+	const initialStorage = 'paramsFrom_01_MebliBalta' as const
+	return {
+		selectedStorage: initialStorage,
+		currentParams: product[initialStorage],
+		availableStorages: Object.keys(product).filter(
+			key => key.startsWith('paramsFrom_') && product[key as keyof Product]
+		) as (keyof Product)[],
+	}
+}
 
 export const useCategoryData = (id: string) => {
 	const [page, setPage] = useState(1)
@@ -33,6 +44,14 @@ export const useCategoryData = (id: string) => {
 		error: subcategoriesError,
 	} = useFetchSubcategoriesQuery(parentId ?? 0, { skip: !parentId })
 
+	const productsWithStorage = useMemo(() => {
+		if (!categoryData?.products) return []
+		return categoryData.products.map(product => ({
+			...product,
+			...getInitialStorageAndParams(product),
+		}))
+	}, [categoryData?.products])
+
 	if (isLoading || categoryLoading || subcategoriesLoading) {
 		return { status: 'loading', message: 'Загрузка продуктов...', setPage }
 	}
@@ -53,9 +72,8 @@ export const useCategoryData = (id: string) => {
 		}
 	}
 
-	const filteredProducts = categoryData.products.filter(
-		(product: Product) =>
-			product.paramsFrom_01_MebliBalta?.['Відображення на сайті'] === '1'
+	const filteredProducts = productsWithStorage.filter(
+		product => product.currentParams?.['Відображення на сайті'] === '1'
 	)
 
 	const paginatedProducts = filteredProducts.slice(
