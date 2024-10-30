@@ -7,7 +7,6 @@ import {
 	BreadcrumbSeparator,
 	BreadcrumbPage,
 } from '../ui/breadcrumb'
-import { split } from 'postcss/lib/list'
 
 interface BreadcrumbProps {
 	categoryName?: string

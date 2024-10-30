@@ -9,6 +9,7 @@ import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import { Gallery } from '@/components/shared/gallery'
 import {
 	Button,
+	Input,
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
@@ -122,7 +123,13 @@ export default function page({ params }: { params: { offerId: string } }) {
 							className='bg-white mt-4 py-4 px-2 rounded'
 							value='description'
 						>
-							{product.params['Опис текст(сайт)'] ?? 'Описание отсутствует'}
+							<div
+								dangerouslySetInnerHTML={{
+									__html:
+										product.params['Опис текст(сайт)'] ||
+										'Описание отсутствует',
+								}}
+							/>
 						</TabsContent>
 						<TabsContent
 							className='bg-white mt-4 py-4 px-2 rounded'
@@ -197,7 +204,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 									</PopoverTrigger>
 								</div>
 								<PopoverContent className='w-96 absolute -right-24'>
-									<input
+									<Input
 										type='text'
 										placeholder="Ваше ім'я"
 										className='w-full p-2 mb-2 border rounded'
