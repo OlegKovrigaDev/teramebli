@@ -1,4 +1,5 @@
 import Notification from '@/components/notification'
+import { List } from '@/components/shared/list'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui'
 import { header } from '@/constants'
 import { RootState } from '@/store'
@@ -6,7 +7,6 @@ import { setSelectedStorage } from '@/store/selectedStorageSlice'
 import { MapPinned } from 'lucide-react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { List } from '../list'
 
 const storageMap = {
 	'м.Балта, Одеська обл.': 'paramsFrom_01_MebliBalta',
