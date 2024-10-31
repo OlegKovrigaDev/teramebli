@@ -20,7 +20,7 @@
 	@apply text-green text-xs font-semibold;
 }
 .code {
-	@apply text-gray/40 text-xs;
+	@apply text-gray/60 text-xs;
 }
 
 .footer {

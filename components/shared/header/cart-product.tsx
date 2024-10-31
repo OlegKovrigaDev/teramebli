@@ -48,8 +48,8 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 			<div className='flex flex-col gap-2 justify-between'>
 				<h3 className='font-medium'>{product?.ModelName}</h3>
 				{product?.RetailPriceWithDiscount === product?.RetailPrice ? (
-					<p className='text-red-900 text-4.5 font-semibold'>
-						{formatPrice(product?.RetailPriceWithDiscount)} грн.
+					<p className='text-black text-4.5 font-semibold'>
+						{formatPrice(product?.RetailPrice)} грн.
 					</p>
 				) : (
 					<>
