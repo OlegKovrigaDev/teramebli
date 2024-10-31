@@ -50,3 +50,8 @@ export default function RenderSections({ data }: { data: DataItem[] }) {
 		</>
 	)
 }
+
+export const formatPrice = (price: string | number | undefined) => {
+	if (price === undefined) return '0'
+	return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+}

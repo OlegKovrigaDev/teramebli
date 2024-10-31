@@ -7,10 +7,8 @@ import { home } from '@/constants'
 import { useRandomProducts } from '@/hooks/useRandomProducts'
 
 export default function Home() {
-	const { randomProducts } = useRandomProducts(1, 30, 6)
-	const { randomProducts: randomProducts2 } = useRandomProducts(4, 30, 6)
-
-	if (!randomProducts || !randomProducts2) return <Loading />
+	const { randomProducts } = useRandomProducts(1, 30, 15)
+	const { randomProducts: randomProducts2 } = useRandomProducts(4, 30, 15)
 
 	return (
 		<>

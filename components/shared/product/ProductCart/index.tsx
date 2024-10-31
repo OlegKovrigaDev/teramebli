@@ -16,6 +16,8 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import css from './ProductCart.module.css'
 import { RootState } from '@/store'
+import { cn } from '@/lib/utils'
+import { formatPrice } from '@/helpers'
 export interface ProductCardProps {
 	product: Product
 }
@@ -94,11 +96,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 					)}
 				</CardContent>
 				<CardFooter className={css.footer}>
-					{currentParams.RetailPrice !==
-						currentParams.RetailPriceWithDiscount && (
+					{currentParams.RetailPriceWithDiscount !==
+						currentParams.RetailPrice && (
 						<div className='flex gap-2'>
 							<p className={css.discont}>
-								{currentParams.RetailPriceWithDiscount} грн.
+								{formatPrice(currentParams.RetailPrice)} грн.
 							</p>
 							<Badge className='rounded-lg bg-red-800 hover:bg-red-800'>
 								-
@@ -112,18 +114,33 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							</Badge>
 						</div>
 					)}
-					<p className={css.price}>{currentParams.RetailPrice} грн.</p>
+					<p
+						className={`${cn(
+							currentParams.RetailPriceWithDiscount !==
+								currentParams.RetailPrice
+								? 'text-red-800 font-bold text-xl'
+								: ''
+						)}${css.price} `}
+					>
+						{formatPrice(currentParams.RetailPriceWithDiscount)} грн.
+					</p>
 				</CardFooter>
 			</Link>
 			<Button
 				variant='ghost'
 				size='icon'
-				className={css.cart}
+				className={`${css.cart} relative transition-transform duration-200 ease-in-out`}
 				onClick={handleAddToCart}
 			>
-				<ShoppingCart className={isInCart ? 'text-red-900' : ''} />
+				<ShoppingCart
+					className={`w-6 h-6 ${cn(
+						isInCart ? 'text-[#16a34a]' : 'text-black'
+					)} transition-transform duration-200 ease-in-out ${cn(
+						!isInCart && 'hover:scale-125 hover:text-[#16a34a]'
+					)}`}
+				/>
 				{cartItem ? (
-					<p className='absolute left-0 -top-2 bg-red-900 text-white size-6 rounded-full grid place-content-center'>
+					<p className='absolute left-0 -top-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full grid place-content-center'>
 						{cartItem.quantity}
 					</p>
 				) : null}
