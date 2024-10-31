@@ -31,16 +31,7 @@ export const CartForm = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			firstName: '',
-			lastName: '',
 			phone: '',
-			email: '',
-			city: '',
-			street: '',
-			house: '',
-			apartment: '',
-			comment: '',
-			delivery: '',
-			payment: '',
 		},
 	})
 

@@ -47,9 +47,21 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 			<div className='rounded-lg size-[150px] bg-accent' />
 			<div className='flex flex-col gap-2 justify-between'>
 				<h3 className='font-medium'>{product?.ModelName}</h3>
-				<p className='text-4.5 font-semibold'>
-					{formatPrice(product?.RetailPrice)} грн.
-				</p>
+				{product?.RetailPriceWithDiscount === product?.RetailPrice ? (
+					<p className='text-red-900 text-4.5 font-semibold'>
+						{formatPrice(product?.RetailPriceWithDiscount)} грн.
+					</p>
+				) : (
+					<>
+						<p className='text-red-900 text-[20px] font-semibold'>
+							{formatPrice(product?.RetailPriceWithDiscount)} грн.
+						</p>
+						<p className='line-through text-4.5 font-bold'>
+							{formatPrice(product?.RetailPrice)} грн.
+						</p>
+					</>
+				)}
+
 				<div className='flex'>
 					<Button
 						className='w-12 h-8 bg-gray/20 text-black hover:text-white rounded-e-none rounded-s'
@@ -66,6 +78,9 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 					>
 						<Plus size={24} />
 					</Button>
+					<p className='absolute right-0 text-gray/80 text-xs'>
+						Код товару: {product?.Articul}
+					</p>
 				</div>
 			</div>
 			<Button
