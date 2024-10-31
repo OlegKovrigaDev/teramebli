@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearch } from '@/hooks'
-import { Logo } from '../components/shared/logo'
+import { Logo } from '../logo'
 import { Cart } from './cart'
 import { Catalog } from './catalog'
 import { Contact } from './contact'
@@ -27,8 +27,21 @@ export const Header = () => {
 				</div>
 			</div>
 			<div className='header-mobile'>
-				{!search.isSearchVisible && <Logo />}
-				<SearchBar search={search} />
+				{!search.isSearchVisible && (
+					<>
+						<Logo />
+						<Lang />
+					</>
+				)}
+				<div className='right'>
+					<SearchBar search={search} />
+					{!search.isSearchVisible && (
+						<>
+							<Cart />
+							<Catalog />
+						</>
+					)}
+				</div>
 			</div>
 		</header>
 	)

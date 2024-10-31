@@ -117,7 +117,15 @@ body {
 .header-mobile .right {
 	@apply flex items-center justify-end gap-2 ml-auto w-full;
 }
-
+.header .menu-trigger {
+	@apply flex flex-col center h-12 md:w-[71px] hover:bg-transparent;
+}
+.header .menu-trigger-text {
+	@apply md:flex-wrap text-xs font-normal;
+}
+.header .menu-content {
+	@apply w-screen max-w-full;
+}
 .header .magazins-trigger {
 	@apply flex flex-col center;
 }
