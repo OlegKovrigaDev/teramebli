@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { CartForm } from './cart-form'
 import { CartProduct } from './cart-product'
+import { formatPrice } from '@/helpers'
 
 export const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
@@ -60,7 +61,9 @@ export const Cart = () => {
 				<DialogFooter>
 					<div className='flex flex-col w-full'>
 						<div className='flex justify-between mb-8'>
-							<p className='text-2xl font-bold'>Всього: {cartTotal} грн.</p>
+							<p className='text-2xl font-bold'>
+								Всього: {formatPrice(cartTotal)} грн.
+							</p>
 							<div className='flex gap-2'>
 								<Button
 									variant='outline'

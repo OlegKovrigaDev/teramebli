@@ -23,6 +23,8 @@ import { useSubmitOrder } from '@/hooks/useSubmitOrder'
 import { orders, radioOptions } from '@/constants'
 import { formSchema } from '@/components/shared/order/formSchema'
 import Notification from '@/components/notification'
+import { format } from 'path'
+import { formatPrice } from '@/helpers'
 
 export default function Order() {
 	const cartItems = useSelector(selectCartItems)
@@ -253,7 +255,9 @@ export default function Order() {
 					</div>
 					<div className='flex flex-col w-full'>
 						<div className='flex justify-between mb-8'>
-							<p className='text-2xl font-bold'>Всього: {cartTotal} грн.</p>
+							<p className='text-2xl font-bold'>
+								Всього: {formatPrice(cartTotal)} грн.
+							</p>
 							<div className='flex gap-2'>
 								<Button type='submit' className='bg-gray rounded-xl'>
 									Оформити замовлення

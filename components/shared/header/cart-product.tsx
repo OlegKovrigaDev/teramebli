@@ -5,6 +5,7 @@ import { CartItem } from '@/types/cart'
 import { useDispatch } from 'react-redux'
 import { updateQuantity, removeFromCart } from '@/store/cartSlice'
 import { useFetchImages } from '@/hooks/useFetchImages'
+import { formatPrice } from '@/helpers'
 
 export const CartProduct = ({ product }: { product: CartItem }) => {
 	// const { img } = useFetchImages(product.offerId)
@@ -45,8 +46,10 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 			/> */}
 			<div className='rounded-lg size-[150px] bg-accent' />
 			<div className='flex flex-col gap-2 justify-between'>
-				<h3 className='font-medium'>{product.ModelName}</h3>
-				<p className='text-4.5 font-semibold'>{product.RetailPrice} грн.</p>
+				<h3 className='font-medium'>{product?.ModelName}</h3>
+				<p className='text-4.5 font-semibold'>
+					{formatPrice(product?.RetailPrice)} грн.
+				</p>
 				<div className='flex'>
 					<Button
 						className='w-12 h-8 bg-gray/20 text-black hover:text-white rounded-e-none rounded-s'
