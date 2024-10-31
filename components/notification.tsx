@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { useEffect } from 'react'
 
 type NotificationProps = {
@@ -14,9 +15,11 @@ const Notification = ({ message, type, onClose }: NotificationProps) => {
 
 	return (
 		<div
-			className={`fixed top-4 right-4 p-4 rounded shadow-lg ${
-				type === 'success' ? 'bg-green' : 'bg-red-500'
-			} text-white`}
+			className={cn(
+				`fixed top-4 right-4 p-4 rounded shadow-lg z-[1000] ${
+					type === 'success' ? 'bg-green' : 'bg-red-500'
+				} text-white`
+			)}
 		>
 			{message}
 		</div>

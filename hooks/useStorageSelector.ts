@@ -1,25 +1,18 @@
 import { useState, useCallback } from 'react'
-import { Product, ProductParams } from '@/types/redux'
-
-type StorageKey =
-	| 'paramsFrom_01_MebliBalta'
-	| 'paramsFrom_02_MebliPodilsk'
-	| 'paramsFrom_03_MebliPervomaisk'
-	| 'paramsFrom_04_MebliOdesa1'
-	| 'paramsFrom_05_MebliVoznesensk'
+import { Product, ProductParams, StorageKey } from '@/types/redux'
 
 export const useStorageSelector = (initialProduct: Product) => {
 	const [selectedStorage, setSelectedStorage] = useState<StorageKey>(
 		'paramsFrom_03_MebliPervomaisk'
 	)
 	const [currentParams, setCurrentParams] = useState<ProductParams>(
-		initialProduct.paramsFrom_01_MebliBalta
+		initialProduct.paramsFrom_03_MebliPervomaisk || ({} as ProductParams)
 	)
 
 	const changeStorage = useCallback(
 		(newStorage: StorageKey) => {
 			setSelectedStorage(newStorage)
-			setCurrentParams(initialProduct[newStorage])
+			setCurrentParams(initialProduct[newStorage] || ({} as ProductParams))
 		},
 		[initialProduct]
 	)

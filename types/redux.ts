@@ -26,7 +26,7 @@ export interface ProductParams {
 	ModelName: string
 	ModelNameRu: string
 	'Розділ синхронізації': string
-	'Кількість на складі': string
+	'Кількість на складі': number
 	'Термін гарантії': string
 	'Приналежність до категорії': string
 	'Одиниця виміру терміну гарантії'?: string
@@ -46,7 +46,18 @@ export interface ProductParams {
 	'Описание(сайт)'?: string
 }
 
-export interface Product extends ProductCardProps {
+export type StorageKey =
+	| 'paramsFrom_01_MebliBalta'
+	| 'paramsFrom_02_MebliPodilsk'
+	| 'paramsFrom_03_MebliPervomaisk'
+	| 'paramsFrom_04_MebliOdesa1'
+	| 'paramsFrom_05_MebliVoznesensk'
+
+type StorageParams = {
+	[K in StorageKey]?: ProductParams
+}
+
+export interface Product extends StorageParams {
 	offerId: string
 	available: boolean
 	categoryId: string
@@ -70,8 +81,4 @@ export interface CategoryWithProducts {
 export interface ProductImage {
 	offerId: string
 	buffer: string
-}
-
-export interface ProductCardProps {
-	product: Product
 }

@@ -16,12 +16,17 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { characteristicsData } from '@/constants'
 import { useProductData } from '@/hooks'
+import { RootState } from '@/store'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function page({ params }: { params: { offerId: string } }) {
 	const { offerId } = params
+
+	const selectedStorage = useSelector(
+		(state: RootState) => state.selectedStorage.storage
+	)
 
 	const dispatch = useDispatch()
 
@@ -33,6 +38,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 		mainCategoryId,
 		subCategory,
 		subCategoryId,
+		currentParams,
 	} = useProductData(offerId)
 
 	const {
@@ -48,16 +54,16 @@ export default function page({ params }: { params: { offerId: string } }) {
 				Ошибка при загрузке: {JSON.stringify(error)}
 			</p>
 		)
-	if (!product) return <p className='text-gray-500'>Товар не найден</p>
+	if (!product || !currentParams)
+		return <p className='text-gray-500'>Товар не найден</p>
 
 	const handleAddToCart = () => {
 		const cartItem = {
-			offerId,
-			ModelName: product.paramsFrom_01_MebliBalta.ModelName,
-			Articul: product.paramsFrom_01_MebliBalta.Articul,
-			RetailPrice: product.paramsFrom_01_MebliBalta.RetailPrice,
-			RetailPriceWithDiscount:
-				product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount,
+			offerId: product.offerId,
+			ModelName: currentParams.ModelName,
+			Articul: currentParams.Articul,
+			RetailPrice: currentParams.RetailPrice,
+			RetailPriceWithDiscount: currentParams.RetailPriceWithDiscount,
 			currencyId: product.currencyId,
 			quantity: 1,
 		}
@@ -72,7 +78,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 				categoryId={mainCategoryId}
 				subcategoryName={subCategory}
 				subcategoryId={subCategoryId}
-				productName={product.paramsFrom_01_MebliBalta.ModelName}
+				productName={currentParams.ModelName}
 			/>
 			<div className='flex justify-between pb-16'>
 				<div className='w-[865px] flex flex-col gap-6'>
@@ -98,9 +104,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 						>
 							<div
 								dangerouslySetInnerHTML={{
-									__html:
-										product.paramsFrom_01_MebliBalta['Опис текст(сайт)'] ||
-										'Опис відсутній',
+									__html: currentParams['Опис текст(сайт)'] || 'Опис відсутній',
 								}}
 							/>
 						</TabsContent>
@@ -116,9 +120,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 									{characteristicsData.map(({ label, key }) => (
 										<div key={key} className='grid grid-cols-2 gap-4'>
 											<div className='text-gray-500'>{label}</div>
-											<div>
-												{product.paramsFrom_01_MebliBalta[key] ?? 'Не вказано'}
-											</div>
+											<div>{currentParams[key] ?? 'Не вказано'}</div>
 										</div>
 									))}
 								</div>
@@ -165,10 +167,10 @@ export default function page({ params }: { params: { offerId: string } }) {
 							В наявності!
 						</p>
 						<p className='line-through text-[20px] font-bold'>
-							{product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount} грн.
+							{currentParams.RetailPriceWithDiscount} грн.
 						</p>
 						<p className='text-red-900 text-[40px] font-semibold'>
-							{product.paramsFrom_01_MebliBalta.RetailPrice} грн.
+							{currentParams.RetailPrice} грн.
 						</p>
 					</div>
 					<Accord title='Варіанти товару'>

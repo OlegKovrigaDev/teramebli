@@ -78,14 +78,6 @@ export function ReviewPopover({ offerId, refetchReviews }: ReviewPopoverProps) {
 
 	return (
 		<>
-			{notification && (
-				<Notification
-					message={notification.message}
-					type={notification.type}
-					onClose={handleCloseNotification}
-				/>
-			)}
-
 			<Popover>
 				<div className='flex justify-end'>
 					<PopoverTrigger className='rounded-xl border-2 border-gray text-gray py-2 px-5 mb-6'>
@@ -150,6 +142,14 @@ export function ReviewPopover({ offerId, refetchReviews }: ReviewPopoverProps) {
 					</Form>
 				</PopoverContent>
 			</Popover>
+
+			{notification && (
+				<Notification
+					message={notification.message}
+					type={notification.type}
+					onClose={handleCloseNotification}
+				/>
+			)}
 		</>
 	)
 }
