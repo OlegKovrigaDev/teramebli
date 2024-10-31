@@ -120,7 +120,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 								currentParams.RetailPrice
 								? 'text-red-800 font-bold text-xl'
 								: ''
-						)}${css.price} `}
+						)}${css.price} text-xl font-bold`}
 					>
 						{formatPrice(currentParams.RetailPriceWithDiscount)} грн.
 					</p>
