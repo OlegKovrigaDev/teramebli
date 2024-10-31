@@ -1,7 +1,7 @@
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui'
 import { header } from '@/constants'
 import { MapPinned } from 'lucide-react'
-import { List } from '../list'
+import { List } from '../components/shared/list'
 
 export const Magazins = () => {
 	return (

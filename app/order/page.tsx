@@ -1,6 +1,7 @@
 'use client'
 
-import { CartProduct } from '@/components/shared/header/cart-product'
+import Notification from '@/components/notification'
+import { formSchema } from '@/components/shared/order/formSchema'
 import {
 	Button,
 	Form,
@@ -13,16 +14,15 @@ import {
 	RadioGroup,
 	RadioGroupItem,
 } from '@/components/ui'
+import { Textarea } from '@/components/ui/textarea'
+import { orders, radioOptions } from '@/constants'
+import { CartProduct } from '@/header/cart-product'
+import { useSubmitOrder } from '@/hooks/useSubmitOrder'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import { Textarea } from '@/components/ui/textarea'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useSubmitOrder } from '@/hooks/useSubmitOrder'
-import { orders, radioOptions } from '@/constants'
-import { formSchema } from '@/components/shared/order/formSchema'
-import Notification from '@/components/notification'
 
 export default function Order() {
 	const cartItems = useSelector(selectCartItems)

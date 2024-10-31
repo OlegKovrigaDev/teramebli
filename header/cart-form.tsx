@@ -1,7 +1,5 @@
 'use client'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import Notification from '@/components/notification'
 import { Button } from '@/components/ui/button'
 import {
 	Form,
@@ -12,11 +10,13 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { selectCartItems, selectCartTotal } from '@/store/selectors'
 import { useSubmitOrder } from '@/hooks/useSubmitOrder'
+import { selectCartItems, selectCartTotal } from '@/store/selectors'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import Notification from '@/components/notification'
-import { formSchema } from '../order/formSchema'
+import { z } from 'zod'
+import { formSchema } from '../components/shared/order/formSchema'
 
 export const CartForm = () => {
 	const cartItems = useSelector(selectCartItems)

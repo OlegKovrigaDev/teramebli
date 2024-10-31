@@ -1,0 +1,9 @@
+.trigger {
+	@apply flex flex-col justify-center items-center h-12 md:w-[71px] hover:bg-transparent;
+}
+.text {
+	@apply md:flex-wrap text-xs font-normal;
+}
+.content {
+	@apply w-screen max-w-full;
+}
