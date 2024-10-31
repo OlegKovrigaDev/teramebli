@@ -10,14 +10,22 @@ import {
 } from '@/components/ui/card'
 import { addToCart } from '@/store/cartSlice'
 import { selectCartItems } from '@/store/selectors'
-import { ProductCardProps } from '@/types/redux'
+import { Product } from '@/types/redux'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import css from './ProductCart.module.css'
-
+import { RootState } from '@/store'
+export interface ProductCardProps {
+	product: Product
+}
 export const ProductCard = ({ product }: ProductCardProps) => {
 	// const { img } = useFetchImages(product.offerId)
+	const selectedStorage = useSelector(
+		(state: RootState) => state.selectedStorage.storage
+	)
+	const currentParams = product[selectedStorage]
+
 	const dispatch = useDispatch()
 	const cartItems = useSelector(selectCartItems)
 
@@ -34,18 +42,19 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	const handleAddToCart = () => {
 		const cartItem = {
 			offerId: product.offerId,
-			ModelName: product.paramsFrom_01_MebliBalta.ModelName,
-			Articul: product.paramsFrom_01_MebliBalta.Articul,
-			RetailPrice: product.paramsFrom_01_MebliBalta.RetailPrice,
+			ModelName: currentParams.ModelName,
+			Articul: currentParams.Articul,
+			RetailPrice: currentParams.RetailPrice,
 			RetailPriceWithDiscount:
-				product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount ||
-				product.paramsFrom_01_MebliBalta.RetailPrice,
+				currentParams.RetailPriceWithDiscount || currentParams.RetailPrice,
 			currencyId: product.currencyId,
 			quantity: 1,
 		}
 
 		dispatch(addToCart(cartItem))
 	}
+
+	const isAvailable = currentParams['Кількість на складі'] > 0
 
 	return (
 		<Card className={css.card}>
@@ -62,7 +71,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							{/* {img ? (
 								<img
 									src={`data:image/jpeg;base64,${img.buffer}`}
-									alt={product.params.ModelName}
+									alt={currentParams.ModelName}
 									className='rounded-lg size-[217px] object-cover'
 								/>
 							) : (
@@ -74,42 +83,36 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							)} */}
 						</div>
 					</div>
-					<CardTitle className={css.title}>
-						{product.paramsFrom_01_MebliBalta.ModelName}
-					</CardTitle>
+					<CardTitle className={css.title}>{currentParams.ModelName}</CardTitle>
 				</CardHeader>
 				<CardContent className={css.content}>
-					<p className={css.instock}>● В наявності</p>
-					{product.paramsFrom_01_MebliBalta.Articul && (
-						<p className={css.code}>
-							Код товару: {product.paramsFrom_01_MebliBalta.Articul}
-						</p>
+					<p className={css.instock}>
+						{isAvailable ? '● В наявності' : '○ Немає в наявності'}
+					</p>
+					{currentParams.Articul && (
+						<p className={css.code}>Код товару: {currentParams.Articul}</p>
 					)}
 				</CardContent>
 				<CardFooter className={css.footer}>
-					{product.paramsFrom_01_MebliBalta.RetailPrice !==
-						product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount && (
+					{currentParams.RetailPrice !==
+						currentParams.RetailPriceWithDiscount && (
 						<div className='flex gap-2'>
 							<p className={css.discont}>
-								{product.paramsFrom_01_MebliBalta.RetailPriceWithDiscount} грн.
+								{currentParams.RetailPriceWithDiscount} грн.
 							</p>
 							<Badge className='rounded-lg bg-red-800 hover:bg-red-800'>
 								-
 								{(
-									(((product.paramsFrom_01_MebliBalta.RetailPrice as any) -
-										(product.paramsFrom_01_MebliBalta
-											.RetailPriceWithDiscount as any)) /
-										(product.paramsFrom_01_MebliBalta
-											.RetailPriceWithDiscount as any)) *
+									(((currentParams.RetailPrice as any) -
+										(currentParams.RetailPriceWithDiscount as any)) /
+										(currentParams.RetailPriceWithDiscount as any)) *
 									100
 								).toFixed(0)}
 								%
 							</Badge>
 						</div>
 					)}
-					<p className={css.price}>
-						{product.paramsFrom_01_MebliBalta.RetailPrice} грн.
-					</p>
+					<p className={css.price}>{currentParams.RetailPrice} грн.</p>
 				</CardFooter>
 			</Link>
 			<Button
