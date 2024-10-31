@@ -25,6 +25,8 @@ export interface ProductParams {
 	groupId: string
 	ModelName: string
 	ModelNameRu: string
+	Колір: string
+	Цвет: string
 	'Розділ синхронізації': string
 	'Кількість на складі': number
 	'Термін гарантії': string

@@ -85,29 +85,31 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 							)} */}
 						</div>
 					</div>
-					<CardTitle className={css.title}>{currentParams.ModelName}</CardTitle>
+					<CardTitle className={css.title}>
+						{currentParams?.ModelName}
+					</CardTitle>
 				</CardHeader>
 				<CardContent className={css.content}>
 					<p className={css.instock}>
 						{isAvailable ? '● В наявності' : '○ Немає в наявності'}
 					</p>
-					{currentParams.Articul && (
+					{currentParams?.Articul && (
 						<p className={css.code}>Код товару: {currentParams.Articul}</p>
 					)}
 				</CardContent>
 				<CardFooter className={css.footer}>
-					{currentParams.RetailPriceWithDiscount !==
-						currentParams.RetailPrice && (
+					{currentParams?.RetailPriceWithDiscount !==
+						currentParams?.RetailPrice && (
 						<div className='flex gap-2'>
 							<p className={css.discont}>
-								{formatPrice(currentParams.RetailPrice)} грн.
+								{formatPrice(currentParams?.RetailPrice)} грн.
 							</p>
 							<Badge className='rounded-lg bg-red-800 hover:bg-red-800'>
 								-
 								{(
-									(((currentParams.RetailPrice as any) -
-										(currentParams.RetailPriceWithDiscount as any)) /
-										(currentParams.RetailPriceWithDiscount as any)) *
+									(((currentParams?.RetailPrice as any) -
+										(currentParams?.RetailPriceWithDiscount as any)) /
+										(currentParams?.RetailPriceWithDiscount as any)) *
 									100
 								).toFixed(0)}
 								%
@@ -116,13 +118,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 					)}
 					<p
 						className={`${cn(
-							currentParams.RetailPriceWithDiscount !==
-								currentParams.RetailPrice
+							currentParams?.RetailPriceWithDiscount !==
+								currentParams?.RetailPrice
 								? 'text-red-800 font-bold text-xl'
 								: ''
 						)}${css.price} text-xl font-bold`}
 					>
-						{formatPrice(currentParams.RetailPriceWithDiscount)} грн.
+						{formatPrice(currentParams?.RetailPriceWithDiscount)} грн.
 					</p>
 				</CardFooter>
 			</Link>

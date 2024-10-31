@@ -7,14 +7,10 @@ const getRandomProducts = (products: Product[], count: number): Product[] => {
 	return shuffled.slice(0, count)
 }
 
-export const useRandomProducts = (
-	categoryId: number,
-	limit: number = 30,
-	minCount: number = 5
-) => {
-	const randomNumber = Math.floor(Math.random() * 9) + 1
+export const useRandomProducts = (limit: number = 25) => {
+	const randomCategoryId = Math.floor(Math.random() * 10) + 1
 	const { data, error, isLoading } = useFetchCategoryWithProductsQuery({
-		categoryId: categoryId + randomNumber,
+		categoryId: randomCategoryId,
 		page: 1,
 		limit: 30,
 	})
@@ -25,14 +21,10 @@ export const useRandomProducts = (
 				(product: Product) =>
 					product.paramsFrom_01_MebliBalta?.['Відображення на сайті'] === '1'
 			)
-			const selectedProducts = getRandomProducts(
-				visibleProducts,
-				Math.max(minCount, limit)
-			)
-			return selectedProducts.slice(0, limit)
+			return getRandomProducts(visibleProducts, limit)
 		}
 		return []
-	}, [data, limit, minCount])
+	}, [data, limit])
 
 	return { randomProducts, error, isLoading }
 }

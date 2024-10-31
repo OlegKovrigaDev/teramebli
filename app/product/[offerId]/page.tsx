@@ -15,6 +15,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { characteristicsData } from '@/constants'
+import { formatPrice } from '@/helpers'
 import { useProductData } from '@/hooks'
 import { RootState } from '@/store'
 import { addToCart } from '@/store/cartSlice'
@@ -166,12 +167,22 @@ export default function page({ params }: { params: { offerId: string } }) {
 						<p className='text-red-900 text-[18px] font-semibold'>
 							В наявності!
 						</p>
-						<p className='line-through text-[20px] font-bold'>
-							{currentParams.RetailPriceWithDiscount} грн.
-						</p>
-						<p className='text-red-900 text-[40px] font-semibold'>
-							{currentParams.RetailPrice} грн.
-						</p>
+
+						{currentParams.RetailPriceWithDiscount ===
+						currentParams.RetailPrice ? (
+							<p className='text-red-900 text-[40px] font-semibold'>
+								{formatPrice(currentParams.RetailPrice)} грн.
+							</p>
+						) : (
+							<>
+								<p className='line-through text-[20px] font-bold'>
+									{formatPrice(currentParams.RetailPrice)} грн.
+								</p>
+								<p className='text-red-900 text-[40px] font-semibold'>
+									{formatPrice(currentParams.RetailPriceWithDiscount)} грн.
+								</p>
+							</>
+						)}
 					</div>
 					<Accord title='Варіанти товару'>
 						<div className='flex flex-col gap-2 text-xs w-full'>
