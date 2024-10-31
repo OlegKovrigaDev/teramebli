@@ -54,7 +54,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 		dispatch(addToCart(cartItem))
 	}
 
-	const isAvailable = currentParams['Кількість на складі'] > 0
+	const isAvailable = currentParams?.['Кількість на складі'] > 0
 
 	return (
 		<Card className={css.card}>
