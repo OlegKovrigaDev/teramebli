@@ -1,3 +1,4 @@
+import { CatalogCategories } from '@/components/CatalogCategories'
 import {
 	Sheet,
 	SheetContent,
@@ -7,9 +8,8 @@ import {
 	SheetTrigger,
 } from '@/components/ui'
 import { header } from '@/constants'
-import { LayoutDashboard, MenuIcon } from 'lucide-react'
+import { LayoutDashboard } from 'lucide-react'
 import { Logo } from '../logo'
-import { CatalogCategories } from '@/components/CatalogCategories'
 
 export const Catalog = () => {
 	const currentLanguage = 'UA'
@@ -21,8 +21,7 @@ export const Catalog = () => {
 	return (
 		<Sheet>
 			<SheetTrigger className='menu-trigger'>
-				<MenuIcon className='mobile' />
-				<LayoutDashboard className='desktop' />
+				<LayoutDashboard />
 				<span className='text'>{header[0].text}</span>
 			</SheetTrigger>
 			<SheetContent side={'left'} className='menu-content'>

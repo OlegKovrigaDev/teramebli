@@ -98,8 +98,8 @@ body {
 .header {
 	@apply bg-accent sticky top-0 z-10;
 }
-.header .text {
-	@apply desktop text-xs;
+.text {
+	@apply text-[10px] font-medium md:font-normal md:text-xs;
 }
 .header .level-text {
 	@apply font-normal -mt-2;
@@ -117,7 +117,7 @@ body {
 .header-mobile .right {
 	@apply flex items-center justify-end gap-2 ml-auto w-full;
 }
-.header .menu-trigger {
+.menu-trigger {
 	@apply flex flex-col center h-12 md:w-[71px] hover:bg-transparent;
 }
 .header .menu-trigger-text {
@@ -126,7 +126,7 @@ body {
 .header .menu-content {
 	@apply w-screen max-w-full;
 }
-.header .magazins-trigger {
+.magazins-trigger {
 	@apply flex flex-col center;
 }
 .header .magazins-content {
@@ -159,7 +159,7 @@ body {
 .header .contact-content {
 	@apply rounded-2xl bg-white p-4;
 }
-.header .cart-trigger {
+.cart-trigger {
 	@apply flex flex-col center;
 }
 

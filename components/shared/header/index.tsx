@@ -27,21 +27,8 @@ export const Header = () => {
 				</div>
 			</div>
 			<div className='header-mobile'>
-				{!search.isSearchVisible && (
-					<>
-						<Logo />
-						<Lang />
-					</>
-				)}
-				<div className='right'>
-					<SearchBar search={search} />
-					{!search.isSearchVisible && (
-						<>
-							<Cart />
-							<Catalog />
-						</>
-					)}
-				</div>
+				{!search.isSearchVisible && <Logo />}
+				<SearchBar search={search} />
 			</div>
 		</header>
 	)
