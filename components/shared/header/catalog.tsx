@@ -21,7 +21,7 @@ export const Catalog = () => {
 	return (
 		<Sheet>
 			<SheetTrigger className='menu-trigger'>
-				<LayoutDashboard />
+				<LayoutDashboard className='flex md:hidden xl:flex' />
 				<span className='text'>{header[0].text}</span>
 			</SheetTrigger>
 			<SheetContent side={'left'} className='menu-content'>

@@ -53,6 +53,12 @@ export const MobileMenu = () => {
 							</div>
 							<ul className='flex flex-col items-start text-[14px] font-bold'>
 								<li>
+									<Catalog />
+								</li>
+								<li>
+									<Magazins />
+								</li>
+								<li>
 									<a href='/about'>Про нас</a>
 								</li>
 								<li>

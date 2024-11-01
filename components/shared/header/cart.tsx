@@ -10,6 +10,7 @@ import {
 	DialogTrigger,
 } from '@/components/ui'
 import { header } from '@/constants'
+import { formatPrice } from '@/helpers'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
@@ -17,7 +18,6 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { CartForm } from './cart-form'
 import { CartProduct } from './cart-product'
-import { formatPrice } from '@/helpers'
 
 export const Cart = () => {
 	const cartItems = useSelector(selectCartItems)
@@ -42,7 +42,9 @@ export const Cart = () => {
 						{cartItems.length}
 					</span>
 				)}
-				<span className='text'>{header[1].text}</span>
+				<span className='text-[10px] font-medium xl:font-normal xl:text-xs'>
+					{header[1].text}
+				</span>
 			</DialogTrigger>
 			<DialogContent className='min-w-[800px] p-8'>
 				<DialogHeader>

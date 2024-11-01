@@ -50,7 +50,7 @@ export default function Order() {
 			delivery: '',
 			payment: '',
 		},
-	})
+	})R
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		console.log(values)

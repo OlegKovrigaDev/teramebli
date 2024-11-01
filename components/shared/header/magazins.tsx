@@ -51,7 +51,7 @@ export const Magazins = () => {
 		<>
 			<HoverCard>
 				<HoverCardTrigger className='magazins-trigger'>
-					<MapPinned size={24} />
+					<MapPinned size={24} className='flex md:hidden xl:flex' />
 					<span className='text'>{header[2].text}</span>
 				</HoverCardTrigger>
 				<HoverCardContent className='magazins-content'>

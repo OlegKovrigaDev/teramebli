@@ -99,7 +99,7 @@ body {
 	@apply bg-accent sticky top-0 z-10;
 }
 .text {
-	@apply text-[10px] font-medium md:font-normal md:text-xs;
+	@apply text-[10px] font-medium md:text-[14px] md:font-normal xl:font-normal xl:text-xs;
 }
 .header .level-text {
 	@apply font-normal -mt-2;
@@ -145,13 +145,13 @@ body {
 	@apply font-semibold;
 }
 .header .lang-trigger {
-	@apply w-auto border-none bg-transparent shadow-none;
+	@apply hidden xl:flex w-auto border-none bg-transparent shadow-none;
 }
 .header .lang-trigger-container {
 	@apply flex flex-col font-medium text-lg md:text-2xl;
 }
 .header .contact-trigger {
-	@apply flex items-center justify-between gap-1;
+	@apply hidden xl:flex items-center justify-between gap-1;
 }
 .header .contact-tel {
 	@apply text-xl font-medium mb-1;
