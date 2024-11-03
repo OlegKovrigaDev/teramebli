@@ -12,7 +12,7 @@ interface SelectedStorageState {
 }
 
 const initialState: SelectedStorageState = {
-	storage: 'paramsFrom_01_MebliBalta',
+	storage: 'paramsFrom_03_MebliPervomaisk',
 }
 
 const selectedStorageSlice = createSlice({

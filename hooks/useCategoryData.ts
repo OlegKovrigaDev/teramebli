@@ -7,7 +7,7 @@ import { Product } from '@/types/redux'
 import { useState, useMemo } from 'react'
 
 const getInitialStorageAndParams = (product: Product) => {
-	const initialStorage = 'paramsFrom_01_MebliBalta' as const
+	const initialStorage = 'paramsFrom_03_MebliPervomaisk' as const
 	return {
 		selectedStorage: initialStorage,
 		currentParams: product[initialStorage],
@@ -17,7 +17,11 @@ const getInitialStorageAndParams = (product: Product) => {
 	}
 }
 
-export const useCategoryData = (id: string) => {
+export const useCategoryData = (
+	id: string,
+	minPrice?: number,
+	maxPrice?: number
+) => {
 	const [page, setPage] = useState(1)
 	const limit = 12
 
@@ -72,9 +76,15 @@ export const useCategoryData = (id: string) => {
 		}
 	}
 
-	const filteredProducts = productsWithStorage.filter(
-		product => product.currentParams?.['Відображення на сайті'] === '1'
-	)
+	const filteredProducts = productsWithStorage
+		.filter(product => product.currentParams?.['Назва товару'])
+		.filter(product => {
+			const productPrice = Number(product.currentParams?.RetailPrice)
+			return (
+				(!minPrice || productPrice >= minPrice) &&
+				(!maxPrice || productPrice <= maxPrice)
+			)
+		})
 
 	const paginatedProducts = filteredProducts.slice(
 		(page - 1) * limit,

@@ -19,6 +19,9 @@
 .instock {
 	@apply text-green text-xs font-semibold;
 }
+.outOfStock {
+	@apply text-red-900 text-xs font-semibold;
+}
 .code {
 	@apply text-gray/60 text-xs;
 }
@@ -34,5 +37,5 @@
 }
 
 .cart {
-	@apply absolute right-0 bottom-0;
+	@apply absolute right-0 bottom-0 hover:bg-transparent;
 }

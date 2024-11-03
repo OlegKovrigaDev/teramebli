@@ -1,12 +1,12 @@
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/store'
+import { setSelectedStorage } from '@/store/selectedStorageSlice'
 import Notification from '@/components/notification'
 import { List } from '@/components/shared/list'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui'
-import { header } from '@/constants'
-import { RootState } from '@/store'
-import { setSelectedStorage } from '@/store/selectedStorageSlice'
 import { MapPinned } from 'lucide-react'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { header } from '@/constants'
 
 const storageMap = {
 	'м.Балта, Одеська обл.': 'paramsFrom_01_MebliBalta',
@@ -38,13 +38,14 @@ export const Magazins = () => {
 			})
 		}
 	}
+
 	const closeNotification = () => {
 		setNotification(null)
 	}
 
 	const getActiveClass = (town: string) => {
 		const storageKey = storageMap[town as keyof typeof storageMap]
-		return storageKey === storage ? 'bg-gray-100' : ''
+		return storageKey === storage ? 'bg-blue-100 border border-blue-500' : ''
 	}
 
 	return (

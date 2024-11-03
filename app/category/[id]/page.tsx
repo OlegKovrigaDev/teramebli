@@ -8,14 +8,21 @@ import { useCategoryData } from '@/hooks'
 import { useProductSearch } from '@/hooks/useProductSearch'
 import { Product } from '@/types/redux'
 import { useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 
 export default function CategoryId({ params }: { params: { id: string } }) {
 	const { id } = params
+	const [minPrice, setMinPrice] = useState<number | undefined>()
+	const [maxPrice, setMaxPrice] = useState<number | undefined>()
+
 	const searchParams = useSearchParams()
 	const query = searchParams.get('search') || ''
 
 	const isSearchMode = id === '20000'
-
+	const handlePriceFilter = (min: number, max: number) => {
+		setMinPrice(min)
+		setMaxPrice(max)
+	}
 	const {
 		searchResults,
 		isLoading: searchLoading,
@@ -105,7 +112,10 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
-					<ProductPriceFilter title='Ціна' />
+					<ProductPriceFilter
+						title='Ціна'
+						onApplyPriceFilter={handlePriceFilter}
+					/>
 					<ProductFilter title='Product Filter' />
 				</div>
 

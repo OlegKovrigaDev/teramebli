@@ -7,24 +7,29 @@ const getRandomProducts = (products: Product[], count: number): Product[] => {
 	return shuffled.slice(0, count)
 }
 
-export const useRandomProducts = (limit: number = 25) => {
+export const useRandomProducts = (
+	limit: number = 25,
+	usedProductIds: Set<string> = new Set(),
+	selectedStorage: keyof Product = 'paramsFrom_03_MebliPervomaisk'
+) => {
 	const randomCategoryId = Math.floor(Math.random() * 10) + 1
 	const { data, error, isLoading } = useFetchCategoryWithProductsQuery({
 		categoryId: randomCategoryId,
 		page: 1,
-		limit: 30,
+		limit: 100,
 	})
 
 	const randomProducts = useMemo(() => {
 		if (data?.products) {
 			const visibleProducts = data.products.filter(
 				(product: Product) =>
-					product.paramsFrom_01_MebliBalta?.['Відображення на сайті'] === '1'
+					product[selectedStorage] && !usedProductIds.has(product.offerId)
 			)
+
 			return getRandomProducts(visibleProducts, limit)
 		}
 		return []
-	}, [data, limit])
+	}, [data, limit, usedProductIds, selectedStorage])
 
 	return { randomProducts, error, isLoading }
 }

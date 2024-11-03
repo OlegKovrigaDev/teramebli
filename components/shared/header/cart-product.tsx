@@ -8,7 +8,7 @@ import { useFetchImages } from '@/hooks/useFetchImages'
 import { formatPrice } from '@/helpers'
 
 export const CartProduct = ({ product }: { product: CartItem }) => {
-	// const { img } = useFetchImages(product.offerId)
+	const { img } = useFetchImages(product.offerId)
 	const dispatch = useDispatch()
 
 	const handleIncrease = () => {
@@ -39,7 +39,7 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 		<div className='flex gap-2 border-b border-gray/20 py-4 relative'>
 			{/* <img
 				src={`data:image/jpeg;base64,${img.buffer}`}
-				alt={product.ModelName}
+				alt={product?.ModelName}
 				width={150}
 				height={150}
 				className='rounded-lg object-cover'

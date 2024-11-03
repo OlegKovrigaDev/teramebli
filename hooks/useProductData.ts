@@ -13,15 +13,24 @@ const storageKeys: StorageKey[] = [
 export const useProductData = (offerId: string) => {
 	const { data: product, error, isLoading } = useFetchProductByIdQuery(offerId)
 	const [selectedStorage, setSelectedStorage] = useState<StorageKey>(
-		'paramsFrom_01_MebliBalta'
+		'paramsFrom_03_MebliPervomaisk'
 	)
 
 	const getAvailableStorages = useCallback(() => {
 		if (!product) return []
-		return storageKeys.filter(
-			key => product[key] && Object.keys(product[key]).length > 0
-		)
+		return storageKeys
+			.filter(
+				key =>
+					product[key]?.['Відображення на сайті'] === '1' &&
+					product[key]?.RetailPriceWithDiscount > 0
+			)
+			.map(key => ({
+				location: key,
+				available: product[key]['Кількість на складі'],
+			}))
 	}, [product])
+
+	const availableStorages = getAvailableStorages()
 
 	const changeStorage = useCallback((newStorage: StorageKey) => {
 		setSelectedStorage(newStorage)
@@ -51,6 +60,7 @@ export const useProductData = (offerId: string) => {
 	return {
 		product,
 		error,
+		availableStorages,
 		isLoading,
 		mainCategory,
 		mainCategoryId,

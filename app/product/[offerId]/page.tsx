@@ -14,20 +14,22 @@ import {
 } from '@/components/ui'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { characteristicsData } from '@/constants'
 import { formatPrice } from '@/helpers'
 import { useProductData } from '@/hooks'
-import { RootState } from '@/store'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 
+const storageMap = {
+	paramsFrom_01_MebliBalta: 'м.Балта, Одеська обл.',
+	paramsFrom_02_MebliPodilsk: 'м.Подільск, Одеська обл.',
+	paramsFrom_03_MebliPervomaisk: 'м.Первомайськ, Миколаївська обл.',
+	paramsFrom_04_MebliOdesa1: 'м.Одеса',
+	paramsFrom_05_MebliVoznesensk: 'м.Вознесенськ',
+} as const
+
 export default function page({ params }: { params: { offerId: string } }) {
 	const { offerId } = params
-
-	const selectedStorage = useSelector(
-		(state: RootState) => state.selectedStorage.storage
-	)
 
 	const dispatch = useDispatch()
 
@@ -35,6 +37,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 		product,
 		error,
 		isLoading,
+		availableStorages,
 		mainCategory,
 		mainCategoryId,
 		subCategory,
@@ -58,10 +61,12 @@ export default function page({ params }: { params: { offerId: string } }) {
 	if (!product || !currentParams)
 		return <p className='text-gray-500'>Товар не найден</p>
 
+	const isAvailable = currentParams?.['Кількість на складі'] > 0
+
 	const handleAddToCart = () => {
 		const cartItem = {
 			offerId: product.offerId,
-			ModelName: currentParams.ModelName,
+			ModelName: currentParams?.ModelName,
 			Articul: currentParams.Articul,
 			RetailPrice: currentParams.RetailPrice,
 			RetailPriceWithDiscount: currentParams.RetailPriceWithDiscount,
@@ -118,12 +123,47 @@ export default function page({ params }: { params: { offerId: string } }) {
 									Загальна інформація
 								</h3>
 								<div className='grid grid-cols-2 gap-4'>
-									{characteristicsData.map(({ label, key }) => (
-										<div key={key} className='grid grid-cols-2 gap-4'>
-											<div className='text-gray-500'>{label}</div>
-											<div>{currentParams[key] ?? 'Не вказано'}</div>
-										</div>
-									))}
+									{Object.entries(currentParams)
+										.filter(
+											([key]) =>
+												![
+													'Articul',
+													'ModelName',
+													'Розділ синхронізації повністю',
+													'RetailPrice',
+													'Розділ синхронізації',
+													'Кількість на складі',
+													'RetailPriceWithDiscount',
+													'Відображення на сайті',
+													'MesUnit',
+													'Одиниця виміру терміну гарантії',
+													'groupId',
+													'Назва товару',
+													'Название товара',
+													'Опис текст(сайт)',
+												].includes(key)
+										)
+										.map(([key, value]) => {
+											const [UaKey, RuKey] = key.split('_')
+											const [UaValue, RuValue] = String(value).split('_')
+
+											return (
+												<div key={key} className='grid grid-cols-2 gap-4'>
+													<div className='text-gray-500'>
+														{UaKey ? <span>{UaKey}</span> : null}
+														{/* {RuKey ? (
+															<span className='ml-2'>{RuKey}</span>
+														) : null} */}
+													</div>
+													<div>
+														{UaValue ? <span>{UaValue}</span> : 'Не вказано'}
+														{/* {RuValue ? (
+															<span className='ml-2'>{RuValue}</span>
+														) : null} */}
+													</div>
+												</div>
+											)
+										})}
 								</div>
 							</div>
 						</TabsContent>
@@ -164,13 +204,19 @@ export default function page({ params }: { params: { offerId: string } }) {
 				</div>
 				<div className='w-[385px] flex flex-col gap-6'>
 					<div className='h-36 w-full p-2 bg-white flex flex-col justify-between'>
-						<p className='text-red-900 text-[18px] font-semibold'>
-							В наявності!
+						<p
+							className={
+								isAvailable
+									? 'text-green text-lg font-semibold'
+									: 'text-red-900 text-lg font-semibold'
+							}
+						>
+							{isAvailable ? '● В наявності' : '○ Немає в наявності'}
 						</p>
 
 						{currentParams.RetailPriceWithDiscount ===
 						currentParams.RetailPrice ? (
-							<p className='text-red-900 text-[40px] font-semibold'>
+							<p className='text-black text-[40px] font-semibold'>
 								{formatPrice(currentParams.RetailPrice)} грн.
 							</p>
 						) : (
@@ -216,15 +262,15 @@ export default function page({ params }: { params: { offerId: string } }) {
 					</Accord>
 					<Accord title='Наявність в магазинах'>
 						<div className='flex flex-col gap-2 text-xs w-full'>
-							{Array.from({ length: 3 }).map((_, index) => (
-								<div key={index} className='flex justify-between text-[16px]'>
-									<span>Location Name</span>
-									{index % 2 === 0 && <span>Available</span>}
-								</div>
-							))}
-							<Link href='/' className='text-[#4E3A9F] mt-4'>
-								Дізнатися всі умови
-							</Link>
+							{availableStorages.length > 0 ? (
+								availableStorages.map((storage, index) => (
+									<div key={index} className='flex justify-between text-[16px]'>
+										<span>{storageMap[storage.location]}</span>
+									</div>
+								))
+							) : (
+								<p className='text-gray-500'>Товар немає на складах</p>
+							)}
 						</div>
 					</Accord>
 					<Accord title='Доставка'>

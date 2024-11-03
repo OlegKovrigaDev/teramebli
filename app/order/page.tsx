@@ -23,7 +23,6 @@ import { useSubmitOrder } from '@/hooks/useSubmitOrder'
 import { orders, radioOptions } from '@/constants'
 import { formSchema } from '@/components/shared/order/formSchema'
 import Notification from '@/components/notification'
-import { format } from 'path'
 import { formatPrice } from '@/helpers'
 
 export default function Order() {
@@ -50,7 +49,7 @@ export default function Order() {
 			delivery: '',
 			payment: '',
 		},
-	})R
+	})
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		console.log(values)

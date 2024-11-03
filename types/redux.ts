@@ -8,8 +8,8 @@ export interface Category {
 
 export interface ProductParams {
 	Articul: string
-	RetailPrice: string
-	RetailPriceWithDiscount: string
+	RetailPrice: number
+	RetailPriceWithDiscount: number
 	'Відображення на сайті': string | number
 	'Назва товару': string
 	Уцінка: string
@@ -33,19 +33,29 @@ export interface ProductParams {
 	'Приналежність до категорії': string
 	'Одиниця виміру терміну гарантії'?: string
 	'Розділ синхронізації повністю'?: string
-	'Габарит.розміри.Висота(см)(сайт)'?: string
-	'Габарит.розміри.Довжина(см)(сайт)'?: string
-	'Габарит.розміри.Ширина(см)(сайт)'?: string
+	'Габаритні розміри (висота, см)_Габаритные размеры (высота, см)'?: string
+	'Габаритні розміри (довжина, см)_Габаритные размеры (длина, см)'?: string
+	'Габаритні розміри (ширина, см)_Габаритные размеры (ширина, см)'?: string
 	'Додатково ліжка(сайт ліжка)'?: string
 	'Матеріал ліжка(сайт ліжка)'?: string
 	'Ніша для білизни(сайт ліжка)'?: string
 	'Основа під матрац(сайт ліжка)'?: string
 	'Підйомний механізм(сайт ліжка)'?: string
-	'Роз.спал.місц.ширина(см)(сайт)'?: string
-	'Розм.спал.місц.Довжина(см)(сайт)'?: string
+	'Розмір спального місця (ширина, см)_Размер спального места (ширина, см)'?: string
+	'Розмір спального місця (довжина, см)_Размер спального места (длина, см)'?: string
 	'Тип ліжка(сайт ліжка)'?: string
 	'Опис текст(сайт)'?: string
 	'Описание(сайт)'?: string
+	items?: ProductItem[]
+}
+export interface ProductItem {
+	id: string // ID товара
+	name: string // Название товара
+	price: number // Цена товара
+	categoryId: string
+	groupId: string
+	ModelName: string
+	// Добавьте другие свойства, необходимые для ваших товаров
 }
 
 export type StorageKey =
@@ -70,6 +80,7 @@ export interface Product extends StorageParams {
 	paramsFrom_03_MebliPervomaisk: ProductParams
 	paramsFrom_04_MebliOdesa1: ProductParams
 	paramsFrom_05_MebliVoznesensk: ProductParams
+	variants: ProductItem[]
 }
 
 export interface CategoryWithProducts {
@@ -83,4 +94,16 @@ export interface CategoryWithProducts {
 export interface ProductImage {
 	offerId: string
 	buffer: string
+}
+
+export interface UseProductSearchResult {
+	query: string
+	setQuery: (query: string) => void
+	searchResults: Product[] | undefined
+	total: number
+	isLoading: boolean
+	error: any
+	totalPages: number
+	currentPage: number
+	setPage: (page: number) => void
 }
