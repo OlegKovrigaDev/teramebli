@@ -1,6 +1,8 @@
 'use client'
 
+import Notification from '@/components/notification'
 import { CartProduct } from '@/components/shared/header/cart-product'
+import { formSchema } from '@/components/shared/order/formSchema'
 import {
 	Button,
 	Form,
@@ -13,17 +15,15 @@ import {
 	RadioGroup,
 	RadioGroupItem,
 } from '@/components/ui'
+import { Textarea } from '@/components/ui/textarea'
+import { orders, radioOptions } from '@/constants'
+import { formatPrice } from '@/helpers'
+import { useSubmitOrder } from '@/hooks/useSubmitOrder'
 import { selectCartItems, selectCartTotal } from '@/store/selectors'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import { Textarea } from '@/components/ui/textarea'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useSubmitOrder } from '@/hooks/useSubmitOrder'
-import { orders, radioOptions } from '@/constants'
-import { formSchema } from '@/components/shared/order/formSchema'
-import Notification from '@/components/notification'
-import { formatPrice } from '@/helpers'
 
 export default function Order() {
 	const cartItems = useSelector(selectCartItems)
@@ -60,11 +60,11 @@ export default function Order() {
 		<Form {...form}>
 			<form
 				onSubmit={form.handleSubmit(onSubmit)}
-				className='flex justify-between'
+				className='flex flex-wrap justify-center xl:justify-between mb-16'
 			>
-				<div className='w-[630px] flex flex-col gap-8'>
-					<div className='bg-white flex justify-between py-4 px-2'>
-						<div className='w-[296px]'>
+				<div className='md:w-full xl:w-[630px] flex flex-col gap-8 order-2 md:order-1'>
+					<div className='bg-white flex flex-wrap justify-between py-4 px-2'>
+						<div className='w-full md:w-[296px]'>
 							{orders.slice(0, 4).map((item, index) => (
 								<FormField
 									key={index}
@@ -88,7 +88,7 @@ export default function Order() {
 								/>
 							))}
 						</div>
-						<div className='w-[296px]'>
+						<div className='w-full md:w-[296px]'>
 							{orders.slice(4, 6).map((item, index) => (
 								<FormField
 									key={index}
@@ -138,7 +138,7 @@ export default function Order() {
 						</div>
 					</div>
 
-					<div className='bg-white flex justify-between py-4 px-2'>
+					<div className='bg-white flex flex-wrap gap-4 justify-between py-4 px-2'>
 						<div className='w-[296px]'>
 							<FormField
 								control={form.control}
@@ -217,7 +217,7 @@ export default function Order() {
 					</div>
 					<div className='bg-white flex flex-col justify-between py-4 px-2'>
 						<p className='text-xl font-bold mb-6'>Коментар до замовлення</p>
-						<div className='grid w-full gap-1.5'>
+						<div className='grid w-full gap-1.5 mb-2 md:mb-0'>
 							<FormField
 								control={form.control}
 								name='comment'
@@ -238,10 +238,16 @@ export default function Order() {
 								)}
 							/>
 						</div>
+						<Button
+							type='submit'
+							className='block md:hidden w-full md:w-auto bg-gray rounded-xl'
+						>
+							Оформити замовлення
+						</Button>
 					</div>
 				</div>
 
-				<div className='bg-white w-[630px] py-4 px-2'>
+				<div className='bg-white w-full xl:w-[630px] py-4 px-2 order-1 md:order-2'>
 					<h3 className='text-xl font-bold'>Ваше замовлення</h3>
 					<div className='mb-10'>
 						{cartItems.length > 0 ? (
@@ -253,15 +259,16 @@ export default function Order() {
 						)}
 					</div>
 					<div className='flex flex-col w-full'>
-						<div className='flex justify-between mb-8'>
+						<div className='flex flex-wrap gap-4 justify-between md:mb-8'>
 							<p className='text-2xl font-bold'>
 								Всього: {formatPrice(cartTotal)} грн.
 							</p>
-							<div className='flex gap-2'>
-								<Button type='submit' className='bg-gray rounded-xl'>
-									Оформити замовлення
-								</Button>
-							</div>
+							<Button
+								type='submit'
+								className='hidden md:block w-full md:w-auto bg-gray rounded-xl'
+							>
+								Оформити замовлення
+							</Button>
 						</div>
 					</div>
 					{notification && (
