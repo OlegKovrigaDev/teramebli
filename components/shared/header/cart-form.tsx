@@ -45,20 +45,20 @@ export const CartForm = () => {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className='flex items-end justify-between w-full'
+					className='flex flex-wrap md:flex-nowrap items-end justify-between w-full gap-2'
 				>
 					<FormField
 						control={form.control}
 						name='firstName'
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className='w-full xl:w-auto'>
 								<FormLabel className='text-xs font-semibold'>
 									Введіть своє ім’я
 								</FormLabel>
 								<FormControl>
 									<Input
 										placeholder='Ім’я'
-										className='w-[270px] font-medium'
+										className='w-full xl:w-[270px] font-medium'
 										{...field}
 									/>
 								</FormControl>
@@ -70,14 +70,14 @@ export const CartForm = () => {
 						control={form.control}
 						name='phone'
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className='w-full xl:w-auto'>
 								<FormLabel className='text-xs font-semibold'>
 									Введіть свій номер телефону
 								</FormLabel>
 								<FormControl>
 									<Input
 										placeholder='+380'
-										className='w-[270px] font-medium'
+										className='w-full xl:w-[270px] font-medium'
 										{...field}
 									/>
 								</FormControl>
@@ -87,7 +87,7 @@ export const CartForm = () => {
 					/>
 					<Button
 						disabled={cartItems.length === 0}
-						className='bg-gray rounded-xl'
+						className='bg-gray rounded-xl h-11 md:h-auto w-full xl:w-auto mt-2 xl:mt-0'
 						type='submit'
 					>
 						Купити в 1 клік

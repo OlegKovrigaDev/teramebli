@@ -46,9 +46,11 @@ export const Cart = () => {
 					{header[1].text}
 				</span>
 			</DialogTrigger>
-			<DialogContent className='min-w-[800px] p-8'>
+			<DialogContent className='h-screen min-w-full xl:min-w-[800px] xl:h-auto p-2 xl:p-8'>
 				<DialogHeader>
-					<DialogTitle className='text-2xl font-bold'>Кошик</DialogTitle>
+					<DialogTitle className='text-2xl font-bold text-start'>
+						Кошик
+					</DialogTitle>
 					<DialogDescription />
 				</DialogHeader>
 				<div className='mb-10 max-h-[549px] overflow-auto'>
@@ -62,14 +64,14 @@ export const Cart = () => {
 				</div>
 				<DialogFooter>
 					<div className='flex flex-col w-full'>
-						<div className='flex justify-between mb-8'>
-							<p className='text-2xl font-bold'>
+						<div className='flex flex-wrap justify-between mb-6 xl:mb-8'>
+							<p className='text-xl font-semibold mb-4 xl:mb-0 xl:text-2xl xl:font-bold'>
 								Всього: {formatPrice(cartTotal)} грн.
 							</p>
-							<div className='flex gap-2'>
+							<div className='flex md:justify-between flex-wrap gap-2 w-full xl:w-auto'>
 								<Button
 									variant='outline'
-									className='border-2 border-gray rounded-xl text-gray'
+									className='w-full md:w-[49%] h-11 xl:h-auto border-2 border-gray rounded-xl text-gray'
 									onClick={handleClose}
 								>
 									Продовжити покупки
@@ -77,15 +79,15 @@ export const Cart = () => {
 
 								<Button
 									disabled={cartItems.length === 0}
-									className='bg-gray rounded-xl'
+									className='w-full md:w-[49%] h-11 xl:h-auto bg-gray rounded-xl'
 									onClick={handleClose}
 								>
 									<Link href='/order'>Оформити замовлення</Link>
 								</Button>
 							</div>
 						</div>
-						<div className='p-4 bg-bg'>
-							<h3 className='text-xl font-bold mb-4'>
+						<div className='md:p-4 md:bg-bg rounded'>
+							<h3 className='text-xl font-semibold xl:font-bold mb-4'>
 								Швидке оформлення замовлення
 							</h3>
 							<CartForm />

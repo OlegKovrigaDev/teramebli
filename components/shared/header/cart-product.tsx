@@ -1,11 +1,11 @@
 'use client'
 import { Button } from '@/components/ui'
-import { Minus, Plus, Trash } from 'lucide-react'
-import { CartItem } from '@/types/cart'
-import { useDispatch } from 'react-redux'
-import { updateQuantity, removeFromCart } from '@/store/cartSlice'
-import { useFetchImages } from '@/hooks/useFetchImages'
 import { formatPrice } from '@/helpers'
+import { useFetchImages } from '@/hooks/useFetchImages'
+import { removeFromCart, updateQuantity } from '@/store/cartSlice'
+import { CartItem } from '@/types/cart'
+import { Minus, Plus, Trash } from 'lucide-react'
+import { useDispatch } from 'react-redux'
 
 export const CartProduct = ({ product }: { product: CartItem }) => {
 	const { img } = useFetchImages(product.offerId)
@@ -44,11 +44,13 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 				height={150}
 				className='rounded-lg object-cover'
 			/> */}
-			<div className='rounded-lg size-[150px] bg-accent' />
-			<div className='flex flex-col gap-2 justify-between'>
-				<h3 className='font-medium'>{product?.ModelName}</h3>
+			<div className='rounded-lg size-16 md:size-[150px] bg-accent' />
+			<div className='flex flex-col gap-2 xl:justify-between'>
+				<h3 className='font-medium max-w-60 md:min-w-max'>
+					{product?.ModelName}
+				</h3>
 				{product?.RetailPriceWithDiscount === product?.RetailPrice ? (
-					<p className='text-black text-4.5 font-semibold'>
+					<p className=' text-4.5 font-semibold'>
 						{formatPrice(product?.RetailPrice)} грн.
 					</p>
 				) : (
@@ -62,7 +64,7 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 					</>
 				)}
 
-				<div className='flex'>
+				<div className='flex relative left-[-70px] md:static'>
 					<Button
 						className='w-12 h-8 bg-gray/20 text-black hover:text-white rounded-e-none rounded-s'
 						onClick={handleDecrease}
@@ -78,9 +80,9 @@ export const CartProduct = ({ product }: { product: CartItem }) => {
 					>
 						<Plus size={24} />
 					</Button>
-					<p className='absolute right-0 text-gray/80 text-xs'>
+					{/* 					<p className='absolute right-0 text-gray/80 text-xs hidden xl:block'>
 						Код товару: {product?.Articul}
-					</p>
+					</p> */}
 				</div>
 			</div>
 			<Button
