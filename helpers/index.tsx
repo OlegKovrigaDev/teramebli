@@ -11,9 +11,9 @@ export const processBoldSpan = (text: string) => {
 						{rest}
 					</span>
 				)
-			} else {
+			} /*  else {
 				return <span key={index}>{t}</span>
-			}
+			} */
 		})
 	} else {
 		return <span>{text}</span>
