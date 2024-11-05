@@ -9,7 +9,9 @@ export default function page() {
 			<div className={css.container}>
 				<RenderSections data={about.data} />
 			</div>
-			<Image src='/about.png' alt='' width={452} height={475} />
+			<div>
+				<Image src='/about.png' alt='' width={452} height={475} />
+			</div>
 		</div>
 	)
 }

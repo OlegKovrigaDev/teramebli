@@ -1,5 +1,5 @@
 .about {
-	@apply my-4 flex gap-16;
+	@apply my-4 flex flex-wrap justify-center gap-16;
 }
 .container {
 	@apply w-[788px];
