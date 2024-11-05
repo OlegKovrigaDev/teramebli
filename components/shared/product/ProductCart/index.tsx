@@ -122,11 +122,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 					fill={isInCart ? '#16a34a' : 'transparent'}
 					className='size-6 hover:scale-125 transition-transform duration-200 ease-in-out hover:stroke-[#16a34a]'
 				/>
-				{cartItem && (
+				{/* {cartItem && (
 					<p className='absolute left-0 -top-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full grid place-content-center'>
 						{cartItem.quantity}
 					</p>
-				)}
+				)} */}
 			</Button>
 		</Card>
 	)
