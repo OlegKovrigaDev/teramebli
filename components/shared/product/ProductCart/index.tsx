@@ -8,6 +8,8 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card'
+import { formatPrice } from '@/helpers'
+import { RootState } from '@/store'
 import { addToCart } from '@/store/cartSlice'
 import { selectCartItems } from '@/store/selectors'
 import { Product } from '@/types/redux'
@@ -15,8 +17,6 @@ import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import css from './ProductCart.module.css'
-import { RootState } from '@/store'
-import { formatPrice } from '@/helpers'
 // import { useFetchImages } from '@/hooks/useFetchImages'
 
 export interface ProductCardProps {
@@ -118,11 +118,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 				onClick={handleAddToCart}
 			>
 				<ShoppingCart
-					className={`w-6 h-6 ${
-						isInCart ? 'text-[#16a34a]' : 'text-black'
-					} transition-transform duration-200 ease-in-out ${
-						!isInCart && 'hover:scale-125 hover:text-[#16a34a]'
-					}`}
+					stroke={isInCart ? '#16a34a' : 'black'}
+					fill={isInCart ? '#16a34a' : 'transparent'}
+					className='size-6 hover:scale-125 transition-transform duration-200 ease-in-out hover:stroke-[#16a34a]'
 				/>
 				{cartItem && (
 					<p className='absolute left-0 -top-2 bg-red-600 text-white text-xs w-5 h-5 rounded-full grid place-content-center'>
