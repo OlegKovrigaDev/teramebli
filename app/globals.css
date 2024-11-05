@@ -168,7 +168,7 @@ body {
 }
 
 .warranty {
-	@apply max-w-4xl mx-auto p-6 my-4;
+	@apply max-w-4xl mx-auto md:p-2 xl:p-6 my-4;
 }
 .warranty ul {
 	@apply space-y-2 list-disc ml-6;
