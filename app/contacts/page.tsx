@@ -11,7 +11,7 @@ const contacts = () => {
 	const [activeAccordion, setActiveAccordion] = useState<2 | 3 | 4 | 5>(2)
 
 	return (
-		<div className='pt-10 pb-20 flex flex-col items-center xl:items-start xl:flex-row xl:justify-between'>
+		<div className='pt-10 pb-20 flex flex-col items-center xl:items-start xl:flex-row xl:justify-between gap-10'>
 			<div className='flex flex-col w-full xl:min-w-[592px] bg-white'>
 				{contactsData.map(
 					({ id, title, phone, type, email, icons, worktime, maps }) => (
@@ -89,7 +89,7 @@ const contacts = () => {
 			{contactsData
 				.filter((_, i) => i + 1 === activeAccordion)
 				.map(({ maps }) => (
-					<div className='flex-col max-w-[584px] md:min-w-[584px] hidden xl:flex'>
+					<div className='flex-col max-w-[584px] xl:min-w-[584px] hidden xl:flex'>
 						<h2 className='font-bold mb-2'>Ми на карті:</h2>
 						<p className='mb-4'>{maps?.[1]}</p>
 						<iframe src={maps?.[0]} height='483' loading='lazy'></iframe>

@@ -1,4 +1,3 @@
-import { ProductParams } from '@/types/redux'
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa6'
 
 export const home = {
@@ -218,6 +217,7 @@ export const footer = [
 			{ text: 'О нас', link: '/about' },
 			{ text: 'Доставка и Оплата', link: '/delivery' },
 			{ text: 'Гарантии и Возврат', link: '/warranty' },
+			{ text: 'Контакты', link: '/contacts' },
 		],
 	},
 	{
