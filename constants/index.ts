@@ -414,3 +414,58 @@ export const radioOptions = {
 		{ label: 'Кредит/Розстрочка', value: 'credit' },
 	],
 }
+
+export const contactsData = [
+	{
+		id: 1,
+		title: 'Відділ продажу',
+		phone: '+380951277643',
+		type: 'email',
+		email: 'fortecya.plus@gmail.com',
+		worktime: ['9:00 - 18:00'],
+	},
+	{
+		id: 2,
+		title: 'м.Балта Одеська обл.',
+		phone: '+380508035033',
+		type: 'social',
+		icons: [FaFacebook, FaInstagram, FaTiktok],
+		maps:[
+		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2547.054083614874!2d30.539861293217214!3d50.328242222855785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4c7a7290bea67%3A0x387df3660abbeb5c!2z0LLRg9C7LiDQm9GO0LHQvtC80LjRgNGB0YzQutCwLCDQmtC40ZfQsiwgMDIwMDA!5e0!3m2!1suk!2sua!4v1725192914102!5m2!1suk!2sua',
+		'вул.Любомирська, 163',
+	]
+	},
+	{
+		id: 3,
+		title: 'м.Подільськ Одеська обл.',
+		phone: '+380958976864',
+		type: 'social',
+		icons: [FaFacebook, FaInstagram],
+		maps: [
+		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2542.406483081815!2d30.19988039324387!3d50.414897816665295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472b356dda082741%3A0xe7a8e9dab176f101!2z0LLRg9C70LjRhtGPINCh0L7QsdC-0YDQvdCwLCAxOTQsINCT0L7RgNC10L3QuNGH0ZYsINCa0LjRl9Cy0YHRjNC60LAg0L7QsdC70LDRgdGC0YwsIDA4MTE0!5e0!3m2!1suk!2sua!4v1725194005878!5m2!1suk!2sua',
+		'вул.Соборна, 194',
+	],
+	},
+	{
+		id: 4,
+		title: 'м.Первомайськ Миколаївська обл.',
+		phone: '+380508712779',
+		type: 'social',
+		icons: [FaFacebook, FaInstagram],
+		maps: [
+		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2542.406483081815!2d30.19988039324387!3d50.414897816665295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472b356dda082741%3A0xe7a8e9dab176f101!2z0LLRg9C70LjRhtGPINCh0L7QsdC-0YDQvdCwLCAxOTQsINCT0L7RgNC10L3QuNGH0ZYsINCa0LjRl9Cy0YHRjNC60LAg0L7QsdC70LDRgdGC0YwsIDA4MTE0!5e0!3m2!1suk!2sua!4v1725194005878!5m2!1suk!2sua',
+		'вул.Соборна, 194',
+	],
+	},
+	{
+		id: 5,
+		title: 'м.Одеса',
+		phone: '+380662533771',
+		type: 'social',
+		icons: [FaInstagram, FaTiktok],
+		maps: [
+		'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2542.406483081815!2d30.19988039324387!3d50.414897816665295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472b356dda082741%3A0xe7a8e9dab176f101!2z0LLRg9C70LjRhtGPINCh0L7QsdC-0YDQvdCwLCAxOTQsINCT0L7RgNC10L3QuNGH0ZYsINCa0LjRl9Cy0YHRjNC60LAg0L7QsdC70LDRgdGC0YwsIDA4MTE0!5e0!3m2!1suk!2sua!4v1725194005878!5m2!1suk!2sua',
+		'вул.Соборна, 194',
+	],
+	},
+]
