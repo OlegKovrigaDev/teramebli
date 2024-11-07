@@ -7,7 +7,7 @@ import { useRandomProducts } from '@/hooks/useRandomProducts'
 import { useMemo } from 'react'
 
 export default function Home() {
-	const { randomProducts: randomProducts1 } = useRandomProducts(25)
+	const { randomProducts: randomProducts1 } = useRandomProducts(150)
 
 	const usedProductIds = useMemo(
 		() => new Set(randomProducts1.map(product => product.offerId)),
@@ -15,7 +15,7 @@ export default function Home() {
 	)
 
 	const { randomProducts: randomProducts2 } = useRandomProducts(
-		25,
+		200,
 		usedProductIds
 	)
 

@@ -41,10 +41,7 @@ export function CrumbsLinks({
 						</Link>
 					</BreadcrumbLink>
 				</BreadcrumbItem>
-
-				{(categoryName || subcategoryName || productName) && (
-					<BreadcrumbSeparator />
-				)}
+				<BreadcrumbSeparator />
 
 				{customBreadcrumb &&
 					customBreadcrumb.map((item, index) => (

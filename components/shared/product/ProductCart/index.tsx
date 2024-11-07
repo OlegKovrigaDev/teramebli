@@ -41,7 +41,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	const handleAddToCart = () => {
 		const cartItem = {
 			offerId: product.offerId,
-			ModelName: currentParams?.['Назва товару'] || currentParams?.ModelName,
+			ModelName: currentParams?.['Назва товару'],
 			Articul: currentParams?.Articul,
 			RetailPrice: currentParams?.RetailPrice,
 			RetailPriceWithDiscount:
@@ -81,7 +81,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 						</div>
 					</div>
 					<CardTitle className={css.title}>
-						{currentParams?.['Назва товару'] || currentParams?.ModelName}
+						{currentParams?.['Назва товару']}
 					</CardTitle>
 				</CardHeader>
 				<CardContent className={css.content}>

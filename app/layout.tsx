@@ -3,7 +3,6 @@ import { Ad, Footer, Header } from '@/components/shared'
 import { MobileMenu } from '@/components/shared/header/mobile-menu'
 import type { Metadata } from 'next'
 import { Montserrat as FontSans } from 'next/font/google'
-import '@/lib/i18n'
 import './globals.css'
 
 const fontSans = FontSans({

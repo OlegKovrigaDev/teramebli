@@ -49,13 +49,12 @@ export interface ProductParams {
 	items?: ProductItem[]
 }
 export interface ProductItem {
-	id: string // ID товара
-	name: string // Название товара
-	price: number // Цена товара
+	id: string
+	name: string
+	price: number
 	categoryId: string
 	groupId: string
 	ModelName: string
-	// Добавьте другие свойства, необходимые для ваших товаров
 }
 
 export type StorageKey =

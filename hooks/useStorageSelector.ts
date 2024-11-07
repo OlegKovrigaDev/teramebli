@@ -12,15 +12,18 @@ interface SelectedStorageState {
 }
 
 const getInitialStorage = (): StorageKey => {
-	try {
-		return (
-			(localStorage.getItem('selectedStorage') as StorageKey) ||
-			'paramsFrom_03_MebliPervomaisk'
-		)
-	} catch (error) {
-		console.error('Ошибка при доступе к localStorage:', error)
-		return 'paramsFrom_03_MebliPervomaisk'
+	if (typeof window !== 'undefined') {
+		try {
+			return (
+				(localStorage.getItem('selectedStorage') as StorageKey) ||
+				'paramsFrom_03_MebliPervomaisk'
+			)
+		} catch (error) {
+			console.error('Error accessing localStorage:', error)
+			return 'paramsFrom_03_MebliPervomaisk'
+		}
 	}
+	return 'paramsFrom_03_MebliPervomaisk'
 }
 
 const initialState: SelectedStorageState = {
@@ -34,7 +37,11 @@ const selectedStorageSlice = createSlice({
 		setSelectedStorage: (state, action: PayloadAction<StorageKey>) => {
 			state.storage = action.payload
 			if (typeof window !== 'undefined') {
-				localStorage.setItem('selectedStorage', action.payload)
+				try {
+					localStorage.setItem('selectedStorage', action.payload)
+				} catch (error) {
+					console.error('Error setting localStorage:', error)
+				}
 			}
 		},
 	},

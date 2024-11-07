@@ -2,7 +2,7 @@ import { useFetchProductByIdQuery } from '@/api/categoryApi'
 import { useSelector, useDispatch } from 'react-redux'
 import { StorageKey } from '@/types/redux'
 import { setSelectedStorage } from './useStorageSelector'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { RootState } from '@/store'
 
 export const useProductData = (offerId: string) => {
@@ -15,16 +15,12 @@ export const useProductData = (offerId: string) => {
 	const availableStorages = useMemo(() => {
 		if (!product) return []
 		return Object.keys(product)
-			.filter(
-				key =>
-					key.startsWith('paramsFrom_') &&
-					product[key]['Відображення на сайті'] === '1'
-			)
+			.filter(key => key.startsWith('paramsFrom_') && product[key][offerId])
 			.map(key => ({
 				location: key,
 				available: product[key]['Кількість на складі'] > 0,
 			}))
-	}, [product])
+	}, [product, offerId])
 
 	const currentParams = product ? product[selectedStorage] : null
 

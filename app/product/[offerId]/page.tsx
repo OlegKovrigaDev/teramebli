@@ -16,6 +16,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { formatPrice } from '@/helpers'
 import { useProductData } from '@/hooks'
+import { useProductVariantsByGroupId } from '@/hooks/useProductVariantsByGroupId'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
@@ -51,6 +52,8 @@ export default function page({ params }: { params: { offerId: string } }) {
 		isFetching: isFetchingReviews,
 	} = useFetchReviewsByOfferIdQuery(offerId)
 
+	const { productVariants } = useProductVariantsByGroupId(offerId)
+
 	if (isLoading) return <Loading />
 	if (error)
 		return (
@@ -66,7 +69,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 	const handleAddToCart = () => {
 		const cartItem = {
 			offerId: product.offerId,
-			ModelName: currentParams?.ModelName,
+			ModelName: currentParams?.['Назва товару'],
 			Articul: currentParams.Articul,
 			RetailPrice: currentParams.RetailPrice,
 			RetailPriceWithDiscount: currentParams.RetailPriceWithDiscount,
@@ -84,7 +87,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 				categoryId={mainCategoryId}
 				subcategoryName={subCategory}
 				subcategoryId={subCategoryId}
-				productName={currentParams.ModelName}
+				productName={currentParams['Назва товару']}
 			/>
 			<div className='flex justify-between pb-16'>
 				<div className='w-[865px] flex flex-col gap-6'>
@@ -232,18 +235,24 @@ export default function page({ params }: { params: { offerId: string } }) {
 					</div>
 					<Accord title='Варіанти товару'>
 						<div className='flex flex-col gap-2 text-xs w-full'>
-							{Array.from({ length: 5 }).map((_, index) => (
-								<div key={index} className='flex justify-between text-[16px]'>
-									<span className='flex gap-2 items-center'>
-										<Checkbox
-											id={`variant-${index}`}
-											className='border-2 rounded'
-										/>
-										<Label htmlFor={`variant-${index}`}>Односпальні</Label>
-									</span>
-									<span>[24]</span>
-								</div>
-							))}
+							{productVariants.length > 0 ? (
+								productVariants.map((variant, index) => (
+									<div key={index} className='flex justify-between text-[16px]'>
+										<span className='flex gap-2 items-center'>
+											<Checkbox
+												id={`variant-${variant.variantId}`}
+												className='border-2 rounded'
+											/>
+											<Label htmlFor={`variant-${variant.variantId}`}>
+												{variant.name}
+											</Label>
+										</span>
+										<span>[{variant.quantity}]</span> {/* Количество товара */}
+									</div>
+								))
+							) : (
+								<p className='text-gray-500'>Варианты товара не найдены</p>
+							)}
 							<Link href='/' className='text-[#4E3A9F] mt-4'>
 								Згорнути
 							</Link>
@@ -260,14 +269,19 @@ export default function page({ params }: { params: { offerId: string } }) {
 							</div>
 						</div>
 					</Accord>
+
 					<Accord title='Наявність в магазинах'>
 						<div className='flex flex-col gap-2 text-xs w-full'>
 							{availableStorages.length > 0 ? (
 								availableStorages.map((storage, index) => (
-									<div key={index} className='flex justify-between text-[16px]'>
+									<div
+										key={index}
+										className='flex justify-between items-center text-[16px]'
+									>
 										<span>
 											{storageMap[storage.location as keyof typeof storageMap]}
 										</span>
+										<span className='text-green'>&#x2714;</span>
 									</div>
 								))
 							) : (

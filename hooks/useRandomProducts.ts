@@ -16,17 +16,18 @@ export const useRandomProducts = (
 	const { data, error, isLoading } = useFetchCategoryWithProductsQuery({
 		categoryId: randomCategoryId,
 		page: 1,
-		limit: 100,
+		limit: 6200,
 	})
 
 	const randomProducts = useMemo(() => {
 		if (data?.products) {
 			const visibleProducts = data.products.filter(
 				(product: Product) =>
-					product[selectedStorage] &&
+					product[selectedStorage]?.['Кількість на складі'] > 0 &&
 					!excludeProductIds.has(product.offerId) &&
-					product.RetailPrice != 0 &&
-					product.RetailPriceWithDiscount != 0
+					product[selectedStorage].RetailPrice != 0 &&
+					product[selectedStorage].RetailPriceWithDiscount != 0 &&
+					product[selectedStorage]['Назва товару']
 			)
 
 			return getRandomProducts(visibleProducts, limit)
