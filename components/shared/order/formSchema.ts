@@ -16,3 +16,7 @@ export const formSchema = z.object({
 	delivery: z.string().nonempty('Оберіть спосіб доставки'),
 	payment: z.string().nonempty('Оберіть спосіб оплати'),
 })
+export const formSchemaOneClick = z.object({
+	firstName: z.string().min(2, minLengthMessage).max(50),
+	phone: z.string().min(10, phoneLengthMessage).max(15),
+})

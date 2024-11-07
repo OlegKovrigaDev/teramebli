@@ -1,49 +1,44 @@
 import { useFetchProductByIdQuery } from '@/api/categoryApi'
-import { useState, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { StorageKey } from '@/types/redux'
-
-const storageKeys: StorageKey[] = [
-	'paramsFrom_01_MebliBalta',
-	'paramsFrom_02_MebliPodilsk',
-	'paramsFrom_03_MebliPervomaisk',
-	'paramsFrom_04_MebliOdesa1',
-	'paramsFrom_05_MebliVoznesensk',
-]
+import { setSelectedStorage } from './useStorageSelector'
+import { useMemo } from 'react'
+import { RootState } from '@/store'
 
 export const useProductData = (offerId: string) => {
-	const { data: product, error, isLoading } = useFetchProductByIdQuery(offerId)
-	const [selectedStorage, setSelectedStorage] = useState<StorageKey>(
-		'paramsFrom_03_MebliPervomaisk'
+	const dispatch = useDispatch()
+	const selectedStorage = useSelector(
+		(state: RootState) => state.selectedStorage.storage
 	)
+	const { data: product, error, isLoading } = useFetchProductByIdQuery(offerId)
 
-	const getAvailableStorages = useCallback(() => {
+	const availableStorages = useMemo(() => {
 		if (!product) return []
-		return storageKeys
+		return Object.keys(product)
 			.filter(
 				key =>
-					product[key]?.['Відображення на сайті'] === '1' &&
-					product[key]?.RetailPriceWithDiscount > 0
+					key.startsWith('paramsFrom_') &&
+					product[key]['Відображення на сайті'] === '1'
 			)
 			.map(key => ({
 				location: key,
-				available: product[key]['Кількість на складі'],
+				available: product[key]['Кількість на складі'] > 0,
 			}))
 	}, [product])
 
-	const availableStorages = getAvailableStorages()
+	const currentParams = product ? product[selectedStorage] : null
 
-	const changeStorage = useCallback((newStorage: StorageKey) => {
-		setSelectedStorage(newStorage)
-	}, [])
+	const changeStorage = (newStorage: StorageKey) => {
+		dispatch(setSelectedStorage(newStorage))
+	}
 
 	let mainCategory = 'Не указано'
 	let mainCategoryId = 'Не указано'
 	let subCategory = ''
 	let subCategoryId = ''
 
-	if (product && product[selectedStorage]) {
-		const fullCategorySync =
-			product[selectedStorage]['Розділ синхронізації повністю']
+	if (product && currentParams) {
+		const fullCategorySync = currentParams['Розділ синхронізації повністю']
 		const categoryParts = fullCategorySync ? fullCategorySync.split(';') : []
 
 		mainCategory = categoryParts[0]?.split('=')[1]?.trim() || mainCategory
@@ -55,20 +50,17 @@ export const useProductData = (offerId: string) => {
 		}
 	}
 
-	const currentParams = product ? product[selectedStorage] : null
-
 	return {
-		product,
-		error,
-		availableStorages,
-		isLoading,
 		mainCategory,
 		mainCategoryId,
 		subCategory,
 		subCategoryId,
+		product,
+		currentParams,
+		error,
+		isLoading,
+		availableStorages,
 		selectedStorage,
 		changeStorage,
-		getAvailableStorages,
-		currentParams,
 	}
 }

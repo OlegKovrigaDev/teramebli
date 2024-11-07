@@ -45,10 +45,10 @@ export const categoryApi = createApi({
 		}),
 		searchProducts: builder.query<
 			{ results: Product[]; total: number },
-			{ info: string; page: number; limit: number }
+			{ info: string; page: number; limit: number; storage?: string }
 		>({
 			query: ({ info, page, limit }) =>
-				`/search?info=${info}&page=${page}&limit=${limit}`,
+				`/search?info=${info}&page=${page}&limit=${limit}`, // TODO: add storage
 		}),
 		submitOrder: builder.mutation<
 			void,

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { setSelectedStorage } from '@/store/selectedStorageSlice'
@@ -43,10 +43,13 @@ export const Magazins = () => {
 		setNotification(null)
 	}
 
-	const getActiveClass = (town: string) => {
-		const storageKey = storageMap[town as keyof typeof storageMap]
-		return storageKey === storage ? 'bg-blue-100 border border-blue-500' : ''
-	}
+	const getActiveClass = useCallback(
+		(town: string) => {
+			const storageKey = storageMap[town as keyof typeof storageMap]
+			return storageKey === storage ? 'bg-blue-100 border border-blue-500' : ''
+		},
+		[storage]
+	)
 
 	return (
 		<>

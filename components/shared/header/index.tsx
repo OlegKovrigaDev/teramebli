@@ -18,9 +18,12 @@ import { Contact } from './contact'
 import { Lang } from './lang'
 import { Magazins } from './magazins'
 import { SearchBar } from './search-bar'
+import { useTranslation } from 'react-i18next'
 
 export const Header = () => {
 	const search = useSearch()
+	const { t } = useTranslation()
+
 	return (
 		<header className='header'>
 			<div className='header-desktop'>

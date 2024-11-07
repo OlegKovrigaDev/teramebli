@@ -75,12 +75,8 @@ export interface Product extends StorageParams {
 	categoryId: string
 	createdAt: string
 	currencyId: string
-	paramsFrom_01_MebliBalta: ProductParams
-	paramsFrom_02_MebliPodilsk: ProductParams
-	paramsFrom_03_MebliPervomaisk: ProductParams
-	paramsFrom_04_MebliOdesa1: ProductParams
-	paramsFrom_05_MebliVoznesensk: ProductParams
 	variants: ProductItem[]
+	[key: string]: any
 }
 
 export interface CategoryWithProducts {

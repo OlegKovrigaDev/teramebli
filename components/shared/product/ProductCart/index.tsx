@@ -33,7 +33,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 	const cartItems = useSelector(selectCartItems)
 	const cartItem = cartItems.find(item => item.offerId === product.offerId)
 	const isInCart = Boolean(cartItem)
-	const isAvailable = currentParams?.['Кількість на складі'] > 0
 
 	if (!product || !product.offerId) {
 		return <p>Product data is unavailable.</p>
@@ -59,6 +58,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 					currentParams.RetailPrice) *
 			  100
 			: 0
+
+	const isAvailable = (currentParams?.['Кількість на складі'] ?? 0) > 0
 
 	return (
 		<Card className={css.card}>

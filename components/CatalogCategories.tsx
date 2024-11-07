@@ -29,6 +29,17 @@ export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
 		)
 	}
 
+	const renderErrorMessage = (error: any) => {
+		return (
+			<p className='text-red-500'>
+				Ошибка при загрузке категорий:{' '}
+				{typeof error === 'object' && 'data' in error
+					? String(error.data)
+					: String(error)}
+			</p>
+		)
+	}
+
 	return (
 		<div className='p-4'>
 			{categoriesLoading ? (
@@ -41,12 +52,7 @@ export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
 					))}
 				</ul>
 			) : categoriesError ? (
-				<p className='text-red-500'>
-					Ошибка при загрузке категорий:{' '}
-					{typeof categoriesError === 'object' && 'data' in categoriesError
-						? String(categoriesError.data)
-						: String(categoriesError)}
-				</p>
+				renderErrorMessage(categoriesError)
 			) : (
 				<ul className='flex flex-col gap-4 max-h-[80vh] overflow-y-scroll scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent'>
 					{categories?.map(category => {
@@ -63,10 +69,7 @@ export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
 											{currentLanguage === 'UA' ? uaName : ruName}
 										</p>
 									</Link>
-									<button
-										className='ml-auto text-sm text-gray-600 hover:text-gray-800 focus:outline-none'
-										onClick={() => handleToggle(category.id)}
-									>
+									<button className='ml-auto text-sm text-gray-600 hover:text-gray-800 focus:outline-none'>
 										{expandedCategories.includes(category.id) ? (
 											<ChevronUp className='size-4' />
 										) : (
@@ -102,6 +105,17 @@ const Subcategories = ({
 		isLoading: subcategoriesLoading,
 	} = useFetchSubcategoriesQuery(parentId)
 
+	const renderErrorMessage = (error: any) => {
+		return (
+			<p className='text-red-500'>
+				Ошибка при загрузке подкатегорий:{' '}
+				{typeof error === 'object' && 'data' in error
+					? String(error.data)
+					: String(error)}
+			</p>
+		)
+	}
+
 	return (
 		<div className='ml-4'>
 			{subcategoriesLoading ? (
@@ -114,13 +128,7 @@ const Subcategories = ({
 					))}
 				</ul>
 			) : subcategoriesError ? (
-				<p className='text-red-500'>
-					Ошибка при загрузке подкатегорий:{' '}
-					{typeof subcategoriesError === 'object' &&
-					'data' in subcategoriesError
-						? String(subcategoriesError.data)
-						: String(subcategoriesError)}
-				</p>
+				renderErrorMessage(subcategoriesError)
 			) : (
 				<ul className='flex flex-col gap-2 ml-4'>
 					{subcategories?.map(sub => {

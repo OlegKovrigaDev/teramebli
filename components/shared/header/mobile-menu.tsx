@@ -13,8 +13,11 @@ import Link from 'next/link'
 import { Cart } from './cart'
 import { Catalog } from './catalog'
 import { Magazins } from './magazins'
+import { useTranslation } from 'react-i18next'
 
 export const MobileMenu = () => {
+	const { t } = useTranslation()
+
 	return (
 		<div className='sticky bottom-0 bg-accent py-2 px-4 block sm:hidden'>
 			<div className='flex justify-between'>

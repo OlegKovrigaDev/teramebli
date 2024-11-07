@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { useEffect } from 'react'
 
 type StorageKey =
 	| 'paramsFrom_01_MebliBalta'
@@ -21,9 +22,29 @@ const selectedStorageSlice = createSlice({
 	reducers: {
 		setSelectedStorage: (state, action: PayloadAction<StorageKey>) => {
 			state.storage = action.payload
+			if (typeof window !== 'undefined') {
+				localStorage.setItem('selectedStorage', action.payload)
+			}
+		},
+		setInitialStorage: (state, action: PayloadAction<StorageKey>) => {
+			state.storage = action.payload
 		},
 	},
 })
 
-export const { setSelectedStorage } = selectedStorageSlice.actions
+export const { setSelectedStorage, setInitialStorage } =
+	selectedStorageSlice.actions
 export default selectedStorageSlice.reducer
+
+// // Хук для получения начального значения
+// export const useInitializeStorage = () => {
+// 	const dispatch = useDispatch()
+// 	useEffect(() => {
+// 		if (typeof window !== 'undefined') {
+// 			const storedValue = localStorage.getItem('selectedStorage') as StorageKey
+// 			if (storedValue) {
+// 				dispatch(setInitialStorage(storedValue))
+// 			}
+// 		}
+// 	}, [dispatch])
+// }

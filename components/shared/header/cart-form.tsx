@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { z } from 'zod'
-import { formSchema } from '../order/formSchema'
+import { formSchema, formSchemaOneClick } from '../order/formSchema'
 
 export const CartForm = () => {
 	const cartItems = useSelector(selectCartItems)
@@ -28,7 +28,7 @@ export const CartForm = () => {
 	)
 
 	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(formSchemaOneClick),
 		defaultValues: {
 			firstName: '',
 			phone: '',
@@ -37,7 +37,6 @@ export const CartForm = () => {
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		await submit(values, form.reset)
-		console.log(values)
 	}
 
 	return (

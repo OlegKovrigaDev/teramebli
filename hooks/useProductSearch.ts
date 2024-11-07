@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSearchProductsQuery } from '@/api/categoryApi'
 import { Product } from '@/types/redux'
+import { RootState } from '@/store'
+import { useSelector } from 'react-redux'
 
 interface UseProductSearchResult {
 	query: string
@@ -22,11 +24,18 @@ export const useProductSearch = (
 	const [query, setQuery] = useState<string>(initialQuery)
 	const [page, setPage] = useState<number>(initialPage)
 
+	const selectedStorage =
+		useSelector((state: RootState) => state.selectedStorage.storage) ||
+		'paramsFrom_03_MebliPervomaisk'
+
 	const {
 		data: searchResultsData,
 		error,
 		isLoading,
-	} = useSearchProductsQuery({ info: query, page, limit }, { skip: !query })
+	} = useSearchProductsQuery(
+		{ info: query, page, limit, storage: selectedStorage },
+		{ skip: !query }
+	)
 
 	useEffect(() => {
 		if (initialQuery) {

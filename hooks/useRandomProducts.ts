@@ -9,7 +9,7 @@ const getRandomProducts = (products: Product[], count: number): Product[] => {
 
 export const useRandomProducts = (
 	limit: number = 25,
-	usedProductIds: Set<string> = new Set(),
+	excludeProductIds: Set<string> = new Set(),
 	selectedStorage: keyof Product = 'paramsFrom_03_MebliPervomaisk'
 ) => {
 	const randomCategoryId = Math.floor(Math.random() * 10) + 1
@@ -23,13 +23,16 @@ export const useRandomProducts = (
 		if (data?.products) {
 			const visibleProducts = data.products.filter(
 				(product: Product) =>
-					product[selectedStorage] && !usedProductIds.has(product.offerId)
+					product[selectedStorage] &&
+					!excludeProductIds.has(product.offerId) &&
+					product.RetailPrice != 0 &&
+					product.RetailPriceWithDiscount != 0
 			)
 
 			return getRandomProducts(visibleProducts, limit)
 		}
 		return []
-	}, [data, limit, usedProductIds, selectedStorage])
+	}, [data, limit, excludeProductIds, selectedStorage])
 
 	return { randomProducts, error, isLoading }
 }

@@ -18,7 +18,7 @@ import { formatPrice } from '@/helpers'
 import { useProductData } from '@/hooks'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const storageMap = {
 	paramsFrom_01_MebliBalta: 'м.Балта, Одеська обл.',
@@ -61,7 +61,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 	if (!product || !currentParams)
 		return <p className='text-gray-500'>Товар не найден</p>
 
-	const isAvailable = currentParams?.['Кількість на складі'] > 0
+	const isAvailable = currentParams['Кількість на складі'] > 0
 
 	const handleAddToCart = () => {
 		const cartItem = {
@@ -265,11 +265,13 @@ export default function page({ params }: { params: { offerId: string } }) {
 							{availableStorages.length > 0 ? (
 								availableStorages.map((storage, index) => (
 									<div key={index} className='flex justify-between text-[16px]'>
-										<span>{storageMap[storage.location]}</span>
+										<span>
+											{storageMap[storage.location as keyof typeof storageMap]}
+										</span>
 									</div>
 								))
 							) : (
-								<p className='text-gray-500'>Товар немає на складах</p>
+								<p className='text-gray-500'>Товару немає на складах</p>
 							)}
 						</div>
 					</Accord>

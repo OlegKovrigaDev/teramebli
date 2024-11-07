@@ -3,25 +3,18 @@ import {
 	useFetchCategoryWithProductsQuery,
 	useFetchSubcategoriesQuery,
 } from '@/api/categoryApi'
-import { Product } from '@/types/redux'
+import { RootState } from '@/store'
 import { useState, useMemo } from 'react'
-
-const getInitialStorageAndParams = (product: Product) => {
-	const initialStorage = 'paramsFrom_03_MebliPervomaisk' as const
-	return {
-		selectedStorage: initialStorage,
-		currentParams: product[initialStorage],
-		availableStorages: Object.keys(product).filter(
-			key => key.startsWith('paramsFrom_') && product[key as keyof Product]
-		) as (keyof Product)[],
-	}
-}
+import { useSelector } from 'react-redux'
 
 export const useCategoryData = (
 	id: string,
 	minPrice?: number,
 	maxPrice?: number
 ) => {
+	const selectedStorage = useSelector(
+		(state: RootState) => state.selectedStorage.storage
+	)
 	const [page, setPage] = useState(1)
 	const limit = 12
 
@@ -31,7 +24,7 @@ export const useCategoryData = (
 		isLoading,
 		isFetching,
 	} = useFetchCategoryWithProductsQuery(
-		{ categoryId: Number(id), page: 1, limit: 1000 },
+		{ categoryId: Number(id), page: 1, limit: 7000 },
 		{ skip: !id }
 	)
 
@@ -50,11 +43,17 @@ export const useCategoryData = (
 
 	const productsWithStorage = useMemo(() => {
 		if (!categoryData?.products) return []
-		return categoryData.products.map(product => ({
-			...product,
-			...getInitialStorageAndParams(product),
-		}))
-	}, [categoryData?.products])
+		return categoryData.products
+			.filter(
+				product =>
+					product[selectedStorage]?.['Відображення на сайті'] === '1' &&
+					product[selectedStorage]?.['Кількість на складі'] > 0
+			)
+			.map(product => ({
+				...product,
+				currentParams: product[selectedStorage],
+			}))
+	}, [categoryData?.products, selectedStorage])
 
 	if (isLoading || categoryLoading || subcategoriesLoading) {
 		return { status: 'loading', message: 'Загрузка продуктов...', setPage }
@@ -92,14 +91,13 @@ export const useCategoryData = (
 	)
 
 	const totalPages = Math.ceil(filteredProducts.length / limit)
-	const currentPage = page
 
 	return {
 		status: 'success',
 		category: categoryData.category,
 		products: paginatedProducts,
 		totalPages,
-		currentPage,
+		currentPage: page,
 		subcategories,
 		setPage,
 		isFetching,

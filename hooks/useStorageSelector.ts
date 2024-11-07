@@ -1,32 +1,44 @@
-import { useState, useCallback } from 'react'
-import { Product, ProductParams, StorageKey } from '@/types/redux'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export const useStorageSelector = (initialProduct: Product) => {
-	const [selectedStorage, setSelectedStorage] = useState<StorageKey>(
-		'paramsFrom_03_MebliPervomaisk'
-	)
-	const [currentParams, setCurrentParams] = useState<ProductParams>(
-		initialProduct.paramsFrom_03_MebliPervomaisk || ({} as ProductParams)
-	)
+type StorageKey =
+	| 'paramsFrom_01_MebliBalta'
+	| 'paramsFrom_02_MebliPodilsk'
+	| 'paramsFrom_03_MebliPervomaisk'
+	| 'paramsFrom_04_MebliOdesa1'
+	| 'paramsFrom_05_MebliVoznesensk'
 
-	const changeStorage = useCallback(
-		(newStorage: StorageKey) => {
-			setSelectedStorage(newStorage)
-			setCurrentParams(initialProduct[newStorage] || ({} as ProductParams))
-		},
-		[initialProduct]
-	)
+interface SelectedStorageState {
+	storage: StorageKey
+}
 
-	const getAvailableStorages = useCallback(() => {
-		return Object.keys(initialProduct).filter(
-			key => key.startsWith('paramsFrom_') && initialProduct[key as StorageKey]
-		) as StorageKey[]
-	}, [initialProduct])
-
-	return {
-		selectedStorage,
-		currentParams,
-		changeStorage,
-		getAvailableStorages,
+const getInitialStorage = (): StorageKey => {
+	try {
+		return (
+			(localStorage.getItem('selectedStorage') as StorageKey) ||
+			'paramsFrom_03_MebliPervomaisk'
+		)
+	} catch (error) {
+		console.error('Ошибка при доступе к localStorage:', error)
+		return 'paramsFrom_03_MebliPervomaisk'
 	}
 }
+
+const initialState: SelectedStorageState = {
+	storage: getInitialStorage(),
+}
+
+const selectedStorageSlice = createSlice({
+	name: 'selectedStorage',
+	initialState,
+	reducers: {
+		setSelectedStorage: (state, action: PayloadAction<StorageKey>) => {
+			state.storage = action.payload
+			if (typeof window !== 'undefined') {
+				localStorage.setItem('selectedStorage', action.payload)
+			}
+		},
+	},
+})
+
+export const { setSelectedStorage } = selectedStorageSlice.actions
+export default selectedStorageSlice.reducer
