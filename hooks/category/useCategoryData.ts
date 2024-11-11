@@ -7,11 +7,7 @@ import { RootState } from '@/store'
 import { useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
-export const useCategoryData = (
-	id: string,
-	minPrice?: number,
-	maxPrice?: number
-) => {
+export const useCategoryData = (id: string) => {
 	const selectedStorage = useSelector(
 		(state: RootState) => state.selectedStorage.storage
 	)
@@ -55,6 +51,31 @@ export const useCategoryData = (
 			}))
 	}, [categoryData?.products, selectedStorage])
 
+	const availableSubcategories = useMemo(() => {
+		if (!subcategories || !productsWithStorage.length) return []
+
+		const subcategoryIdsWithProducts = new Set(
+			productsWithStorage.map(product => product.currentParams?.subcategoryId)
+		)
+
+		return subcategories.filter(subcategory =>
+			subcategoryIdsWithProducts.has(subcategory.id)
+		)
+	}, [subcategories, productsWithStorage])
+
+	const minMaxPrices = useMemo(() => {
+		if (!productsWithStorage.length) return { minPrice: 0, maxPrice: 100000 }
+
+		const prices = productsWithStorage.map(
+			product => product.currentParams?.RetailPrice || 0
+		)
+
+		const minPrice = Math.min(...prices)
+		const maxPrice = Math.max(...prices)
+
+		return { minPrice, maxPrice }
+	}, [productsWithStorage])
+
 	if (isLoading || categoryLoading || subcategoriesLoading) {
 		return { status: 'loading', message: 'Загрузка продуктов...', setPage }
 	}
@@ -75,15 +96,9 @@ export const useCategoryData = (
 		}
 	}
 
-	const filteredProducts = productsWithStorage
-		.filter(product => product.currentParams?.['Назва товару'])
-		.filter(product => {
-			const productPrice = Number(product.currentParams?.RetailPrice)
-			return (
-				(!minPrice || productPrice >= minPrice) &&
-				(!maxPrice || productPrice <= maxPrice)
-			)
-		})
+	const filteredProducts = (productsWithStorage || []).filter(
+		product => product.currentParams?.['Назва товару']
+	)
 
 	const paginatedProducts = filteredProducts.slice(
 		(page - 1) * limit,
@@ -98,8 +113,9 @@ export const useCategoryData = (
 		products: paginatedProducts,
 		totalPages,
 		currentPage: page,
-		subcategories,
+		subcategories: availableSubcategories,
 		setPage,
 		isFetching,
+		minMaxPrices,
 	}
 }

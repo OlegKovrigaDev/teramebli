@@ -1,14 +1,14 @@
 'use client'
+import { useFetchImages } from '@/hooks/product/useFetchImages'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
+import { Loading } from '../Loading'
 import {
 	Carousel,
 	CarouselApi,
 	CarouselContent,
 	CarouselItem,
 } from '../ui/carousel'
-import { useFetchImages } from '@/hooks/useFetchImages'
-import { Loading } from '../Loading'
 
 export const Gallery = ({ offerId }: { offerId: string | number }) => {
 	const { images, loading, error } = useFetchImages(offerId)

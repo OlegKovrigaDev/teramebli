@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store'
@@ -13,6 +14,7 @@ const storageMap = {
 	'м.Подільск, Одеська обл.': 'paramsFrom_02_MebliPodilsk',
 	'м.Первомайськ, Миколаївська обл.': 'paramsFrom_03_MebliPervomaisk',
 	'м.Одеса': 'paramsFrom_04_MebliOdesa1',
+	'м.Вознесенськ, Миколаївська обл.': 'paramsFrom_05_MebliVoznesensk',
 } as const
 
 export const Magazins = () => {

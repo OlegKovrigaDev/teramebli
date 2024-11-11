@@ -1,7 +1,7 @@
 'use client'
 import { Button, Input } from '@/components/ui'
 import { header } from '@/constants'
-import { useProductSearch } from '@/hooks/useProductSearch'
+import { useProductSearch } from '@/hooks/search/useProductSearch'
 import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 

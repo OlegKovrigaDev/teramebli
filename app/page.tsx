@@ -3,11 +3,11 @@ import { Advantages, Categories, Ethaps, Hero } from '@/components/shared'
 import { ProductSlider } from '@/components/shared/product/ProductSlider'
 import { Section } from '@/components/shared/section'
 import { home } from '@/constants'
-import { useRandomProducts } from '@/hooks/useRandomProducts'
+import { useRandomProducts } from '@/hooks/category/useRandomProducts'
 import { useMemo } from 'react'
 
 export default function Home() {
-	const { randomProducts: randomProducts1 } = useRandomProducts(150)
+	const { randomProducts: randomProducts1 } = useRandomProducts(15)
 
 	const usedProductIds = useMemo(
 		() => new Set(randomProducts1.map(product => product.offerId)),
@@ -15,7 +15,7 @@ export default function Home() {
 	)
 
 	const { randomProducts: randomProducts2 } = useRandomProducts(
-		200,
+		15,
 		usedProductIds
 	)
 

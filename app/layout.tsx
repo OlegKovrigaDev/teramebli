@@ -21,7 +21,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='uk'>
+		<html lang={'uk'}>
 			<body className={`${fontSans.variable}`}>
 				<Ad />
 				<Providers>

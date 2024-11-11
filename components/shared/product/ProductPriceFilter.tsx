@@ -1,18 +1,27 @@
 import { Button, Input } from '@/components/ui'
 import { Label } from '@/components/ui/label'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Accord } from '../accord'
 import { RangeSlider } from '../range-slider'
 
 export const ProductPriceFilter = ({
 	title,
 	onApplyPriceFilter,
+	minPrice = 0,
+	maxPrice = 100000,
 }: {
 	title: string
 	onApplyPriceFilter: (min: number, max: number) => void
+	minPrice?: number
+	maxPrice?: number
 }) => {
-	const [minValue, setMinValue] = useState(0)
-	const [maxValue, setMaxValue] = useState(500)
+	const [minValue, setMinValue] = useState<number | null>(minPrice)
+	const [maxValue, setMaxValue] = useState<number | null>(maxPrice)
+
+	useEffect(() => {
+		setMinValue(minPrice)
+		setMaxValue(maxPrice)
+	}, [minPrice, maxPrice])
 
 	const handleSliderChange = (values: number[]) => {
 		setMinValue(values[0])
@@ -21,49 +30,52 @@ export const ProductPriceFilter = ({
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { id, value } = event.target
-		if (id === 'variant-1') {
-			setMinValue(parseInt(value, 10))
-		} else if (id === 'variant-2') {
-			setMaxValue(parseInt(value, 10))
+		const numericValue = Number(value)
+
+		if (id === 'min-price' && numericValue <= (maxValue ?? maxPrice)) {
+			setMinValue(numericValue)
+		} else if (id === 'max-price' && numericValue >= (minValue ?? minPrice)) {
+			setMaxValue(numericValue)
 		}
 	}
 
 	const applyFilter = () => {
-		onApplyPriceFilter(minValue, maxValue)
+		onApplyPriceFilter(minValue ?? minPrice, maxValue ?? maxPrice)
 	}
 
 	return (
 		<Accord title={title}>
 			<div className='flex flex-col gap-2 text-xs w-full'>
 				<div className='flex justify-between items-center gap-2'>
-					<Label htmlFor='variant-1'>від</Label>
+					<Label htmlFor='min-price'>від</Label>
 					<Input
 						type='number'
-						id='variant-1'
-						placeholder='0'
-						min={0}
-						max={1000}
-						value={minValue}
+						id='min-price'
+						placeholder={minPrice.toString()}
+						min={minPrice}
+						max={maxPrice}
+						value={minValue !== null ? minValue : ''}
 						onChange={handleInputChange}
 					/>
-					<Label htmlFor='variant-2'>до</Label>
+					<Label htmlFor='max-price'>до</Label>
 					<Input
 						type='number'
-						id='variant-2'
-						min={100}
-						max={1000}
-						value={maxValue}
+						id='max-price'
+						placeholder={maxPrice.toString()}
+						min={minPrice}
+						max={maxPrice}
+						value={maxValue !== null ? maxValue : ''}
 						onChange={handleInputChange}
 					/>
 				</div>
 				<RangeSlider
-					min={0}
-					max={1000}
+					min={minPrice}
+					max={maxPrice}
 					step={10}
-					value={[minValue, maxValue]}
+					value={[minValue ?? minPrice, maxValue ?? maxPrice]}
 					onValueChange={handleSliderChange}
 				/>
-				<Button onClick={applyFilter} className='px-20 py-2 bg-gray'>
+				<Button onClick={applyFilter} className='px-20 py-2 bg-gray mt-4'>
 					Застосувати
 				</Button>
 			</div>

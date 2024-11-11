@@ -16,7 +16,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { formatPrice } from '@/helpers'
 import { useProductData } from '@/hooks'
-import { useProductVariantsByGroupId } from '@/hooks/useProductVariantsByGroupId'
+import { useProductVariantsByGroupId } from '@/hooks/product/useProductVariantsByGroupId'
 import { addToCart } from '@/store/cartSlice'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
@@ -247,7 +247,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 												{variant.name}
 											</Label>
 										</span>
-										<span>[{variant.quantity}]</span> {/* Количество товара */}
+										<span>[{variant.quantity}]</span>
 									</div>
 								))
 							) : (
@@ -259,12 +259,9 @@ export default function page({ params }: { params: { offerId: string } }) {
 							<div className='flex justify-between gap-4 mt-6'>
 								<Button
 									onClick={handleAddToCart}
-									className='px-18 py-2 bg-[#D81C1B] hover:bg-[#D81C1B]/80 flex-1'
+									className='px-18 py-2 bg-gray hover:bg-gray/90 flex-1'
 								>
 									Купити
-								</Button>
-								<Button className='px-18 py-2 bg-transparent border-2 border-[#D81C1B] text-[#D81C1B] hover:bg-black/10 flex-1'>
-									Купити в 1 клік
 								</Button>
 							</div>
 						</div>

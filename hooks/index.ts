@@ -1,3 +1,3 @@
-export { useSearch } from "./useSearch";
-export { useProductData } from "./useProductData";
-export { useCategoryData } from "./useCategoryData";
+export { useCategoryData } from './category/useCategoryData'
+export { useProductData } from './product/useProductData'
+export { useSearch } from './search/useSearch'

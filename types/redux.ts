@@ -47,6 +47,7 @@ export interface ProductParams {
 	'Опис текст(сайт)'?: string
 	'Описание(сайт)'?: string
 	items?: ProductItem[]
+	subcategoryId?: number
 }
 export interface ProductItem {
 	id: string

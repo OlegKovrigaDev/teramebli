@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui'
 import { formatPrice } from '@/helpers'
-import { useFetchImages } from '@/hooks/useFetchImages'
+import { useFetchImages } from '@/hooks/product/useFetchImages'
 import { removeFromCart, updateQuantity } from '@/store/cartSlice'
 import { CartItem } from '@/types/cart'
 import { Minus, Plus, Trash } from 'lucide-react'

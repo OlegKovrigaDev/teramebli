@@ -22,7 +22,11 @@ import { useTranslation } from 'react-i18next'
 
 export const Header = () => {
 	const search = useSearch()
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
+
+	const handleLanguageChange = (lang: string) => {
+		i18n.changeLanguage(lang)
+	}
 
 	return (
 		<header className='header'>
@@ -41,17 +45,25 @@ export const Header = () => {
 					<Sheet>
 						<SheetTrigger className='flex xl:hidden flex-col items-center justify-center'>
 							<Menu />
-							<span className='text-[10px] font-medium'>Інше</span>
+							<span className='text-[10px] font-medium'>{t('other')}</span>
 						</SheetTrigger>
 						<SheetContent className='bg-accent'>
 							<SheetHeader>
 								<SheetTitle></SheetTitle>
 								<SheetDescription></SheetDescription>
 								<div className='border-b border-black flex justify-center'>
-									<Button variant='ghost' className='text-[14px] font-bold'>
+									<Button
+										variant='ghost'
+										className='text-[14px] font-bold'
+										onClick={() => handleLanguageChange('uk')}
+									>
 										UA
 									</Button>
-									<Button variant='ghost' className='text-[14px] font-bold'>
+									<Button
+										variant='ghost'
+										className='text-[14px] font-bold'
+										onClick={() => handleLanguageChange('ru')}
+									>
 										RU
 									</Button>
 								</div>
@@ -60,7 +72,7 @@ export const Header = () => {
 									<div>
 										<p className='text-[14px] font-bold'>095-12-77-63</p>
 										<p className='text-[10px] font-semibold'>
-											Контактні телефони
+											{t('contact_phones')}
 										</p>
 									</div>
 								</div>
@@ -72,16 +84,16 @@ export const Header = () => {
 										<Magazins />
 									</li>
 									<li>
-										<a href='/about'>Про нас</a>
+										<a href='/about'>{t('about_us')}</a>
 									</li>
 									<li>
-										<a href='/about'>Контакти</a>
+										<a href='/contacts'>{t('contacts')}</a>
 									</li>
 									<li>
-										<a href='/delivery'>Доставка і Оплата</a>
+										<a href='/delivery'>{t('delivery_payment')}</a>
 									</li>
 									<li>
-										<a href='/warranty'>Гарантія та Повернення</a>
+										<a href='/warranty'>{t('warranty_return')}</a>
 									</li>
 								</ul>
 							</SheetHeader>

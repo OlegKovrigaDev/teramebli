@@ -9,12 +9,10 @@ interface ProvidersProps {
 	children: React.ReactNode
 }
 
-const Providers = ({ children }: ProvidersProps) => {
-	return (
-		<I18nextProvider i18n={i18n}>
-			<ReduxProvider store={store}>{children}</ReduxProvider>
-		</I18nextProvider>
-	)
-}
+const Providers = ({ children }: ProvidersProps) => (
+	<ReduxProvider store={store}>
+		<I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+	</ReduxProvider>
+)
 
 export default Providers
