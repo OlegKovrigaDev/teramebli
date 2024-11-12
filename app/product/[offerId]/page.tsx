@@ -94,7 +94,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 				<div className='w-full xl:w-[865px] flex flex-col gap-6'>
 					<Gallery offerId={offerId} />
 					<Tabs defaultValue='description' className='w-full mb-6'>
-						<TabsList className='bg-white overflow-x-scroll overflow-y-hidden flex justify-start py-6 rounded'>
+						<TabsList className='bg-white overflow-x-auto overflow-y-hidden flex justify-start py-6 rounded'>
 							<TabsTrigger className=' text-2xl font-bold' value='description'>
 								Опис
 							</TabsTrigger>
@@ -235,13 +235,14 @@ export default function page({ params }: { params: { offerId: string } }) {
 								</>
 							)}
 						</div>
-
-						<Button
-							onClick={handleAddToCart}
-							className='px-18 py-2 bg-gray hover:bg-gray/90 flex-1'
-						>
-							Купити
-						</Button>
+						<div className='w-full'>
+							<Button
+								onClick={handleAddToCart}
+								className='px-18 py-2 w-full bg-gray hover:bg-gray/90 flex-1'
+							>
+								Купити
+							</Button>
+						</div>
 
 						<Accord title='Варіанти товару'>
 							<div className='flex flex-col gap-6 text-xs w-full'>
@@ -318,7 +319,8 @@ export default function page({ params }: { params: { offerId: string } }) {
 								</Link>
 							</div>
 						</Accord>
-
+					</div>
+					<div className='flex flex-col gap-6 md:w-1/2 xl:w-full'>
 						<Accord title='Наявність в магазинах'>
 							<div className='flex flex-col gap-2 text-xs w-full'>
 								{availableStorages.length > 0 ? (
@@ -342,8 +344,6 @@ export default function page({ params }: { params: { offerId: string } }) {
 								)}
 							</div>
 						</Accord>
-					</div>
-					<div className='flex flex-col gap-6 md:w-1/2 xl:w-full'>
 						<Accord title='Доставка'>
 							<div className='flex flex-col gap-2 text-xs w-full'>
 								<div className='flex justify-between text-[16px]'>
