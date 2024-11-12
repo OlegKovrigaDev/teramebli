@@ -126,7 +126,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 								<h3 className='text-lg font-semibold mb-4'>
 									Загальна інформація
 								</h3>
-								<div className='grid grid-cols-2 gap-4'>
+								<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 									{Object.entries(currentParams)
 										.filter(
 											([key]) =>
