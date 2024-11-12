@@ -8,7 +8,7 @@ import { useCategoryData } from '@/hooks'
 import { useProductFilters } from '@/hooks/product/useProductFilters'
 import { Product } from '@/types/redux'
 import { useState } from 'react'
-import { AppliedFiltersAccord } from './appliedFilters'
+import { AppliedFiltersAccord } from './shared/product/appliedFilters'
 
 interface CategoryPageProps {
 	id: string

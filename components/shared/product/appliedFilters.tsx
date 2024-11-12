@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui'
-import { Accord } from './shared/accord'
+import { Accord } from '../accord'
 
 interface AppliedFiltersAccordProps {
 	minPrice?: number

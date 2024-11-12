@@ -23,7 +23,6 @@ export const ProductFilter = ({
 	title,
 	products,
 	onFilterChange,
-	onResetFilters,
 }: ProductFilterProps) => {
 	const selectedStorage = useSelector(
 		(state: RootState) => state.selectedStorage.storage
@@ -82,10 +81,8 @@ export const ProductFilter = ({
 	const [selectedOptions, setSelectedOptions] = useState<
 		Record<string, (number | string)[]>
 	>({})
-	const [expandedSections, setExpandedSections] = useState<
-		Record<string, boolean>
-	>({})
 	const [showMore, setShowMore] = useState<Record<string, boolean>>({})
+	const [showAppliedFilters, setShowAppliedFilters] = useState(false)
 
 	const handleCheckboxChange = (filterKey: string, type: string) => {
 		setSelectedOptions(prev => ({
@@ -100,46 +97,37 @@ export const ProductFilter = ({
 		if (onFilterChange) {
 			onFilterChange(selectedOptions)
 		}
-	}
-
-	const resetFilters = () => {
-		setSelectedOptions({})
-		if (onResetFilters) {
-			onResetFilters()
-		}
+		setShowAppliedFilters(true)
 	}
 
 	const renderFilterOptions = (options: FilterOption[], filterKey: string) => {
 		const visibleOptions = showMore[filterKey] ? options : options.slice(0, 5)
 
 		return visibleOptions.map(({ id, type, count }) => (
-			<div key={id} className='flex justify-between items-center text-sm mb-1'>
+			<div key={id} className='flex justify-between text-[16px]'>
 				<span className='flex gap-2 items-center'>
 					<Checkbox
 						id={`${filterKey}-${id}`}
-						className='border-2 rounded accent-blue-500'
+						className='border-2 rounded'
 						checked={selectedOptions[filterKey]?.includes(type)}
 						onCheckedChange={() => handleCheckboxChange(filterKey, type)}
 					/>
-					<Label htmlFor={`${filterKey}-${id}`} className='text-gray-700'>
-						{type}
-					</Label>
+					<Label htmlFor={`${filterKey}-${id}`}>{type}</Label>
 				</span>
-				<span className='text-gray-500 text-xs'>[{count}]</span>
+				<span>[{count}]</span>
 			</div>
 		))
 	}
 
 	return (
-		<Accord title={title} className='bg-white p-4 rounded-lg shadow-md'>
-			<div className='flex flex-col gap-4 text-sm w-full'>
-				{Object.entries(filterOptions).map(([filterKey, options]) => (
-					<div key={filterKey} className='mb-4'>
-						<h4 className='font-semibold text-gray-800 mb-2'>{filterKey}</h4>
+		<div className='flex flex-col gap-4'>
+			<h2 className='text-xl font-semibold'>{title}</h2>
+			{Object.entries(filterOptions).map(([filterKey, options]) => (
+				<Accord key={filterKey} title={filterKey}>
+					<div className='flex flex-col gap-2 text-[16px]'>
 						{renderFilterOptions(options, filterKey)}
 						{options.length > 5 && (
 							<Button
-								variant='ghost'
 								onClick={() =>
 									setShowMore(prev => ({
 										...prev,
@@ -148,26 +136,17 @@ export const ProductFilter = ({
 								}
 								className='text-xs mt-2'
 							>
-								{showMore[filterKey] ? 'Показать меньше' : 'Показать все'}
+								{showMore[filterKey] ? 'показать меньше' : 'показать все'}
 							</Button>
 						)}
 					</div>
-				))}
-				<div className='flex gap-4 mt-6'>
-					<Button
-						onClick={applyFilter}
-						className='w-full py-2 text-white bg-gray rounded-lg hover:bg-gray/60 transition'
-					>
-						Застосувати
-					</Button>
-					{/* <Button
-						onClick={resetFilters}
-						className='w-full py-2 bg-gray rounded-lg hover:bg-gray/60 transition'
-					>
-						Сбросить
-					</Button> */}
-				</div>
+				</Accord>
+			))}
+			<div className='flex gap-4 mt-6'>
+				<Button onClick={applyFilter} className='px-20 py-2 bg-gray'>
+					Застосувати
+				</Button>
 			</div>
-		</Accord>
+		</div>
 	)
 }
