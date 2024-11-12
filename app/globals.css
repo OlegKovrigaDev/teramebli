@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* * {
+	outline: 1px solid red;
+} */
+
 @keyframes marquee {
 	0% {
 		transform: translateX(0%);
@@ -61,7 +65,7 @@ body {
 	@apply border-transparent;
 }
 .accord-trigger {
-	@apply bg-accent px-4 py-2 font-bold;
+	@apply bg-accent px-4 py-2 font-bold rounded;
 }
 .accord-content {
 	@apply flex mt-6 pb-0;

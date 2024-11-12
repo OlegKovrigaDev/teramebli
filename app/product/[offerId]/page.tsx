@@ -3,7 +3,6 @@ import { useFetchReviewsByOfferIdQuery } from '@/api/categoryApi'
 import { Loading } from '@/components/Loading'
 import { Accord } from '@/components/shared/accord'
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
-import { Gallery } from '@/components/shared/gallery'
 import { ReviewPopover } from '@/components/shared/product/ReviewPopover'
 import {
 	Button,
@@ -18,6 +17,7 @@ import { formatPrice } from '@/helpers'
 import { useProductData } from '@/hooks'
 import { useProductVariantsByGroupId } from '@/hooks/product/useProductVariantsByGroupId'
 import { addToCart } from '@/store/cartSlice'
+import { Check } from 'lucide-react'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 
@@ -89,11 +89,11 @@ export default function page({ params }: { params: { offerId: string } }) {
 				subcategoryId={subCategoryId}
 				productName={currentParams['Назва товару']}
 			/>
-			<div className='flex justify-between pb-16'>
-				<div className='w-[865px] flex flex-col gap-6'>
-					<Gallery offerId={offerId} />
+			<div className='flex flex-col xl:flex-row justify-between pb-16'>
+				<div className='w-full xl:w-[865px] flex flex-col gap-6'>
+					{/* <Gallery offerId={offerId} /> */}
 					<Tabs defaultValue='description' className='w-full'>
-						<TabsList className='bg-white w-full justify-start py-6 rounded'>
+						<TabsList className='bg-white overflow-x-scroll overflow-y-hidden flex justify-start py-6 rounded'>
 							<TabsTrigger className=' text-2xl font-bold' value='description'>
 								Опис
 							</TabsTrigger>
@@ -205,7 +205,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 						</TabsContent>
 					</Tabs>
 				</div>
-				<div className='w-[385px] flex flex-col gap-6'>
+				<div className='w-full xl:w-[385px] flex flex-col flex-wrap gap-2 md:gap-6'>
 					<div className='h-36 w-full p-2 bg-white flex flex-col justify-between'>
 						<p
 							className={
@@ -234,7 +234,54 @@ export default function page({ params }: { params: { offerId: string } }) {
 						)}
 					</div>
 					<Accord title='Варіанти товару'>
-						<div className='flex flex-col gap-2 text-xs w-full'>
+						<div className='flex flex-col gap-6 text-xs w-full'>
+							<div className='flex gap-2'>
+								<div className='w-[86px] h-[74px] bg-accent rounded' />
+								<div className='text-xs font-semibold'>
+									<div className='flex flex-col w-full items-end'>
+										<h3>Диван Elegant Арен 155x93 см темно-сірий</h3>
+										<p className='text-green'>● В наявності</p>
+										<div>
+											<span className='line-through mr-2'>13 000 грн.</span>
+											<span className='text-red-900 text-[18px]'>
+												12 499 грн.
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div className='flex gap-2'>
+								<div className='w-[86px] h-[74px] bg-accent rounded' />
+								<div className='text-xs font-semibold'>
+									<div className='flex flex-col w-full items-end'>
+										<h3>Диван Elegant Арен 155x93 см темно-сірий</h3>
+										<p className='text-green'>● В наявності</p>
+										<div>
+											<span className='line-through mr-2'>13 000 грн.</span>
+											<span className='text-red-900 text-[18px]'>
+												12 499 грн.
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div className='flex gap-2'>
+								<div className='w-[86px] h-[74px] bg-accent rounded' />
+								<div className='text-xs font-semibold'>
+									<div className='flex flex-col w-full items-end'>
+										<h3>Диван Elegant Арен 155x93 см темно-сірий</h3>
+										<p className='text-green'>● В наявності</p>
+										<div>
+											<span className='line-through mr-2'>13 000 грн.</span>
+											<span className='text-red-900 text-[18px]'>
+												12 499 грн.
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
 							{productVariants.length > 0 ? (
 								productVariants.map((variant, index) => (
 									<div key={index} className='flex justify-between text-[16px]'>
@@ -256,16 +303,17 @@ export default function page({ params }: { params: { offerId: string } }) {
 							<Link href='/' className='text-[#4E3A9F] mt-4'>
 								Згорнути
 							</Link>
-							<div className='flex justify-between gap-4 mt-6'>
-								<Button
-									onClick={handleAddToCart}
-									className='px-18 py-2 bg-gray hover:bg-gray/90 flex-1'
-								>
-									Купити
-								</Button>
-							</div>
 						</div>
 					</Accord>
+
+					<div className='flex justify-between'>
+						<Button
+							onClick={handleAddToCart}
+							className='px-18 py-2 bg-gray hover:bg-gray/90 flex-1'
+						>
+							Купити
+						</Button>
+					</div>
 
 					<Accord title='Наявність в магазинах'>
 						<div className='flex flex-col gap-2 text-xs w-full'>
@@ -278,7 +326,7 @@ export default function page({ params }: { params: { offerId: string } }) {
 										<span>
 											{storageMap[storage.location as keyof typeof storageMap]}
 										</span>
-										<span className='text-green'>&#x2714;</span>
+										<Check className='text-green' />
 									</div>
 								))
 							) : (
@@ -287,22 +335,53 @@ export default function page({ params }: { params: { offerId: string } }) {
 						</div>
 					</Accord>
 					<Accord title='Доставка'>
-						<div className='flex flex-col gap-2 text-xs'>
+						<div className='flex flex-col gap-2 text-xs w-full'>
 							<div className='flex justify-between text-[16px]'>
-								<span>Самовивіз зі складу:</span>
-								<span className='text-[#3C9F3A]'> Безкоштовно</span>
+								<span className='font-medium'>Самовивіз зі складу:</span>
+								<span className='font-medium text-[#3C9F3A]'> Безкоштовно</span>
 							</div>
-							<p>Delivery conditions...</p>
-							<div className='flex justify-between text-[16px]'>
+							<p className='text-xs font-semibold'>
+								Безкоштовне самовивезення можливе за наявності товару на цьому
+								складі. Якщо товар знаходиться на віддаленому складі або
+								необхідно переміщення з іншого магазину, вартість погоджується з
+								менеджером
+							</p>
+							<p className='text-xs font-semibold'>
+								При самовивезенні з магазину, винесення та навантаження
+								здійснюється самотужки
+							</p>
+							<div className='flex justify-between text-[16px] font-medium'>
 								<span>Доставка по Києву</span>
+								<span>599 грн</span>
+							</div>
+							<div className='flex justify-between text-[16px] font-medium'>
+								<span>По Україні від:</span>
 								<span>599 грн</span>
 							</div>
 						</div>
 					</Accord>
 					<Accord title='Оплата'>
 						<div className='flex flex-col gap-2 text-xs'>
-							<p>Payment options...</p>
-							<Link href='/' className='text-[#4E3A9F]'>
+							<p className='font-semibold'>
+								Готівкою або через термінал у магазині, безготівковий
+								розрахунок, карткою, розстрочка, оплата частинами, Whitepay
+								crypto
+							</p>
+							<Link href='/' className='text-[#4E3A9F] font-semibold'>
+								Дізнатися всі умови
+							</Link>
+						</div>
+					</Accord>
+
+					<Accord title='Гарантія та повернення'>
+						<div className='flex flex-col gap-2 text-xs'>
+							<p className='font-semibold'>
+								Гарантія від виробника до 2 років до 24 місяців з моменту
+								покупки. Гарантійний термін починається з доставки виробу
+								клієнту додому. 14 днів з наступного дня після доставки виробу
+								додому ви маєте право обміняти або повернути куплений товар.
+							</p>
+							<Link href='/' className='text-[#4E3A9F] font-semibold'>
 								Дізнатися всі умови
 							</Link>
 						</div>
