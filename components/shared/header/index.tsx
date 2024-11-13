@@ -11,6 +11,7 @@ import {
 } from '@/components/ui'
 import { useSearch } from '@/hooks'
 import { Headset, Menu } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Logo } from '../logo'
 import { Cart } from './cart'
 import { Catalog } from './catalog'
@@ -18,7 +19,6 @@ import { Contact } from './contact'
 import { Lang } from './lang'
 import { Magazins } from './magazins'
 import { SearchBar } from './search-bar'
-import { useTranslation } from 'react-i18next'
 
 export const Header = () => {
 	const search = useSearch()
@@ -33,7 +33,7 @@ export const Header = () => {
 			<div className='header-desktop'>
 				<div className='left'>
 					<Logo />
-					<div className='hidden xl:flex'>
+					<div className='hidden xl:flex gap-8'>
 						<Catalog />
 						<Magazins />
 					</div>

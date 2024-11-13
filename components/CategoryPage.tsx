@@ -7,12 +7,87 @@ import { ProductPriceFilter } from '@/components/shared/product/ProductPriceFilt
 import { useCategoryData } from '@/hooks'
 import { useProductFilters } from '@/hooks/product/useProductFilters'
 import { Product } from '@/types/redux'
+import { ArrowDownUp, Filter } from 'lucide-react'
 import { useState } from 'react'
 import { AppliedFiltersAccord } from './shared/product/appliedFilters'
+import {
+	Button,
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from './ui'
 
 interface CategoryPageProps {
 	id: string
 }
+
+const PopularFilter = ({ className }: { className?: string }) => {
+	return (
+		<div className={className}>
+			{[
+				{ text: 'По популярності' },
+				{ text: 'Від дорогих' },
+				{ text: 'Від дешевих' },
+			].map((item, index) => (
+				<Button key={index} variant='outline' className='px-3 py-1 h-7'>
+					{item.text}
+				</Button>
+			))}
+		</div>
+	)
+}
+
+const Filters = ({
+	showAppliedFilters,
+	minMaxPrices,
+	minPrice,
+	maxPrice,
+	selectedAttributes,
+	products,
+	handleApplyPriceFilter,
+	handleAttributeFilter,
+	resetFilters,
+	className,
+}: {
+	showAppliedFilters: boolean
+	minMaxPrices: { minPrice: number; maxPrice: number } | undefined
+	minPrice: number | undefined
+	maxPrice: number | undefined
+	selectedAttributes: Record<string, any>
+	products: Product[]
+	handleApplyPriceFilter: (min: number, max: number) => void
+	handleAttributeFilter: (filters: Record<string, (string | number)[]>) => void
+	resetFilters: () => void
+	className?: string
+}): JSX.Element => (
+	<div className={className}>
+		{showAppliedFilters && (
+			<AppliedFiltersAccord
+				minPrice={minPrice}
+				maxPrice={maxPrice}
+				selectedAttributes={selectedAttributes}
+				onResetFilters={resetFilters}
+			/>
+		)}
+		{minMaxPrices && (
+			<ProductPriceFilter
+				title='Ціна'
+				onApplyPriceFilter={handleApplyPriceFilter}
+				minPrice={minMaxPrices.minPrice}
+				maxPrice={minMaxPrices.maxPrice}
+			/>
+		)}
+		<ProductFilter
+			title='Фільтри продуктів'
+			products={products}
+			onFilterChange={handleAttributeFilter}
+			onResetFilters={resetFilters}
+		/>
+	</div>
+)
 
 export default function CategoryPage({ id }: CategoryPageProps) {
 	const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
@@ -81,61 +156,86 @@ export default function CategoryPage({ id }: CategoryPageProps) {
 	)
 
 	return (
-		<div className='mb-[75px]'>
-			<CrumbsLinks
-				categoryName={category?.name}
-				categoryId={category?.id.toString()}
-				subcategoryName={
-					selectedSubcategory ? selectedSubcategory.name : undefined
-				}
-				subcategoryId={
-					selectedSubcategory ? selectedSubcategory.id.toString() : undefined
-				}
-			/>
-
-			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
-				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
-					{showAppliedFilters && (
-						<AppliedFiltersAccord
+		<div>
+			<div className='flex xl:hidden items-center justify-center gap-8 py-4'>
+				<Dialog>
+					<DialogTrigger className='flex items-center'>
+						<Filter />
+						Фільтри
+					</DialogTrigger>
+					<DialogContent className='h-screen p-2 overflow-y-auto'>
+						<DialogHeader>
+							<DialogTitle></DialogTitle>
+							<DialogDescription></DialogDescription>
+						</DialogHeader>
+						<Filters
+							showAppliedFilters={showAppliedFilters}
+							minMaxPrices={minMaxPrices}
 							minPrice={minPrice}
 							maxPrice={maxPrice}
 							selectedAttributes={selectedAttributes}
-							onResetFilters={resetFilters}
+							products={products}
+							handleApplyPriceFilter={handleApplyPriceFilter}
+							handleAttributeFilter={handleAttributeFilter}
+							resetFilters={resetFilters}
 						/>
-					)}
-					{minMaxPrices && (
-						<ProductPriceFilter
-							title='Ціна'
-							onApplyPriceFilter={handleApplyPriceFilter}
-							minPrice={minMaxPrices.minPrice}
-							maxPrice={minMaxPrices.maxPrice}
-						/>
-					)}
-					<ProductFilter
-						title='Фільтри продуктів'
-						products={products}
-						onFilterChange={handleAttributeFilter}
-						onResetFilters={resetFilters}
+					</DialogContent>
+				</Dialog>
+
+				<p className='flex'>
+					<ArrowDownUp />
+					Сортування
+				</p>
+			</div>
+			<div className='mb-[75px]'>
+				<div className='flex relative'>
+					<CrumbsLinks
+						categoryName={category?.name}
+						categoryId={category?.id.toString()}
+						subcategoryName={
+							selectedSubcategory ? selectedSubcategory.name : undefined
+						}
+						subcategoryId={
+							selectedSubcategory
+								? selectedSubcategory.id.toString()
+								: undefined
+						}
 					/>
+					<PopularFilter className='absolute right-0 translate-y-full hidden xl:flex gap-4' />
 				</div>
 
-				<div className='flex flex-1 gap-y-8 justify-between flex-wrap h-[max-content] max-w-[970px]'>
-					{filteredAndSortedProducts.length > 0 ? (
-						filteredAndSortedProducts.map((product: Product) => (
-							<ProductCard key={product.offerId} product={product} />
-						))
-					) : (
-						<p className='text-gray-500'>
-							Немає доступних продуктів для відображення.
-						</p>
-					)}
+				<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
+					<Filters
+						className='hidden xl:flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'
+						showAppliedFilters={showAppliedFilters}
+						minMaxPrices={minMaxPrices}
+						minPrice={minPrice}
+						maxPrice={maxPrice}
+						selectedAttributes={selectedAttributes}
+						products={products}
+						handleApplyPriceFilter={handleApplyPriceFilter}
+						handleAttributeFilter={handleAttributeFilter}
+						resetFilters={resetFilters}
+					/>
 
-					<div className='flex flex-col justify-center w-full'>
-						<Pagination
-							currentPage={currentPage ?? 1}
-							totalPages={totalPages ?? 1}
-							onPageChange={setPage}
-						/>
+					<div className='flex flex-1 gap-y-8 justify-between flex-wrap h-[max-content] max-w-[970px]'>
+						{filteredAndSortedProducts.length > 0 ? (
+							filteredAndSortedProducts.map((product: Product) => (
+								<ProductCard key={product.offerId} product={product} />
+							))
+						) : (
+							<p className='text-gray-500'>
+								Немає доступних продуктів для відображення.
+							</p>
+						)}
+
+						<div className='flex flex-col justify-center w-full'>
+							<Pagination
+								currentPage={currentPage ?? 1}
+								totalPages={totalPages ?? 1}
+								onPageChange={setPage}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
