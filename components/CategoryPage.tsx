@@ -81,7 +81,7 @@ const Filters = ({
 			/>
 		)}
 		<ProductFilter
-			title='Фільтри продуктів'
+			title=''
 			products={products}
 			onFilterChange={handleAttributeFilter}
 			onResetFilters={resetFilters}
