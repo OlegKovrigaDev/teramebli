@@ -119,7 +119,7 @@ export default function CategoryPage({ id }: CategoryPageProps) {
 					/>
 				</div>
 
-				<div className='flex flex-1 gap-y-8 justify-between flex-wrap max-w-[970px]'>
+				<div className='flex flex-1 gap-y-8 justify-between flex-wrap h-[max-content] max-w-[970px]'>
 					{filteredAndSortedProducts.length > 0 ? (
 						filteredAndSortedProducts.map((product: Product) => (
 							<ProductCard key={product.offerId} product={product} />
