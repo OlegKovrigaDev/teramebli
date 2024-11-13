@@ -1,19 +1,21 @@
-'use client'
 import { Button, Input } from '@/components/ui'
-import { header } from '@/constants'
 import { useProductSearch } from '@/hooks/search/useProductSearch'
+import { RootState } from '@/store'
 import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
 
 export const SearchBar = ({
 	search: { isMobileSearchVisible, toggleSearchInput, inputRef, handleKeyDown },
 }: any) => {
 	const router = useRouter()
 	const { query, setQuery } = useProductSearch()
-
+	const selectedStorage = useSelector(
+		(state: RootState) => state.selectedStorage.storage
+	)
 	const handleSearch = () => {
 		if (query) {
-			router.push(`/category/20000?search=${query}`)
+			router.push(`/category/20000?${selectedStorage}&search=${query}`)
 		}
 	}
 
@@ -37,7 +39,7 @@ export const SearchBar = ({
 								handleKeyDown(e)
 								handleEnterKeyPress(e)
 							}}
-							placeholder={header[4].text}
+							placeholder='Search products'
 							autoFocus
 							className='sidebar-input'
 						/>
@@ -72,7 +74,7 @@ export const SearchBar = ({
 						handleKeyDown(e)
 						handleEnterKeyPress(e)
 					}}
-					placeholder={header[5].text}
+					placeholder='Search products'
 					autoFocus
 					className='sidebar-input'
 				/>

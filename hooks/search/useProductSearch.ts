@@ -3,6 +3,7 @@ import { useSearchProductsQuery } from '@/api/categoryApi'
 import { Product } from '@/types/redux'
 import { RootState } from '@/store'
 import { useSelector } from 'react-redux'
+import { useSearchParams } from 'next/navigation'
 
 interface UseProductSearchResult {
 	query: string
@@ -37,11 +38,16 @@ export const useProductSearch = (
 		{ skip: !query }
 	)
 
+	const searchParams = useSearchParams()
+	const urlPage = searchParams.get('page')
+	const parsedPage = urlPage ? parseInt(urlPage, 10) : initialPage
+
 	useEffect(() => {
 		if (initialQuery) {
 			setQuery(initialQuery)
 		}
-	}, [initialQuery])
+		setPage(parsedPage)
+	}, [initialQuery, urlPage])
 
 	const searchResults = searchResultsData?.results || []
 	const total = searchResultsData?.total || 200

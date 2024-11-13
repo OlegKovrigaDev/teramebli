@@ -7,10 +7,10 @@ import selectedStorageReducer from './selectedStorageSlice'
 
 export const store = configureStore({
 	reducer: {
-		[categoryApi.reducerPath]: categoryApi.reducer,
-		cart: cartReducer,
-		search: searchReducer,
 		selectedStorage: selectedStorageReducer,
+		[categoryApi.reducerPath]: categoryApi.reducer,
+		search: searchReducer,
+		cart: cartReducer,
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware().concat(categoryApi.middleware),

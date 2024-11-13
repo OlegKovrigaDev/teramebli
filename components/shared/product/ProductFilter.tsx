@@ -44,6 +44,7 @@ export const ProductFilter = ({
 		'Название товара',
 		'Опис текст(сайт)',
 		'__Матеріал',
+		'Closeout',
 	]
 
 	const filterOptions = useMemo(() => {
@@ -128,6 +129,7 @@ export const ProductFilter = ({
 						{renderFilterOptions(options, filterKey)}
 						{options.length > 5 && (
 							<Button
+								variant='ghost'
 								onClick={() =>
 									setShowMore(prev => ({
 										...prev,
@@ -142,7 +144,7 @@ export const ProductFilter = ({
 					</div>
 				</Accord>
 			))}
-			<div className='flex gap-4 mt-6'>
+			<div className='flex gap-4 mt-1 ml-3'>
 				<Button onClick={applyFilter} className='px-20 py-2 bg-gray'>
 					Застосувати
 				</Button>

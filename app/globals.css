@@ -68,7 +68,7 @@ body {
 	@apply bg-accent px-4 py-2 font-bold rounded;
 }
 .accord-content {
-	@apply flex mt-6 pb-0;
+	@apply mt-6 pb-0;
 }
 
 .section-md {
