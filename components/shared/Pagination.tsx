@@ -17,6 +17,7 @@ const Pagination = ({
 	totalPages,
 	onPageChange,
 }: PaginationProps) => {
+	if (totalPages <= 1) return null
 	const generatePageNumbers = () => {
 		const pages = []
 		const maxDisplayed = 5
