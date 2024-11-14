@@ -349,7 +349,6 @@ export default function page({ params }: { params: { offerId: string } }) {
 								<div className='flex justify-between text-[16px]'>
 									<span className='font-medium'>Самовивіз зі складу:</span>
 									<span className='font-medium text-[#3C9F3A]'>
-										{' '}
 										Безкоштовно
 									</span>
 								</div>

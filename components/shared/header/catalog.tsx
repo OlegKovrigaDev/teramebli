@@ -10,12 +10,20 @@ import {
 import { header } from '@/constants'
 import { LayoutDashboard } from 'lucide-react'
 import { Logo } from '../logo'
+import { SheetClose } from '@/components/ui/sheet'
 
 export const Catalog = () => {
 	const currentLanguage = 'UA'
 
 	const handleSelectCategory = (categoryId: number) => {
 		console.log(`Selected Category ID: ${categoryId}`)
+	}
+
+	const closeSheet = () => {
+		const sheetElement = document.querySelector(
+			'[data-state="open"]'
+		) as HTMLElement | null
+		sheetElement?.click()
 	}
 
 	return (
@@ -31,10 +39,13 @@ export const Catalog = () => {
 					</SheetTitle>
 					<SheetDescription></SheetDescription>
 				</SheetHeader>
-				<CatalogCategories
-					onSelectCategory={handleSelectCategory}
-					currentLanguage={currentLanguage}
-				/>
+				<SheetClose asChild>
+					<CatalogCategories
+						onSelectCategory={categoryId => handleSelectCategory(categoryId)}
+						currentLanguage={currentLanguage}
+						closeSheet={closeSheet}
+					/>
+				</SheetClose>
 			</SheetContent>
 		</Sheet>
 	)

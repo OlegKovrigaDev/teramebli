@@ -8,7 +8,8 @@ import {
 import { Review, ReviewForm } from '@/types/review'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const BASE_URL = 'https://teramebli-api.onrender.com/api'
+// const BASE_URL = 'https://teramebli-api.onrender.com/api'
+const BASE_URL = 'http://localhost:3005/api'
 
 export const categoryApi = createApi({
 	reducerPath: 'categoryApi',

@@ -193,11 +193,11 @@ export default function CategoryPage({ id }: CategoryPageProps) {
 						categoryName={category?.name}
 						categoryId={category?.id.toString()}
 						subcategoryName={
-							selectedSubcategory ? selectedSubcategory.name : undefined
+							selectedSubcategory ? selectedSubcategory.parent.name : undefined
 						}
 						subcategoryId={
 							selectedSubcategory
-								? selectedSubcategory.id.toString()
+								? selectedSubcategory.parent.id.toString()
 								: undefined
 						}
 					/>

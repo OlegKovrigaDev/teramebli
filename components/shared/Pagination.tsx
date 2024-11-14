@@ -1,5 +1,3 @@
-'use client'
-
 import {
 	ChevronLeft,
 	ChevronRight,
@@ -44,8 +42,6 @@ const Pagination = ({
 			<Button
 				onClick={() => onPageChange(1)}
 				disabled={currentPage === 1}
-				className={`text-white bg-stone-600 rounded hover:bg-stone-700 transition
-          ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
 				size='icon'
 			>
 				<ChevronsLeft size={24} />
@@ -53,27 +49,18 @@ const Pagination = ({
 			<Button
 				onClick={() => onPageChange(currentPage - 1)}
 				disabled={currentPage === 1}
-				className={`text-white bg-stone-600 rounded hover:bg-stone-700 transition
-          ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
 				size='icon'
 			>
 				<ChevronLeft size={24} />
 			</Button>
 			{pageNumbers.map(page => (
-				<Button
-					key={page}
-					onClick={() => onPageChange(page)}
-					className={`px-3 py-1 text-white bg-stone-600 rounded hover:bg-stone-700 transition
-            ${page === currentPage ? 'font-bold bg-stone-800' : ''}`}
-				>
+				<Button key={page} onClick={() => onPageChange(page)} size='icon'>
 					{page}
 				</Button>
 			))}
 			<Button
 				onClick={() => onPageChange(currentPage + 1)}
 				disabled={currentPage === totalPages}
-				className={`text-white bg-stone-600 rounded hover:bg-stone-700 transition
-          ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
 				size='icon'
 			>
 				<ChevronRight size={24} />
@@ -81,8 +68,6 @@ const Pagination = ({
 			<Button
 				onClick={() => onPageChange(totalPages)}
 				disabled={currentPage === totalPages}
-				className={`text-white bg-stone-600 rounded hover:bg-stone-700 transition
-          ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
 				size='icon'
 			>
 				<ChevronsRight size={24} />

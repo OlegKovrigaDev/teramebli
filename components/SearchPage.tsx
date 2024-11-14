@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState } from 'react'
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import Pagination from '@/components/shared/Pagination'
 import { ProductCard } from '@/components/shared/product/ProductCart'

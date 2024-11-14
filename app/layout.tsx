@@ -4,6 +4,7 @@ import { MobileMenu } from '@/components/shared/header/mobile-menu'
 import type { Metadata } from 'next'
 import { Montserrat as FontSans } from 'next/font/google'
 import './globals.css'
+import i18n from '@/lib/i18n/i18n'
 
 const fontSans = FontSans({
 	subsets: ['latin', 'cyrillic'],

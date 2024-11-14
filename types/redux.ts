@@ -3,6 +3,11 @@ export interface Category {
 	id: number
 	name: string
 	parentId: number | null
+	parent: {
+		id: number | string
+		name: 'string'
+		parentId: null
+	}
 	totalItems?: number
 }
 

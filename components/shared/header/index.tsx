@@ -45,7 +45,7 @@ export const Header = () => {
 					<Sheet>
 						<SheetTrigger className='flex xl:hidden flex-col items-center justify-center'>
 							<Menu />
-							<span className='text-[10px] font-medium'>{t('other')}</span>
+							<span className='text-[10px] font-medium'>{t('Інше')}</span>
 						</SheetTrigger>
 						<SheetContent className='bg-accent'>
 							<SheetHeader>
@@ -55,7 +55,7 @@ export const Header = () => {
 									<Button
 										variant='ghost'
 										className='text-[14px] font-bold'
-										onClick={() => handleLanguageChange('uk')}
+										onClick={() => handleLanguageChange('ua')}
 									>
 										UA
 									</Button>
@@ -72,7 +72,7 @@ export const Header = () => {
 									<div>
 										<p className='text-[14px] font-bold'>095-12-77-63</p>
 										<p className='text-[10px] font-semibold'>
-											{t('contact_phones')}
+											{t('Контактні телефони')}
 										</p>
 									</div>
 								</div>
@@ -84,16 +84,16 @@ export const Header = () => {
 										<Magazins />
 									</li>
 									<li>
-										<a href='/about'>{t('about_us')}</a>
+										<a href='/about'>{t('Про нас')}</a>
 									</li>
 									<li>
-										<a href='/contacts'>{t('contacts')}</a>
+										<a href='/contacts'>{t('Контакти')}</a>
 									</li>
 									<li>
-										<a href='/delivery'>{t('delivery_payment')}</a>
+										<a href='/delivery'>{t('Доставка і Оплата')}</a>
 									</li>
 									<li>
-										<a href='/warranty'>{t('warranty_return')}</a>
+										<a href='/warranty'>{t('Гарантія та Повернення')}</a>
 									</li>
 								</ul>
 							</SheetHeader>

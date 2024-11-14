@@ -10,9 +10,14 @@ import { Skeleton } from './ui/skeleton'
 interface CategoriesProps {
 	onSelectCategory: (categoryId: number) => void
 	currentLanguage: 'UA' | 'RU'
+	closeSheet: () => void
 }
 
-export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
+export const CatalogCategories = ({
+	currentLanguage,
+	onSelectCategory,
+	closeSheet,
+}: CategoriesProps) => {
 	const {
 		data: categories,
 		error: categoriesError,
@@ -64,7 +69,13 @@ export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
 									onClick={() => handleToggle(category.id)}
 									className='flex items-center gap-2 p-2 bg-white rounded-md shadow hover:bg-gray-100 transition cursor-pointer'
 								>
-									<Link href={`/category/${category.id}`}>
+									<Link
+										href={`/category/${category.id}`}
+										onClick={() => {
+											onSelectCategory(category.id)
+											closeSheet()
+										}}
+									>
 										<p className='text-base font-medium'>
 											{currentLanguage === 'UA' ? uaName : ruName}
 										</p>
@@ -81,6 +92,8 @@ export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
 									<Subcategories
 										parentId={category.id}
 										currentLanguage={currentLanguage}
+										onSelectCategory={onSelectCategory}
+										closeSheet={closeSheet}
 									/>
 								)}
 							</li>
@@ -95,9 +108,13 @@ export const CatalogCategories = ({ currentLanguage }: CategoriesProps) => {
 const Subcategories = ({
 	parentId,
 	currentLanguage,
+	onSelectCategory,
+	closeSheet,
 }: {
 	parentId: number
 	currentLanguage: 'UA' | 'RU'
+	onSelectCategory: (categoryId: number) => void
+	closeSheet: () => void
 }) => {
 	const {
 		data: subcategories,
@@ -136,7 +153,13 @@ const Subcategories = ({
 
 						return (
 							<li key={sub.id}>
-								<Link href={`/category/${sub.id}`}>
+								<Link
+									href={`/category/${sub.id}`}
+									onClick={() => {
+										onSelectCategory(sub.id)
+										closeSheet()
+									}}
+								>
 									<div className='flex items-center gap-2 p-2 bg-white rounded-md shadow hover:bg-gray-100 transition cursor-pointer'>
 										<p className='text-base font-medium'>
 											{currentLanguage === 'UA' ? uaName : ruName}
