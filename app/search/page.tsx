@@ -1,14 +1,64 @@
-import { useMemo, useState } from 'react'
+'use client'
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import Pagination from '@/components/shared/Pagination'
+import { AppliedFiltersAccord } from '@/components/shared/product/appliedFilters'
 import { ProductCard } from '@/components/shared/product/ProductCart'
 import { ProductFilter } from '@/components/shared/product/ProductFilter'
 import { ProductPriceFilter } from '@/components/shared/product/ProductPriceFilter'
 import { useProductSearch } from '@/hooks/search/useProductSearch'
 import { useProductFilters } from '@/hooks/product/useProductFilters'
-import { Product } from '@/types/redux'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { AppliedFiltersAccord } from '@/components/shared/product/appliedFilters'
+import { Product } from '@/types/redux'
+import { useState, useMemo } from 'react'
+
+const Filters = ({
+	showAppliedFilters,
+	minMaxPrices,
+	minPrice,
+	maxPrice,
+	selectedAttributes,
+	products,
+	handleApplyPriceFilter,
+	handleAttributeFilter,
+	resetFilters,
+	className,
+}: {
+	showAppliedFilters: boolean
+	minMaxPrices: { minPrice: number; maxPrice: number } | undefined
+	minPrice: number | undefined
+	maxPrice: number | undefined
+	selectedAttributes: Record<string, any>
+	products: Product[]
+	handleApplyPriceFilter: (min: number, max: number) => void
+	handleAttributeFilter: (filters: Record<string, (string | number)[]>) => void
+	resetFilters: () => void
+	className?: string
+}): JSX.Element => (
+	<div className={className}>
+		{showAppliedFilters && (
+			<AppliedFiltersAccord
+				minPrice={minPrice}
+				maxPrice={maxPrice}
+				selectedAttributes={selectedAttributes}
+				onResetFilters={resetFilters}
+			/>
+		)}
+		{minMaxPrices && (
+			<ProductPriceFilter
+				title='Ціна'
+				onApplyPriceFilter={handleApplyPriceFilter}
+				minPrice={minMaxPrices.minPrice}
+				maxPrice={minMaxPrices.maxPrice}
+			/>
+		)}
+		<ProductFilter
+			title='Фільтри'
+			products={products}
+			onFilterChange={handleAttributeFilter}
+			onResetFilters={resetFilters}
+		/>
+	</div>
+)
 
 export default function SearchPage() {
 	const searchParams = useSearchParams()
@@ -20,9 +70,7 @@ export default function SearchPage() {
 
 	const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
 	const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
-	const [selectedAttributes, setSelectedAttributes] = useState<
-		Record<string, any>
-	>({})
+	const [selectedAttributes, setSelectedAttributes] = useState<{}>({})
 	const [sortField, setSortField] = useState<keyof Product | undefined>(
 		undefined
 	)
@@ -73,8 +121,10 @@ export default function SearchPage() {
 	})
 
 	const handlePageChange = (page: number) => {
+		const params = new URLSearchParams(window.location.search)
+		params.set('page', page.toString())
+		router.push(`/search?${params.toString()}`)
 		setPage(page)
-		router.push(`/category/20000?search=${query}&page=${page}`)
 	}
 
 	if (isLoading) {
@@ -89,36 +139,24 @@ export default function SearchPage() {
 		<div className='mb-[75px]'>
 			<CrumbsLinks
 				categoryName={`Результати пошуку: ${query}`}
-				categoryId={'20000'}
+				categoryId='search'
 			/>
 
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
-				<div className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'>
-					{showAppliedFilters && (
-						<AppliedFiltersAccord
-							minPrice={minPrice}
-							maxPrice={maxPrice}
-							selectedAttributes={selectedAttributes}
-							onResetFilters={resetFilters}
-						/>
-					)}
-					{minMaxPrices && (
-						<ProductPriceFilter
-							title='Ціна'
-							onApplyPriceFilter={handleApplyPriceFilter}
-							minPrice={minMaxPrices.minPrice}
-							maxPrice={minMaxPrices.maxPrice}
-						/>
-					)}
-					<ProductFilter
-						title=''
-						products={searchResults ?? []}
-						onFilterChange={handleAttributeFilter}
-						onResetFilters={resetFilters}
-					/>
-				</div>
+				<Filters
+					className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'
+					showAppliedFilters={showAppliedFilters}
+					minMaxPrices={minMaxPrices}
+					minPrice={minPrice}
+					maxPrice={maxPrice}
+					selectedAttributes={selectedAttributes}
+					products={searchResults ?? []}
+					handleApplyPriceFilter={handleApplyPriceFilter}
+					handleAttributeFilter={handleAttributeFilter}
+					resetFilters={resetFilters}
+				/>
 
-				<div className='flex flex-1 gap-y-8 justify-between flex-wrap max-w-[970px]'>
+				<div className='flex flex-1 gap-y-8 justify-between flex-wrap h-[max-content] max-w-[970px]'>
 					{filteredAndSortedProducts.length > 0 ? (
 						filteredAndSortedProducts.map((product: Product) => (
 							<ProductCard key={product.offerId} product={product} />
@@ -128,11 +166,10 @@ export default function SearchPage() {
 							Немає доступних продуктів для відображення.
 						</p>
 					)}
-
 					<div className='flex flex-col justify-center w-full'>
 						<Pagination
-							currentPage={currentPage}
-							totalPages={totalPages}
+							currentPage={currentPage ?? 1}
+							totalPages={totalPages ?? 1}
 							onPageChange={handlePageChange}
 						/>
 					</div>

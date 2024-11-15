@@ -7,29 +7,31 @@ import { useRandomProducts } from '@/hooks/category/useRandomProducts'
 import { useMemo } from 'react'
 
 export default function Home() {
-	const { randomProducts: randomProducts1 } = useRandomProducts(15)
-
+	const { randomProducts: randomProducts1, loadMore: loadMore1 } =
+		useRandomProducts(12)
 	const usedProductIds = useMemo(
 		() => new Set(randomProducts1.map(product => product.offerId)),
 		[randomProducts1]
 	)
 
-	const { randomProducts: randomProducts2 } = useRandomProducts(
-		15,
-		usedProductIds
-	)
+	const { randomProducts: randomProducts2, loadMore: loadMore2 } =
+		useRandomProducts(12, usedProductIds)
 
 	return (
 		<>
 			<Hero />
-			<Section title={home.newProduct.title}>
-				<ProductSlider arr={randomProducts1} />
-			</Section>
+			{randomProducts1.length > 0 && (
+				<Section title={home.newProduct.title}>
+					<ProductSlider arr={randomProducts1} onLoadMore={loadMore1} />
+				</Section>
+			)}
 			<Ethaps />
 			<Categories />
-			<Section title={home.interesrProduct.title}>
-				<ProductSlider arr={randomProducts2} />
-			</Section>
+			{randomProducts2.length > 0 && (
+				<Section title={home.interesrProduct.title}>
+					<ProductSlider arr={randomProducts2} onLoadMore={loadMore2} />
+				</Section>
+			)}
 			<Advantages />
 		</>
 	)

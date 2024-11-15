@@ -18,6 +18,7 @@ const Pagination = ({
 	onPageChange,
 }: PaginationProps) => {
 	if (totalPages <= 1) return null
+
 	const generatePageNumbers = () => {
 		const pages = []
 		const maxDisplayed = 5
@@ -55,7 +56,16 @@ const Pagination = ({
 				<ChevronLeft size={24} />
 			</Button>
 			{pageNumbers.map(page => (
-				<Button key={page} onClick={() => onPageChange(page)} size='icon'>
+				<Button
+					key={page}
+					onClick={() => onPageChange(page)}
+					size='icon'
+					aria-current={currentPage === page ? 'page' : undefined}
+					className={
+						currentPage === page ? 'opacity-50 cursor-not-allowed' : ''
+					}
+					disabled={currentPage === page}
+				>
 					{page}
 				</Button>
 			))}

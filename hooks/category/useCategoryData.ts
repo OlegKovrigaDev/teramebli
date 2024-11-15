@@ -7,11 +7,11 @@ import { RootState } from '@/store'
 import { useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
-export const useCategoryData = (id: string) => {
+export const useCategoryData = (id: string, initialPage: number = 1) => {
 	const selectedStorage = useSelector(
 		(state: RootState) => state.selectedStorage.storage
 	)
-	const [page, setPage] = useState(1)
+	const [page, setPage] = useState(initialPage)
 	const limit = 12
 
 	const {
@@ -20,9 +20,10 @@ export const useCategoryData = (id: string) => {
 		isLoading,
 		isFetching,
 	} = useFetchCategoryWithProductsQuery(
-		{ categoryId: Number(id), page: 1, limit: 7000 },
+		{ categoryId: Number(id), page, limit: 7000 },
 		{ skip: !id }
 	)
+	console.log('Запрос с параметрами:', { categoryId: Number(id), page, limit })
 
 	const {
 		data: categoryDetails,
@@ -41,9 +42,7 @@ export const useCategoryData = (id: string) => {
 		if (!categoryData?.products) return []
 		return categoryData.products
 			.filter(
-				product =>
-					product[selectedStorage]?.['Відображення на сайті'] === '1' &&
-					product[selectedStorage]?.['Кількість на складі'] > 0
+				product => product[selectedStorage]?.['Відображення на сайті'] === '1'
 			)
 			.map(product => ({
 				...product,
@@ -97,7 +96,7 @@ export const useCategoryData = (id: string) => {
 	}
 
 	const filteredProducts = (productsWithStorage || []).filter(
-		product => product.currentParams?.['Назва товару']
+		product => product.currentParams && product.currentParams['Назва товару']
 	)
 
 	const paginatedProducts = filteredProducts.slice(

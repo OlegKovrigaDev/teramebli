@@ -8,7 +8,13 @@ import {
 import { Product } from '@/types/redux'
 import { ProductCard } from './ProductCart'
 
-export const ProductSlider = ({ arr }: { arr: Product[] }) => {
+export const ProductSlider = ({
+	arr,
+	onLoadMore,
+}: {
+	arr: Product[]
+	onLoadMore: () => void
+}) => {
 	return (
 		<Carousel
 			opts={{
@@ -24,7 +30,7 @@ export const ProductSlider = ({ arr }: { arr: Product[] }) => {
 				))}
 			</CarouselContent>
 			<CarouselPrevious className='absolute left-1' />
-			<CarouselNext className='absolute right-3' />
+			<CarouselNext className='absolute right-3' onClick={onLoadMore} />
 		</Carousel>
 	)
 }
