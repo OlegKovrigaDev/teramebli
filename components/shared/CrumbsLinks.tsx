@@ -11,6 +11,8 @@ import {
 interface BreadcrumbProps {
 	categoryName?: string
 	categoryId?: string
+	parentCategoryName?: string
+	parentCategoryId?: string
 	subcategoryName?: string
 	subcategoryId?: string
 	productName?: string
@@ -22,6 +24,8 @@ interface BreadcrumbProps {
 export function CrumbsLinks({
 	categoryName,
 	categoryId,
+	parentCategoryName,
+	parentCategoryId,
 	subcategoryName,
 	subcategoryId,
 	productName,
@@ -60,6 +64,19 @@ export function CrumbsLinks({
 							{index < customBreadcrumb.length - 1 && <BreadcrumbSeparator />}
 						</div>
 					))}
+
+				{parentCategoryName && parentCategoryId && (
+					<>
+						<BreadcrumbItem className='text-xl'>
+							<BreadcrumbLink asChild>
+								<Link href={`/category/${parentCategoryId}`}>
+									{trimName(parentCategoryName)}
+								</Link>
+							</BreadcrumbLink>
+						</BreadcrumbItem>
+						<BreadcrumbSeparator />
+					</>
+				)}
 
 				{categoryName && categoryId && (
 					<>

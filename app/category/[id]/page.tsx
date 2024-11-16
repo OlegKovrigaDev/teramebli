@@ -209,15 +209,10 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 					<CrumbsLinks
 						categoryName={category?.name}
 						categoryId={category?.id.toString()}
-						subcategoryName={
-							selectedSubcategory ? selectedSubcategory.parent.name : undefined
-						}
-						subcategoryId={
-							selectedSubcategory
-								? selectedSubcategory.parent.id.toString()
-								: undefined
-						}
+						parentCategoryName={category?.parent?.name}
+						parentCategoryId={category?.parent?.id?.toString()}
 					/>
+
 					<PopularFilter className='absolute right-0 translate-y-full hidden xl:flex gap-4' />
 				</div>
 
