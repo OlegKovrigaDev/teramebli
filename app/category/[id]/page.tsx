@@ -211,6 +211,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 						categoryId={category?.id.toString()}
 						parentCategoryName={category?.parent?.name}
 						parentCategoryId={category?.parent?.id?.toString()}
+						currentCategoryId={id}
 					/>
 
 					<PopularFilter className='absolute right-0 translate-y-full hidden xl:flex gap-4' />

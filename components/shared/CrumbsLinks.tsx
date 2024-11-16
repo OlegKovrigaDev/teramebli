@@ -19,6 +19,7 @@ interface BreadcrumbProps {
 	customBreadcrumb?: Array<{ name: string; url?: string }>
 	homeLinkLabel?: string
 	homeLinkUrl?: string
+	currentCategoryId?: string
 }
 
 export function CrumbsLinks({
@@ -32,6 +33,7 @@ export function CrumbsLinks({
 	customBreadcrumb,
 	homeLinkLabel = 'Головна',
 	homeLinkUrl = '/',
+	currentCategoryId,
 }: BreadcrumbProps) {
 	const trimName = (name: string) => name.split('_')[0]
 
@@ -81,11 +83,17 @@ export function CrumbsLinks({
 				{categoryName && categoryId && (
 					<>
 						<BreadcrumbItem className='text-xl'>
-							<BreadcrumbLink asChild>
-								<Link href={`/category/${categoryId}`}>
+							{currentCategoryId === categoryId ? (
+								<BreadcrumbPage className='text-xl font-bold'>
 									{trimName(categoryName)}
-								</Link>
-							</BreadcrumbLink>
+								</BreadcrumbPage>
+							) : (
+								<BreadcrumbLink asChild>
+									<Link href={`/category/${categoryId}`}>
+										{trimName(categoryName)}
+									</Link>
+								</BreadcrumbLink>
+							)}
 						</BreadcrumbItem>
 						{subcategoryName && <BreadcrumbSeparator />}
 					</>
@@ -94,11 +102,17 @@ export function CrumbsLinks({
 				{subcategoryName && subcategoryId && (
 					<>
 						<BreadcrumbItem className='text-xl'>
-							<BreadcrumbLink asChild>
-								<Link href={`/category/${subcategoryId}`}>
+							{currentCategoryId === subcategoryId ? (
+								<BreadcrumbPage className='text-xl font-bold'>
 									{trimName(subcategoryName)}
-								</Link>
-							</BreadcrumbLink>
+								</BreadcrumbPage>
+							) : (
+								<BreadcrumbLink asChild>
+									<Link href={`/category/${subcategoryId}`}>
+										{trimName(subcategoryName)}
+									</Link>
+								</BreadcrumbLink>
+							)}
 						</BreadcrumbItem>
 					</>
 				)}

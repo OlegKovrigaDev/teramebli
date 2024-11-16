@@ -10,6 +10,19 @@ import { useProductFilters } from '@/hooks/product/useProductFilters'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Product } from '@/types/redux'
 import { useState, useMemo } from 'react'
+import { Button } from '@/components/ui'
+
+const PopularFilter = ({ className }: { className?: string }) => {
+	return (
+		<div className={className}>
+			{[{ text: 'Від дорогих' }, { text: 'Від дешевих' }].map((item, index) => (
+				<Button key={index} variant='outline' className='px-3 py-1 h-7'>
+					{item.text}
+				</Button>
+			))}
+		</div>
+	)
+}
 
 const Filters = ({
 	showAppliedFilters,
@@ -137,11 +150,12 @@ export default function SearchPage() {
 
 	return (
 		<div className='mb-[75px]'>
-			<CrumbsLinks
-				categoryName={`Результати пошуку: ${query}`}
-				categoryId='search'
-			/>
-
+			<div className='flex relative'>
+				<CrumbsLinks
+					customBreadcrumb={[{ name: `Результати пошуку: ${query}` }]}
+				/>
+				<PopularFilter className='absolute right-0 translate-y-full hidden xl:flex gap-4' />
+			</div>
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<Filters
 					className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'
