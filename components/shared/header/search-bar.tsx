@@ -79,7 +79,7 @@ export const SearchBar = ({
 								handleKeyDown(e)
 								handleEnterKeyPress(e)
 							}}
-							placeholder='Search products'
+							placeholder='Пошук...'
 							autoFocus
 							className='sidebar-input'
 						/>
@@ -137,7 +137,7 @@ export const SearchBar = ({
 						handleKeyDown(e)
 						handleEnterKeyPress(e)
 					}}
-					placeholder='Search products'
+					placeholder='Пошук...'
 					autoFocus
 					className='sidebar-input'
 				/>
