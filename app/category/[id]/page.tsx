@@ -1,5 +1,5 @@
 'use client'
-
+import { Loading } from '@/components/Loading'
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import Pagination from '@/components/shared/Pagination'
 import { AppliedFiltersAccord } from '@/components/shared/product/appliedFilters'
@@ -20,7 +20,7 @@ import { useProductFilters } from '@/hooks/product/useProductFilters'
 import { Product } from '@/types/redux'
 import { ArrowDownUp, Filter } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 const PopularFilter = ({ className }: { className?: string }) => {
 	return (
@@ -87,7 +87,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 	const { id } = params
 	const router = useRouter()
 	const searchParams = useSearchParams()
-	const initialPage = parseInt(searchParams.get('page') || '1', 12)
+	const initialPage = parseInt(searchParams.get('page') || '1', 10)
 
 	const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
 	const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
@@ -129,16 +129,9 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 		products = [],
 		totalPages,
 		currentPage,
-		subcategories,
 		setPage,
 		minMaxPrices,
 	} = useCategoryData(id, initialPage)
-
-	console.log('Category Data:', category)
-	console.log('Products:', products)
-	console.log('Total Pages:', totalPages)
-	console.log('Current Page:', currentPage)
-	console.log('MinMax Prices:', minMaxPrices)
 
 	const handlePageChange = (page: number) => {
 		setPage(page)
@@ -146,10 +139,14 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 	}
 
 	useEffect(() => {
-		const pageFromUrl = parseInt(searchParams.get('page') || '1', 10)
-		if (pageFromUrl !== currentPage) {
-			setPage(pageFromUrl)
+		const loadPageData = async () => {
+			const pageFromUrl = parseInt(searchParams.get('page') || '1', 10)
+			if (pageFromUrl !== currentPage) {
+				setPage(pageFromUrl)
+			}
 		}
+
+		loadPageData()
 	}, [searchParams, currentPage, setPage])
 
 	const filteredAndSortedProducts = useProductFilters(products, {
@@ -167,10 +164,6 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 			</p>
 		)
 	}
-
-	const selectedSubcategory = subcategories?.find(
-		sub => sub.id.toString() === id
-	)
 
 	return (
 		<div>

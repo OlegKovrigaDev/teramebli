@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect } from 'react'
 import { useSearchProductsQuery } from '@/api/categoryApi'
 import { Product } from '@/types/redux'
@@ -43,10 +44,14 @@ export const useProductSearch = (
 	const parsedPage = urlPage ? parseInt(urlPage, 10) : initialPage
 
 	useEffect(() => {
-		if (initialQuery) {
-			setQuery(initialQuery)
+		const loadSearchData = async () => {
+			if (initialQuery) {
+				setQuery(initialQuery)
+			}
+			setPage(parsedPage)
 		}
-		setPage(parsedPage)
+
+		loadSearchData()
 	}, [initialQuery, urlPage])
 
 	const searchResults = searchResultsData?.results || []

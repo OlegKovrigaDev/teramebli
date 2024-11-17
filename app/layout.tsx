@@ -5,6 +5,8 @@ import type { Metadata } from 'next'
 import { Montserrat as FontSans } from 'next/font/google'
 import './globals.css'
 import i18n from '@/lib/i18n/i18n'
+import { Suspense } from 'react'
+import { Loading } from '@/components/Loading'
 
 const fontSans = FontSans({
 	subsets: ['latin', 'cyrillic'],
@@ -25,12 +27,14 @@ export default function RootLayout({
 		<html lang={'uk'}>
 			<body className={`${fontSans.variable}`}>
 				<Ad />
-				<Providers>
-					<Header />
-					<main className='main'>{children}</main>
-					<Footer />
-					<MobileMenu />
-				</Providers>
+				<Suspense fallback={<Loading />}>
+					<Providers>
+						<Header />
+						<main className='main'>{children}</main>
+						<Footer />
+						<MobileMenu />
+					</Providers>
+				</Suspense>
 			</body>
 		</html>
 	)

@@ -11,6 +11,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { Product } from '@/types/redux'
 import { useState, useMemo } from 'react'
 import { Button } from '@/components/ui'
+export const dynamic = 'force-dynamic'
 
 const PopularFilter = ({ className }: { className?: string }) => {
 	return (
@@ -133,7 +134,7 @@ export default function SearchPage() {
 		sortOrder,
 	})
 
-	const handlePageChange = (page: number) => {
+	const handlePageChange = async (page: number) => {
 		const params = new URLSearchParams(window.location.search)
 		params.set('page', page.toString())
 		router.push(`/search?${params.toString()}`)
