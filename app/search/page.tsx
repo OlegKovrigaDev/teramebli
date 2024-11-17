@@ -11,6 +11,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { Product } from '@/types/redux'
 import { useState, useMemo } from 'react'
 import { Button } from '@/components/ui'
+import { FilterState } from '@/types'
 export const dynamic = 'force-dynamic'
 
 const PopularFilter = ({ className }: { className?: string }) => {
@@ -82,14 +83,14 @@ export default function SearchPage() {
 	const { searchResults, isLoading, error, totalPages, currentPage, setPage } =
 		useProductSearch(query)
 
-	const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
-	const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
-	const [selectedAttributes, setSelectedAttributes] = useState<{}>({})
-	const [sortField, setSortField] = useState<keyof Product | undefined>(
-		undefined
-	)
-	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
-	const [showAppliedFilters, setShowAppliedFilters] = useState(false)
+	const [filters, setFilters] = useState<FilterState>({
+		minPrice: undefined,
+		maxPrice: undefined,
+		selectedAttributes: {},
+		sortField: undefined,
+		sortOrder: 'asc',
+		showAppliedFilters: false,
+	})
 
 	const minMaxPrices = useMemo(() => {
 		if (!searchResults || searchResults.length === 0) {
@@ -105,33 +106,41 @@ export default function SearchPage() {
 	}, [searchResults])
 
 	const handleApplyPriceFilter = (min: number, max: number) => {
-		setMinPrice(min)
-		setMaxPrice(max)
-		setShowAppliedFilters(true)
+		setFilters(prev => ({
+			...prev,
+			minPrice: min,
+			maxPrice: max,
+			showAppliedFilters: true,
+		}))
 	}
 
 	const handleAttributeFilter = (
 		filters: Record<string, (string | number)[]>
 	) => {
-		setSelectedAttributes(filters)
-		setShowAppliedFilters(true)
+		setFilters(prev => ({
+			...prev,
+			selectedAttributes: filters,
+			showAppliedFilters: true,
+		}))
 	}
 
 	const resetFilters = () => {
-		setMinPrice(undefined)
-		setMaxPrice(undefined)
-		setSelectedAttributes({})
-		setSortField(undefined)
-		setSortOrder('asc')
-		setShowAppliedFilters(false)
+		setFilters({
+			minPrice: undefined,
+			maxPrice: undefined,
+			selectedAttributes: {},
+			sortField: undefined,
+			sortOrder: 'asc',
+			showAppliedFilters: false,
+		})
 	}
 
 	const filteredAndSortedProducts = useProductFilters(searchResults ?? [], {
-		minPrice,
-		maxPrice,
-		attributes: selectedAttributes,
-		sortField,
-		sortOrder,
+		minPrice: filters.minPrice,
+		maxPrice: filters.maxPrice,
+		attributes: filters.selectedAttributes,
+		sortField: filters.sortField,
+		sortOrder: filters.sortOrder,
 	})
 
 	const handlePageChange = async (page: number) => {
@@ -160,11 +169,11 @@ export default function SearchPage() {
 			<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 				<Filters
 					className='flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'
-					showAppliedFilters={showAppliedFilters}
+					showAppliedFilters={filters.showAppliedFilters}
 					minMaxPrices={minMaxPrices}
-					minPrice={minPrice}
-					maxPrice={maxPrice}
-					selectedAttributes={selectedAttributes}
+					minPrice={filters.minPrice}
+					maxPrice={filters.maxPrice}
+					selectedAttributes={filters.selectedAttributes}
 					products={searchResults ?? []}
 					handleApplyPriceFilter={handleApplyPriceFilter}
 					handleAttributeFilter={handleAttributeFilter}

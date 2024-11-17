@@ -1,4 +1,3 @@
-'use client'
 import { useState, useEffect } from 'react'
 import { useSearchProductsQuery } from '@/api/categoryApi'
 import { Product } from '@/types/redux'

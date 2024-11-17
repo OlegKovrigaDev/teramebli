@@ -23,7 +23,6 @@ export const useCategoryData = (id: string, initialPage: number = 1) => {
 		{ categoryId: Number(id), page, limit: 7000 },
 		{ skip: !id }
 	)
-	console.log('Запрос с параметрами:', { categoryId: Number(id), page, limit })
 
 	const {
 		data: categoryDetails,

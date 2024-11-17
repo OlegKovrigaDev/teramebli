@@ -1,38 +1,38 @@
 'use client'
-import { Loading } from '@/components/Loading'
+
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { ArrowDownUp, Filter } from 'lucide-react'
+
 import { CrumbsLinks } from '@/components/shared/CrumbsLinks'
 import Pagination from '@/components/shared/Pagination'
 import { AppliedFiltersAccord } from '@/components/shared/product/appliedFilters'
-import { ProductCard } from '@/components/shared/product/ProductCart'
 import { ProductFilter } from '@/components/shared/product/ProductFilter'
 import { ProductPriceFilter } from '@/components/shared/product/ProductPriceFilter'
 import {
 	Button,
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui'
+
 import { useCategoryData } from '@/hooks'
 import { useProductFilters } from '@/hooks/product/useProductFilters'
 import { Product } from '@/types/redux'
-import { ArrowDownUp, Filter } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Suspense, useEffect, useState } from 'react'
+import { ProductCard } from '@/components/shared/product/ProductCart'
+import { FilterState } from '@/types'
 
-const PopularFilter = ({ className }: { className?: string }) => {
-	return (
-		<div className={className}>
-			{[{ text: 'Від дорогих' }, { text: 'Від дешевих' }].map((item, index) => (
-				<Button key={index} variant='outline' className='px-3 py-1 h-7'>
-					{item.text}
-				</Button>
-			))}
-		</div>
-	)
-}
+const PopularFilter = ({ className }: { className?: string }) => (
+	<div className={className}>
+		{['Від дорогих', 'Від дешевих'].map((text, index) => (
+			<Button key={index} variant='outline' className='px-3 py-1 h-7'>
+				{text}
+			</Button>
+		))}
+	</div>
+)
 
 const Filters = ({
 	showAppliedFilters,
@@ -56,7 +56,7 @@ const Filters = ({
 	handleAttributeFilter: (filters: Record<string, (string | number)[]>) => void
 	resetFilters: () => void
 	className?: string
-}): JSX.Element => (
+}) => (
 	<div className={className}>
 		{showAppliedFilters && (
 			<AppliedFiltersAccord
@@ -89,38 +89,14 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 	const searchParams = useSearchParams()
 	const initialPage = parseInt(searchParams.get('page') || '1', 10)
 
-	const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
-	const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
-	const [selectedAttributes, setSelectedAttributes] = useState<
-		Record<string, any>
-	>({})
-	const [sortField, setSortField] = useState<keyof Product | undefined>(
-		undefined
-	)
-	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
-	const [showAppliedFilters, setShowAppliedFilters] = useState(false)
-
-	const handleApplyPriceFilter = (min: number, max: number) => {
-		setMinPrice(min)
-		setMaxPrice(max)
-		setShowAppliedFilters(true)
-	}
-
-	const handleAttributeFilter = (
-		filters: Record<string, (string | number)[]>
-	) => {
-		setSelectedAttributes(filters)
-		setShowAppliedFilters(true)
-	}
-
-	const resetFilters = () => {
-		setMinPrice(undefined)
-		setMaxPrice(undefined)
-		setSelectedAttributes({})
-		setSortField(undefined)
-		setSortOrder('asc')
-		setShowAppliedFilters(false)
-	}
+	const [filters, setFilters] = useState<FilterState>({
+		minPrice: undefined,
+		maxPrice: undefined,
+		selectedAttributes: {},
+		sortField: undefined,
+		sortOrder: 'asc',
+		showAppliedFilters: false,
+	})
 
 	const {
 		status,
@@ -132,6 +108,36 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 		setPage,
 		minMaxPrices,
 	} = useCategoryData(id, initialPage)
+
+	const handleApplyPriceFilter = (min: number, max: number) => {
+		setFilters(prev => ({
+			...prev,
+			minPrice: min,
+			maxPrice: max,
+			showAppliedFilters: true,
+		}))
+	}
+
+	const handleAttributeFilter = (
+		filters: Record<string, (string | number)[]>
+	) => {
+		setFilters(prev => ({
+			...prev,
+			selectedAttributes: filters,
+			showAppliedFilters: true,
+		}))
+	}
+
+	const resetFilters = () => {
+		setFilters({
+			minPrice: undefined,
+			maxPrice: undefined,
+			selectedAttributes: {},
+			sortField: undefined,
+			sortOrder: 'asc',
+			showAppliedFilters: false,
+		})
+	}
 
 	const handlePageChange = (page: number) => {
 		setPage(page)
@@ -145,16 +151,15 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 				setPage(pageFromUrl)
 			}
 		}
-
 		loadPageData()
 	}, [searchParams, currentPage, setPage])
 
 	const filteredAndSortedProducts = useProductFilters(products, {
-		minPrice,
-		maxPrice,
-		attributes: selectedAttributes,
-		sortField,
-		sortOrder,
+		minPrice: filters.minPrice,
+		maxPrice: filters.maxPrice,
+		attributes: filters.selectedAttributes,
+		sortField: filters.sortField,
+		sortOrder: filters.sortOrder,
 	})
 
 	if (status === 'loading' || status === 'error' || status === 'noData') {
@@ -176,14 +181,13 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 					<DialogContent className='h-screen p-2 overflow-y-auto'>
 						<DialogHeader>
 							<DialogTitle></DialogTitle>
-							<DialogDescription></DialogDescription>
 						</DialogHeader>
 						<Filters
-							showAppliedFilters={showAppliedFilters}
+							showAppliedFilters={filters.showAppliedFilters}
 							minMaxPrices={minMaxPrices}
-							minPrice={minPrice}
-							maxPrice={maxPrice}
-							selectedAttributes={selectedAttributes}
+							minPrice={filters.minPrice}
+							maxPrice={filters.maxPrice}
+							selectedAttributes={filters.selectedAttributes}
 							products={products}
 							handleApplyPriceFilter={handleApplyPriceFilter}
 							handleAttributeFilter={handleAttributeFilter}
@@ -197,6 +201,7 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 					Сортування
 				</p>
 			</div>
+
 			<div className='mb-[75px]'>
 				<div className='flex relative'>
 					<CrumbsLinks
@@ -206,18 +211,17 @@ export default function CategoryId({ params }: { params: { id: string } }) {
 						parentCategoryId={category?.parent?.id?.toString()}
 						currentCategoryId={id}
 					/>
-
 					<PopularFilter className='absolute right-0 translate-y-full hidden xl:flex gap-4' />
 				</div>
 
 				<div className='flex flex-col gap-8 md:flex-row md:justify-between'>
 					<Filters
 						className='hidden xl:flex flex-col gap-2 max-w-[280px] sm:min-w-[280px]'
-						showAppliedFilters={showAppliedFilters}
+						showAppliedFilters={filters.showAppliedFilters}
 						minMaxPrices={minMaxPrices}
-						minPrice={minPrice}
-						maxPrice={maxPrice}
-						selectedAttributes={selectedAttributes}
+						minPrice={filters.minPrice}
+						maxPrice={filters.maxPrice}
+						selectedAttributes={filters.selectedAttributes}
 						products={products}
 						handleApplyPriceFilter={handleApplyPriceFilter}
 						handleAttributeFilter={handleAttributeFilter}

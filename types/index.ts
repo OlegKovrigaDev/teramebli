@@ -34,3 +34,12 @@ export interface SearchProps {
 		handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void
 	}
 }
+
+export type FilterState = {
+	minPrice: number | undefined
+	maxPrice: number | undefined
+	selectedAttributes: Record<string, any>
+	sortField: string | undefined
+	sortOrder: 'asc' | 'desc'
+	showAppliedFilters: boolean
+}
